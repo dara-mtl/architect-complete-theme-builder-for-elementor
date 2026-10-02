@@ -1,0 +1,25 @@
+html,
+body.archt-thumb {
+	margin: 0 !important;
+	overflow: hidden;
+}
+
+body.archt-thumb-header,
+body.archt-thumb-footer,
+body.archt-thumb-popup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+body.archt-thumb [data-elementor-type="popup"] {
+	position: relative !important;
+	inset: auto !important;
+	display: flex !important;
+	justify-content: center;
+}
+
+body.archt-thumb .elementor-invisible {
+	visibility: visible !important;
+}

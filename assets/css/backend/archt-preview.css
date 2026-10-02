@@ -1,0 +1,67 @@
+/* The theme's own header and footer only: the ones built in Elementor sit inside an .elementor document. */
+:is(header, footer, .page-header):not(.elementor *) {
+	display: none !important;
+}
+
+/* The preview body stands in for the viewport, so the Position, Height and Margin controls place the box as on the frontend. */
+body:has(> [data-elementor-type="popup"]) {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	min-height: 100vh;
+	min-height: 100dvh;
+	margin: 0;
+}
+
+[data-elementor-type="popup"] {
+	position: relative;
+	flex: none;
+}
+
+[data-elementor-type="popup"][data-height="fit_to_screen"] {
+	flex: 1 1 auto;
+	height: auto;
+	max-height: none;
+}
+
+.archt-popup-close-btn {
+	display: flex;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 1;
+	align-items: center;
+	justify-content: center;
+	width: 1.6em;
+	height: 1.6em;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: #1f2124;
+	font-size: 20px;
+	line-height: 1;
+	text-decoration: none;
+	cursor: pointer;
+	pointer-events: all;
+}
+
+.archt-popup-close-btn svg {
+	display: block;
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+}
+
+.archt-popup-close-btn:hover,
+.archt-popup-close-btn:focus {
+	text-decoration: none;
+}
+
+.archt-popup-close-btn:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+[data-elementor-type="popup"] > .e-con {
+	position: relative;
+}
