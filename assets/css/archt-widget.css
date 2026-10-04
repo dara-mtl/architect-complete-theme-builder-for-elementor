@@ -357,6 +357,11 @@ div.archt-nav-menu {
 	transition-timing-function: cubic-bezier(0.58, 0.3, 0.005, 1);
 }
 
+.archt-nav-menu .menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-nav-menu .menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	opacity: 0;
+}
+
 .archt-nav-menu .menu-item a.archt-menu-item:hover:before,
 .archt-nav-menu .menu-item a.archt-menu-item:hover:after,
 .archt-nav-menu .menu-item a.archt-menu-item:focus:before,
@@ -379,6 +384,41 @@ div.archt-nav-menu {
 	left: 0;
 	background-color: #55595c;
 	z-index: 2;
+}
+
+.archt-pointer__double-line.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__double-line.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__underline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__underline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__overline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	height: 0;
+	width: 0;
+	left: 50%;
+}
+
+.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__underline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	top: 10px;
+}
+
+.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__underline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__overline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	bottom: 10px;
+}
+
+.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__underline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	top: -10px;
+}
+
+.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__underline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__overline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	bottom: -10px;
 }
 
 .archt-pointer__double-line.archt-animation__none,
@@ -425,10 +465,23 @@ div.archt-nav-menu {
 	top: 0;
 }
 
+.archt-pointer__double-line.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	width: 10px;
+	left: -20px;
+}
+
 .archt-pointer__double-line .menu-item.parent a.archt-menu-item:after,
 .archt-pointer__underline .menu-item.parent a.archt-menu-item:after {
 	content: '';
 	bottom: 0;
+}
+
+.archt-pointer__double-line.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__underline.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	width: 10px;
+	left: -webkit-calc(100% + 20px);
+	left: calc(100% + 20px);
 }
 
 .archt-pointer__framed .menu-item.parent a.archt-menu-item:before,
@@ -443,6 +496,18 @@ div.archt-nav-menu {
 
 .archt-pointer__framed .menu-item.parent a.archt-menu-item:before {
 	content: '';
+}
+
+.archt-pointer__framed.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	-webkit-transform: scale(0.75);
+	-ms-transform: scale(0.75);
+	transform: scale(0.75);
+}
+
+.archt-pointer__framed.archt-animation__shrink .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	-webkit-transform: scale(1.25);
+	-ms-transform: scale(1.25);
+	transform: scale(1.25);
 }
 
 .archt-pointer__framed.archt-animation__grow .menu-item.parent a.archt-menu-item:before,
@@ -614,8 +679,72 @@ div.archt-nav-menu {
 	align-self: center;
 }
 
-.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:before {
+.archt-pointer__double-line.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__double-line.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__underline.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__overline.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	width: 100%;
+	left: 0;
 	opacity: 1;
+}
+
+.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__underline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__overline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__underline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__overline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	bottom: 0px;
+	opacity: 1;
+}
+
+.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__underline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__underline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	top: 0px;
+	opacity: 1;
+}
+
+.archt-pointer__double-line.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__double-line.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__underline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__underline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__overline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__overline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	height: 3px;
+	width: 100%;
+	left: 0;
+	opacity: 1;
+}
+
+.archt-pointer__framed.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__framed.archt-animation__shrink .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+}
+
+.archt-pointer__framed.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:before,
+.archt-pointer__underline.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__double-line.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__double-line.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	opacity: 1;
+}
+
+.archt-pointer__framed.archt-animation__corners .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__framed.archt-animation__corners .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
+.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
+.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+	border-width: 3px;
+	width: 100%;
+	opacity: 1;
+	height: 100%;
 }
 
 .archt-nav-menu .sub-menu.archt-submenu-vertical {

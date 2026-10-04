@@ -558,11 +558,20 @@ class ARCHT_Theme_Builder {
 			return;
 		}
 
-		$types = [];
-		$walk  = function ( $elements ) use ( &$walk, &$types ) {
+		$walk = function ( $elements ) use ( &$walk ) {
 			foreach ( (array) $elements as $element ) {
+				// Built from the saved data, as some widgets choose their styles from their own settings.
 				if ( ! empty( $element['widgetType'] ) ) {
-					$types[ $element['widgetType'] ] = true;
+					try {
+						$widget = \Elementor\Plugin::$instance->elements_manager->create_element_instance( $element );
+
+						if ( $widget ) {
+							array_map( 'wp_enqueue_style', (array) $widget->get_style_depends() );
+						}
+					} catch ( \Throwable $e ) {
+						// A third-party widget failing here must not break the page; Elementor still enqueues on render.
+						continue;
+					}
 				}
 
 				if ( ! empty( $element['elements'] ) ) {
@@ -572,14 +581,6 @@ class ARCHT_Theme_Builder {
 		};
 
 		$walk( $document->get_elements_data() );
-
-		foreach ( array_keys( $types ) as $type ) {
-			$widget = \Elementor\Plugin::$instance->widgets_manager->get_widget_types( $type );
-
-			if ( $widget ) {
-				array_map( 'wp_enqueue_style', $widget->get_style_depends() );
-			}
-		}
 	}
 
 	/**
