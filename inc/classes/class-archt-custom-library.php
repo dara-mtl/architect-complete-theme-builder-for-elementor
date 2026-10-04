@@ -9,8 +9,6 @@
 namespace ARCHT_Library;
 
 use Elementor\Core\Base\Module as BaseModule;
-use Elementor\Modules\Library\Documents;
-use Elementor\Plugin;
 use Elementor\Core\Documents_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {

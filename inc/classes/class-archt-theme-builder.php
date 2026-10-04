@@ -522,6 +522,8 @@ class ARCHT_Theme_Builder {
 
 		foreach ( $template_ids as $id ) {
 			\Elementor\Core\Files\CSS\Post::create( $id )->enqueue();
+
+			$this->enqueue_widget_styles( $id );
 		}
 
 		if ( $template_ids ) {
@@ -535,6 +537,47 @@ class ARCHT_Theme_Builder {
 
 			foreach ( $this->active_popup_ids as $popup_id ) {
 				$this->enqueue_animation_styles( $popup_id );
+			}
+		}
+	}
+
+	/**
+	 * Enqueue the style dependencies of every widget in a template, in the head.
+	 *
+	 * Templates render after wp_head(), where Elementor would only print widget styles in the footer.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @param int $template_id Template ID.
+	 */
+	private function enqueue_widget_styles( $template_id ) {
+		$document = \Elementor\Plugin::$instance->documents->get( $template_id );
+
+		if ( ! $document ) {
+			return;
+		}
+
+		$types = [];
+		$walk  = function ( $elements ) use ( &$walk, &$types ) {
+			foreach ( (array) $elements as $element ) {
+				if ( ! empty( $element['widgetType'] ) ) {
+					$types[ $element['widgetType'] ] = true;
+				}
+
+				if ( ! empty( $element['elements'] ) ) {
+					$walk( $element['elements'] );
+				}
+			}
+		};
+
+		$walk( $document->get_elements_data() );
+
+		foreach ( array_keys( $types ) as $type ) {
+			$widget = \Elementor\Plugin::$instance->widgets_manager->get_widget_types( $type );
+
+			if ( $widget ) {
+				array_map( 'wp_enqueue_style', $widget->get_style_depends() );
 			}
 		}
 	}

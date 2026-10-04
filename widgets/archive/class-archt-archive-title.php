@@ -61,6 +61,18 @@ class ARCHT_Archive_Title_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Get the style dependencies.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return [ 'archt-theme-widgets-style' ];
+	}
+
+	/**
 	 * Get widget categories.
 	 *
 	 * @since 1.0.0

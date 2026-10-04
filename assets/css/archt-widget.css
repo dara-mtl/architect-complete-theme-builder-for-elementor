@@ -1,3 +1,5 @@
+/* Navigation Menu widget. Adapted from Elementor Header & Footer Builder by Brainstorm Force, licensed GPLv2 or later. */
+
 ul.archt-nav-menu,
 .archt-nav-menu li,
 .archt-nav-menu ul {
@@ -15,12 +17,7 @@ ul.archt-nav-menu,
 	background: inherit;
 }
 
-.archt-hidden {
-	display: none;
-}
-
-div.archt-nav-menu,
-.elementor-widget-archt-nav-menu .elementor-widget-container {
+div.archt-nav-menu {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
@@ -81,9 +78,7 @@ div.archt-nav-menu,
 }
 
 .archt-nav-menu__layout-horizontal .archt-nav-menu .menu-item-has-children:hover > .sub-menu,
-.archt-nav-menu__layout-horizontal .archt-nav-menu .menu-item-has-children.focus > .sub-menu,
-.archt-nav-menu__layout-vertical .archt-nav-menu .menu-item-has-children:hover > .sub-menu,
-.archt-nav-menu__layout-vertical .archt-nav-menu .menu-item-has-children.focus > .sub-menu {
+.archt-nav-menu__layout-vertical .archt-nav-menu .menu-item-has-children:hover > .sub-menu {
 	visibility: visible;
 	opacity: 1;
 	-webkit-transition: all 300ms ease-out;
@@ -298,13 +293,8 @@ div.archt-nav-menu,
 }
 
 .archt-nav-menu .menu-item-has-children:focus,
-.archt-nav-menu .menu-item-has-children .sub-menu:focus,
-.archt-nav-menu .menu-item-has-children-container:focus {
+.archt-nav-menu .menu-item-has-children .sub-menu:focus {
 	outline: 0;
-}
-
-.archt-nav-menu .menu-item-has-children-container {
-	position: relative;
 }
 
 .archt-nav-menu__layout-vertical .sub-menu {
@@ -349,59 +339,12 @@ div.archt-nav-menu,
 	display: none;
 }
 
-.archt-nav-menu__toggle {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	font-size: 22px;
-	cursor: pointer;
-	border: 0 solid;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	color: #494c4f;
-	position: relative;
-	line-height: 1;
-}
-
-.archt-nav-menu__toggle-icon {
-	display: inline-block;
-	font-size: inherit;
-	font-weight: normal;
-	font-style: normal;
-	font-variant: normal;
-	line-height: 1;
-	text-rendering: auto;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.archt-layout-horizontal .archt-nav-menu__toggle,
-.archt-layout-vertical .archt-nav-menu__toggle {
-	visibility: hidden;
-	opacity: 0;
-	display: none;
-}
-
-.archt-nav-menu__layout-expanded .saved-content,
 .archt-nav-menu__layout-expanded .sub-menu,
 .archt-nav-menu__layout-expanded .child,
-.archt-nav-menu__layout-vertical .saved-content,
 .archt-nav-menu__layout-vertical .sub-menu,
 .archt-nav-menu__layout-vertical .child {
 	left: 0 !important;
 	width: 100% !important;
-}
-
-.archt-nav-menu__layout-vertical .archt-menu-toggle:hover,
-.archt-nav-menu__layout-expanded .archt-menu-toggle:hover {
-	border: 1px dotted;
-}
-
-.archt-nav-menu__layout-vertical .archt-menu-toggle,
-.archt-nav-menu__layout-expanded .archt-menu-toggle {
-	border: 1px dotted transparent;
 }
 
 .archt-nav-menu .menu-item a:before,
@@ -414,17 +357,10 @@ div.archt-nav-menu,
 	transition-timing-function: cubic-bezier(0.58, 0.3, 0.005, 1);
 }
 
-.archt-nav-menu .menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-nav-menu .menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	opacity: 0;
-}
-
 .archt-nav-menu .menu-item a.archt-menu-item:hover:before,
 .archt-nav-menu .menu-item a.archt-menu-item:hover:after,
 .archt-nav-menu .menu-item a.archt-menu-item:focus:before,
 .archt-nav-menu .menu-item a.archt-menu-item:focus:after,
-.archt-nav-menu .menu-item a.archt-menu-item.highlighted:before,
-.archt-nav-menu .menu-item a.archt-menu-item.highlighted:after,
 .archt-nav-menu .current-menu-item:before,
 .archt-nav-menu .current-menu-item:after {
 	-webkit-transform: scale(1);
@@ -443,41 +379,6 @@ div.archt-nav-menu,
 	left: 0;
 	background-color: #55595c;
 	z-index: 2;
-}
-
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	height: 0;
-	width: 0;
-	left: 50%;
-}
-
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	top: 10px;
-}
-
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	bottom: 10px;
-}
-
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	top: -10px;
-}
-
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	bottom: -10px;
 }
 
 .archt-pointer__double-line.archt-animation__none,
@@ -524,23 +425,10 @@ div.archt-nav-menu,
 	top: 0;
 }
 
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	width: 10px;
-	left: -20px;
-}
-
 .archt-pointer__double-line .menu-item.parent a.archt-menu-item:after,
 .archt-pointer__underline .menu-item.parent a.archt-menu-item:after {
 	content: '';
 	bottom: 0;
-}
-
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__underline.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	width: 10px;
-	left: -webkit-calc(100% + 20px);
-	left: calc(100% + 20px);
 }
 
 .archt-pointer__framed .menu-item.parent a.archt-menu-item:before,
@@ -555,18 +443,6 @@ div.archt-nav-menu,
 
 .archt-pointer__framed .menu-item.parent a.archt-menu-item:before {
 	content: '';
-}
-
-.archt-pointer__framed.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	-webkit-transform: scale(0.75);
-	-ms-transform: scale(0.75);
-	transform: scale(0.75);
-}
-
-.archt-pointer__framed.archt-animation__shrink .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	-webkit-transform: scale(1.25);
-	-ms-transform: scale(1.25);
-	transform: scale(1.25);
 }
 
 .archt-pointer__framed.archt-animation__grow .menu-item.parent a.archt-menu-item:before,
@@ -604,8 +480,6 @@ div.archt-nav-menu,
 .archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:hover:after,
 .archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:before,
 .archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:after,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item.highlighted:before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item.highlighted:after,
 .archt-pointer__framed.archt-animation__draw .current-menu-item:before,
 .archt-pointer__framed.archt-animation__draw .current-menu-item:after {
 	width: 100%;
@@ -614,7 +488,6 @@ div.archt-nav-menu,
 
 .archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:hover:before,
 .archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item.highlighted:before,
 .archt-pointer__framed.archt-animation__draw .current-menu-item:before {
 	-webkit-transition: opacity 0.02s, height 0.1s, width 0.1s 0.1s;
 	transition: opacity 0.02s, height 0.1s, width 0.1s 0.1s;
@@ -622,7 +495,6 @@ div.archt-nav-menu,
 
 .archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:hover:after,
 .archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:after,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item.highlighted:after,
 .archt-pointer__framed.archt-animation__draw .current-menu-item:after {
 	-webkit-transition: opacity 0.02s 0.2s, height 0.1s 0.2s, width 0.1s 0.3s;
 	transition: opacity 0.02s 0.2s, height 0.1s 0.2s, width 0.1s 0.3s;
@@ -651,8 +523,6 @@ div.archt-nav-menu,
 .archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:hover:after,
 .archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:focus:before,
 .archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:focus:after,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item.highlighted:before,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item.highlighted:after,
 .archt-pointer__framed.archt-animation__corners .current-menu-item:before,
 .archt-pointer__framed.archt-animation__corners .current-menu-item:after {
 	width: 100%;
@@ -740,84 +610,12 @@ div.archt-nav-menu,
 	visibility: visible;
 }
 
-.elementor-widget-navigation-menu:not(.archt-nav-menu__align-justify):not(.archt-menu-item-space-between) a.archt-menu-item.elementor-button {
-	display: inline-flex;
-}
-
 .archt-nav-menu li.elementor-button-wrapper {
 	align-self: center;
 }
 
-.archt-toggle-no .archt-layout-expanded .archt-nav-menu__toggle {
-	display: none;
-}
-
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__underline.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__overline.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	width: 100%;
-	left: 0;
+.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:before {
 	opacity: 1;
-}
-
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	bottom: 0px;
-	opacity: 1;
-}
-
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	top: 0px;
-	opacity: 1;
-}
-
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	height: 3px;
-	width: 100%;
-	left: 0;
-	opacity: 1;
-}
-
-.archt-pointer__framed.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__framed.archt-animation__shrink .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before {
-	opacity: 1;
-	-webkit-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-}
-
-.archt-pointer__framed.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:before,
-.archt-pointer__underline.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__double-line.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__double-line.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	opacity: 1;
-}
-
-.archt-pointer__framed.archt-animation__corners .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):not(.highlighted):after {
-	border-width: 3px;
-	width: 100%;
-	opacity: 1;
-	height: 100%;
 }
 
 .archt-nav-menu .sub-menu.archt-submenu-vertical {
@@ -830,11 +628,6 @@ div.archt-nav-menu,
 	top: 0;
 	left: 100%;
 	right: auto;
-}
-
-.archt-nav-menu .sub-menu.archt-submenu-horizontal.archt-flip-left {
-	left: auto;
-	right: 100%;
 }
 
 .archt-nav-menu__layout-horizontal .archt-nav-menu > li.archt-has-submenu > .sub-menu {

@@ -138,7 +138,9 @@
 			clearCloseTimer($popup);
 			$popup.off('.archtPopup');
 			$popup.removeClass('is-open is-closing reverse-animation ' + exit).addClass('archt-hide').attr('aria-hidden', 'true');
-			$('body').removeClass('archt-popup-open');
+
+			// Another open popup may still need the page locked.
+			if (!$('[data-popup-id].is-open[data-prevent-scroll="1"]').length) $('body').removeClass('archt-popup-open');
 			$('.popup-bg-' + $popup.data('popup-id')).fadeOut();
 		}
 
@@ -232,19 +234,17 @@
 
 				if ('scroll' === trigger) {
 					const threshold = parseInt($popup.data('scroll'), 10) || 0;
-					let fired = false;
-
-					$(window).on('scroll', function () {
-						if (fired) return;
-
+					const onScroll = () => {
 						const scrollable = document.body.scrollHeight - window.innerHeight;
 						const percent = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
 
 						if (percent >= threshold) {
-							fired = true;
+							window.removeEventListener('scroll', onScroll);
 							openPopup($popup);
 						}
-					});
+					};
+
+					window.addEventListener('scroll', onScroll, { passive: true });
 				}
 			});
 		});

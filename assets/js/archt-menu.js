@@ -198,11 +198,16 @@
 				});
 			},
 
+			// Namespaced per widget, so destroying one menu leaves the others' handlers in place.
+			getEventNamespace() {
+				return '.archtNavMenu-' + this.getID();
+			},
+
 			bindOutsideClickEvent() {
 				const selectors = this.getSettings('selectors');
 				const $element = this.$element;
 
-				$(document).on('click.archtNavMenu', function (event) {
+				$(document).on('click' + this.getEventNamespace(), function (event) {
 					$element.find(selectors.openSubmenus).each(function () {
 						if (!$(this).closest('.archt-has-submenu')[0].contains(event.target)) {
 							$(this).removeClass('open');
@@ -212,8 +217,7 @@
 			},
 
 			onDestroy() {
-				$(document).off('click.archtNavMenu');
-				$(window).off('resize.archtNavMenu');
+				$(document).off(this.getEventNamespace());
 			},
 		});
 

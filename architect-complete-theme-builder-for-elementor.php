@@ -7,7 +7,7 @@
  * Author: WP Smart Widgets
  * Author URI: https://wpsmartwidgets.com/
  * Documentation URI: https://wpsmartwidgets.com/doc/architect-theme-builder-for-elementor/
- * Version: 1.0.0-beta
+ * Version: 1.0.0-beta.2
  * Requires PHP: 7.4
  * Requires at least: 6.2
  * Tested up to: 7.1
@@ -38,7 +38,7 @@ require_once ARCHT_PLUGIN_DIR . 'widget-categories.php';
  * @since 1.0.0
  */
 final class ARCHT_Elementor {
-	const VERSION                   = '1.0.0-beta';
+	const VERSION                   = '1.0.0-beta.2';
 	const MINIMUM_ELEMENTOR_VERSION = '3.0.0';
 	const MINIMUM_PHP_VERSION       = '7.4';
 
@@ -155,7 +155,6 @@ final class ARCHT_Elementor {
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-custom-css.php';
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-custom-attributes.php';
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-ajax.php';
-		// Architect Theme Builder page, on hold: require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-site-parts.php';.
 		require_once ARCHT_PLUGIN_DIR . 'inc/class-archt-theme-widgets-registrar.php';
 	}
 
@@ -179,19 +178,14 @@ final class ARCHT_Elementor {
 	}
 
 	/**
-	 * Enqueue the frontend widget styles.
+	 * Register the frontend widget styles. Elementor loads them through each widget's get_style_depends().
 	 *
 	 * @since 1.0.0
 	 * @access public
 	 */
 	public function widget_styles() {
-		if ( ! wp_style_is( 'archt-widget-style', 'registered' ) && ! wp_style_is( 'archt-widget-style', 'enqueued' ) ) {
-			wp_enqueue_style( 'archt-widget-style', self::asset_url( 'assets/css/archt-widget.css' ), [ 'elementor-frontend' ], self::VERSION );
-		}
-
-		if ( ! wp_style_is( 'archt-theme-widgets-style', 'registered' ) && ! wp_style_is( 'archt-theme-widgets-style', 'enqueued' ) ) {
-			wp_enqueue_style( 'archt-theme-widgets-style', self::asset_url( 'assets/css/archt-theme-widgets.css' ), [ 'elementor-frontend' ], self::VERSION );
-		}
+		wp_register_style( 'archt-widget-style', self::asset_url( 'assets/css/archt-widget.css' ), [ 'elementor-frontend' ], self::VERSION );
+		wp_register_style( 'archt-theme-widgets-style', self::asset_url( 'assets/css/archt-theme-widgets.css' ), [ 'elementor-frontend' ], self::VERSION );
 	}
 
 	/**

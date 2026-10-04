@@ -8,7 +8,6 @@
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
-use Elementor\Group_Control_Border;
 use Elementor\Widget_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -56,6 +55,18 @@ class ARCHT_Archive_Pagination_Widget extends Widget_Base {
 	 */
 	public function get_icon() {
 		return 'eicon-post-list';
+	}
+
+	/**
+	 * Get the style dependencies.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return [ 'archt-theme-widgets-style' ];
 	}
 
 	/**

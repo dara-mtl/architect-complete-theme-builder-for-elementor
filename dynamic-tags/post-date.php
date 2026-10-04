@@ -8,7 +8,6 @@
 
 namespace ARCHT_Dynamic_Tag\Tags;
 
-use Elementor\Controls_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

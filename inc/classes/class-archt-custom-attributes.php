@@ -2,6 +2,9 @@
 /**
  * Custom Attributes for elements, skipped when Elementor Pro is active.
  *
+ * Portions adapted from Elementor Pro, Copyright (C) Elementor Ltd.,
+ * licensed GPLv3.
+ *
  * @package ARCHT_Widgets
  * @since 1.0.0
  */

@@ -6,7 +6,7 @@ Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
 Requires Plugins: elementor
-Stable tag: 1.0.0-beta
+Stable tag: 1.0.0-beta.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -74,7 +74,7 @@ The post and custom data tags are shared with [Better Post & Filter Widgets for 
 
 = Developers =
 
-Action hooks `archt/header/before`, `archt/header/after`, `archt/footer/before` and `archt/footer/after` let themes and plugins add markup around your header and footer. Filters are available for the blocked custom attributes (`archt/element/attributes/black_list`), the archive title (`archt/core_elements/get_the_archive_title`), the taxonomies offered by the Post Terms tag (`archt_taxonomy_args`) and the Navigation Menu link attributes (`archt_nav_menu_attrs`).
+Action hooks `archt/header/before`, `archt/header/after`, `archt/footer/before` and `archt/footer/after` let themes and plugins add markup around your header and footer. Filters are available for the blocked custom attributes (`archt/element/attributes/black_list`), the archive title (`archt/core_elements/get_the_archive_title`) and the taxonomies offered by the Post Terms tag (`archt_taxonomy_args`). The Navigation Menu supports the standard WordPress menu filters, such as `nav_menu_link_attributes` and `nav_menu_css_class`.
 
 = Documentation =
 
@@ -83,10 +83,6 @@ Guides and the full list of settings are on the [Architect documentation](https:
 = Contributing =
 
 Architect is open source and is developed in the open on [GitHub](https://github.com/dara-mtl/architect-complete-theme-builder-for-elementor). Bug reports, test results on your themes and setups, translations and code contributions are welcome, and more contributors mean more can be built. Features that are not in the plugin yet, such as WooCommerce widgets, are good candidates for contributions.
-
-= Credits =
-
-Parts of the Custom CSS feature are adapted from Elementor and Elementor Pro, Copyright Elementor Ltd., licensed under the GPLv3 or later.
 
 == Installation ==
 

@@ -79,8 +79,9 @@ class ARCHT_Menu_Walker extends \Walker_Nav_Menu {
 		$output .= "\n$indent<ul class=\"" . esc_attr( $class_names ) . "\">\n";
 	}
 
+
 	/**
-	 * Start a menu item.
+	 * Start a menu item, following the core Walker_Nav_Menu filters so other plugins can hook in.
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -92,91 +93,80 @@ class ARCHT_Menu_Walker extends \Walker_Nav_Menu {
 	 * @param int            $id     Item ID.
 	 */
 	public function start_el( &$output, $item, $depth = 0, $args = [], $id = 0 ) {
-		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-		$args   = (object) $args;
-
-		$class_names = '';
-		$value       = '';
-		$rel_xfn     = '';
-		$rel_blank   = '';
-
-		$classes = empty( $item->classes ) ? [] : (array) $item->classes;
-		$submenu = in_array( 'menu-item-has-children', $classes, true ) ? ' archt-has-submenu' : '';
+		$args         = (object) $args;
+		$classes      = empty( $item->classes ) ? [] : (array) $item->classes;
+		$has_children = in_array( 'menu-item-has-children', $classes, true );
+		$schema       = isset( $this->settings['schema_support'] ) && 'yes' === $this->settings['schema_support'];
 
 		if ( 0 === $depth ) {
-			array_push( $classes, 'parent' );
+			$classes[] = 'parent';
 		}
 
-		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
-		$class_names = ' class="' . esc_attr( $class_names ) . $submenu . '"';
-		$value       = apply_filters( 'nav_menu_li_values', $value );
+		$class_names = implode( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
+		$class_names = trim( $class_names . ( $has_children ? ' archt-has-submenu' : '' ) );
+		$li_id       = apply_filters( 'nav_menu_item_id', 'menu-item-' . $item->ID, $item, $args, $depth );
 
-		$output .= $indent . '<li id="menu-item-' . $item->ID . '"' . $value . $class_names . '>';
+		$output .= str_repeat( "\t", $depth ) . '<li' . ( $li_id ? ' id="' . esc_attr( $li_id ) . '"' : '' ) . ' class="' . esc_attr( $class_names ) . '"' . ( $schema ? ' itemprop="name"' : '' ) . '>';
 
-		if ( isset( $item->target ) && '_blank' === $item->target && isset( $item->xfn ) && false === strpos( $item->xfn, 'noopener' ) ) {
-			$rel_xfn = ' noopener';
-		}
-		if ( isset( $item->target ) && '_blank' === $item->target && isset( $item->xfn ) && empty( $item->xfn ) ) {
-			$rel_blank = 'rel="noopener"';
-		}
+		$link_class = 'archt-menu-item';
 
-		$attributes  = ! empty( $item->attr_title ) ? ' title="' . esc_attr( $item->attr_title ) . '"' : '';
-		$attributes .= ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '';
-		$attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr( $item->xfn ) . $rel_xfn . '"' : '' . $rel_blank;
-		$attributes .= ! empty( $item->url ) ? ' href="' . esc_url( $item->url ) . '"' : '';
-
-		$a_classes = 'archt-menu-item';
-		if ( in_array( 'current-menu-item', $item->classes, true ) && $depth > 0 ) {
-			$a_classes .= ' archt-sub-menu-item archt-sub-menu-item-active';
-		} elseif ( $depth > 0 ) {
-			$a_classes .= ' archt-sub-menu-item';
+		if ( $depth > 0 ) {
+			$link_class .= in_array( 'current-menu-item', $classes, true ) ? ' archt-sub-menu-item archt-sub-menu-item-active' : ' archt-sub-menu-item';
 		}
 
-		$icon_position = $this->settings['icon_position'];
+		$atts = [
+			'title'        => $item->attr_title,
+			'target'       => $item->target,
+			'rel'          => ( '_blank' === $item->target && empty( $item->xfn ) ) ? 'noopener' : $item->xfn,
+			'href'         => $item->url,
+			'aria-current' => $item->current ? 'page' : '',
+			'class'        => $link_class,
+			'itemprop'     => $schema ? 'url' : '',
+		];
+		$atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args, $depth );
 
-		$atts           = apply_filters( 'archt_nav_menu_attrs', $attributes );
-		$a_classes_attr = ' class="' . esc_attr( $a_classes ) . '"';
+		$attributes = '';
 
-		$item_output  = in_array( 'menu-item-has-children', $classes, true ) ? '<div class="archt-has-submenu-container">' : '';
-		$item_output .= $args->before;
-		if ( 'left' === $icon_position ) {
-			if ( in_array( 'menu-item-has-children', $classes, true ) ) {
-				switch ( $this->settings['submenu_icon'] ) {
-					case 'plus':
-						$item_output .= ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-labelledby="plusSignTitle" role="img"><title id="plusSignTitle">Plus Sign</title><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-						break;
-					case 'classic':
-						$item_output .= ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-labelledby="caretDownTitle" role="img"><title id="caretDownTitle">Caret Down</title><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-						break;
-					case 'arrow':
-					default:
-						$item_output .= ' <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 14 24" fill="none" aria-labelledby="downArrowTitle" role="img"><title id="downArrowTitle">Narrow Downward Arrow</title><path d="M7 15L1 9h12L7 15z" fill="currentColor"/></svg>';
-						break;
-				}
+		foreach ( $atts as $attr => $value ) {
+			if ( is_scalar( $value ) && '' !== $value && false !== $value ) {
+				$attributes .= ' ' . $attr . '="' . ( 'href' === $attr ? esc_url( $value ) : esc_attr( $value ) ) . '"';
 			}
 		}
-		$item_output .= '<a' . $atts . $a_classes_attr . '>';
-		$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-		$item_output .= '</a>';
-		if ( 'right' === $icon_position ) {
-			if ( in_array( 'menu-item-has-children', $classes, true ) ) {
-				switch ( $this->settings['submenu_icon'] ) {
-					case 'plus':
-						$item_output .= ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-labelledby="plusSignTitle" role="img"><title id="plusSignTitle">Plus Sign</title><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-						break;
-					case 'classic':
-						$item_output .= ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-labelledby="caretDownTitle" role="img"><title id="caretDownTitle">Caret Down</title><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-						break;
-					case 'arrow':
-					default:
-						$item_output .= ' <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 14 24" fill="none" aria-labelledby="downArrowTitle" role="img"><title id="downArrowTitle">Narrow Downward Arrow</title><path d="M7 15L1 9h12L7 15z" fill="currentColor"/></svg>';
-						break;
-				}
-			}
-		}
-		$item_output .= $args->after;
-		$item_output .= in_array( 'menu-item-has-children', $classes, true ) ? '</div>' : '';
+
+		$title = apply_filters( 'the_title', $item->title, $item->ID );
+		$title = apply_filters( 'nav_menu_item_title', $title, $item, $args, $depth );
+		$icon  = $has_children ? $this->get_submenu_icon() : '';
+		$right = isset( $this->settings['icon_position'] ) && 'right' === $this->settings['icon_position'];
+
+		$item_output  = $has_children ? '<div class="archt-has-submenu-container">' : '';
+		$item_output .= $args->before . ( $right ? '' : $icon );
+		$item_output .= '<a' . $attributes . '>' . $args->link_before . $title . $args->link_after . '</a>';
+		$item_output .= ( $right ? $icon : '' ) . $args->after;
+		$item_output .= $has_children ? '</div>' : '';
 
 		$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+	}
+
+	/**
+	 * Get the submenu toggle icon. Decorative: the link text already names the item.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @return string
+	 */
+	private function get_submenu_icon() {
+		$icon = isset( $this->settings['submenu_icon'] ) ? $this->settings['submenu_icon'] : 'arrow';
+
+		switch ( $icon ) {
+			case 'none':
+				return '';
+			case 'plus':
+				return ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+			case 'classic':
+				return ' <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+			default:
+				return ' <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 14 24" fill="none" aria-hidden="true" focusable="false"><path d="M7 15L1 9h12L7 15z" fill="currentColor"/></svg>';
+		}
 	}
 }

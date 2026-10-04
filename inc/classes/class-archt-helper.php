@@ -8,7 +8,6 @@
 
 namespace ARCHT\Inc\Classes;
 
-use Elementor\Utils;
 use Elementor\Icons_Manager;
 use Elementor\Core\Responsive\Responsive;
 
@@ -114,109 +113,36 @@ class ARCHT_Helper {
 		$title = '';
 
 		if ( is_singular() ) {
-			/* translators: %s: Search term. */
 			$title = get_the_title();
 
 			if ( $include_context ) {
-				$post_type_obj = get_post_type_object( get_post_type() );
-				$title         = sprintf( '%s: %s', $post_type_obj->labels->singular_name, $title );
+				$title = get_post_type_object( get_post_type() )->labels->singular_name . ': ' . $title;
 			}
 		} elseif ( is_search() ) {
 			/* translators: %s: Search term. */
 			$title = sprintf( __( 'Search Results for: %s', 'architect-complete-theme-builder-for-elementor' ), get_search_query() );
 
 			if ( get_query_var( 'paged' ) ) {
-				/* translators: %s is the page number. */
+				/* translators: %s: Page number. */
 				$title .= sprintf( __( '&nbsp;&ndash; Page %s', 'architect-complete-theme-builder-for-elementor' ), get_query_var( 'paged' ) );
-			}
-		} elseif ( is_category() ) {
-			$title = single_cat_title( '', false );
-
-			if ( $include_context ) {
-				/* translators: Category archive title. 1: Category name */
-				$title = sprintf( __( 'Category: %s', 'architect-complete-theme-builder-for-elementor' ), $title );
-			}
-		} elseif ( is_tag() ) {
-			$title = single_tag_title( '', false );
-			if ( $include_context ) {
-				/* translators: Tag archive title. 1: Tag name */
-				$title = sprintf( __( 'Tag: %s', 'architect-complete-theme-builder-for-elementor' ), $title );
-			}
-		} elseif ( is_author() ) {
-			$title = '<span class="vcard">' . get_the_author() . '</span>';
-
-			if ( $include_context ) {
-				/* translators: Author archive title. 1: Author name */
-				$title = sprintf( __( 'Author: %s', 'architect-complete-theme-builder-for-elementor' ), $title );
-			}
-		} elseif ( is_year() ) {
-			$title = get_the_date( _x( 'Y', 'yearly archives date format', 'architect-complete-theme-builder-for-elementor' ) );
-
-			if ( $include_context ) {
-				/* translators: Yearly archive title. 1: Year */
-				$title = sprintf( __( 'Year: %s', 'architect-complete-theme-builder-for-elementor' ), $title );
-			}
-		} elseif ( is_month() ) {
-			$title = get_the_date( _x( 'F Y', 'monthly archives date format', 'architect-complete-theme-builder-for-elementor' ) );
-
-			if ( $include_context ) {
-				/* translators: Monthly archive title. 1: Month name and year */
-				$title = sprintf( __( 'Month: %s', 'architect-complete-theme-builder-for-elementor' ), $title );
-			}
-		} elseif ( is_day() ) {
-			$title = get_the_date( _x( 'F j, Y', 'daily archives date format', 'architect-complete-theme-builder-for-elementor' ) );
-
-			if ( $include_context ) {
-				/* translators: Daily archive title. 1: Date */
-				$title = sprintf( __( 'Day: %s', 'architect-complete-theme-builder-for-elementor' ), $title );
-			}
-		} elseif ( is_tax( 'post_format' ) ) {
-			if ( is_tax( 'post_format', 'post-format-aside' ) ) {
-				$title = _x( 'Asides', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) {
-				$title = _x( 'Galleries', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-image' ) ) {
-				$title = _x( 'Images', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-video' ) ) {
-				$title = _x( 'Videos', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-quote' ) ) {
-				$title = _x( 'Quotes', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-link' ) ) {
-				$title = _x( 'Links', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-status' ) ) {
-				$title = _x( 'Statuses', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-audio' ) ) {
-				$title = _x( 'Audio', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			} elseif ( is_tax( 'post_format', 'post-format-chat' ) ) {
-				$title = _x( 'Chats', 'post format archive title', 'architect-complete-theme-builder-for-elementor' );
-			}
-		} elseif ( is_post_type_archive() ) {
-			$title = post_type_archive_title( '', false );
-
-			if ( $include_context ) {
-				/* translators: Post type archive title. 1: Post type name */
-				$title = sprintf( __( 'Archives: %s', 'architect-complete-theme-builder-for-elementor' ), $title );
-			}
-		} elseif ( is_tax() ) {
-			$title = single_term_title( '', false );
-
-			if ( $include_context ) {
-				$tax = get_taxonomy( get_queried_object()->taxonomy );
-				/* translators: Taxonomy term archive title. 1: Taxonomy singular name, 2: Current taxonomy term */
-				$title = sprintf( __( '%1$s: %2$s', 'architect-complete-theme-builder-for-elementor' ), $tax->labels->singular_name, $title );
 			}
 		} elseif ( is_home() ) {
 			// The page set as "Posts page" in Settings > Reading, when there is one.
 			$title = get_option( 'page_for_posts' ) ? single_post_title( '', false ) : __( 'Blog', 'architect-complete-theme-builder-for-elementor' );
-		} elseif ( is_archive() ) {
-			$title = __( 'Archives', 'architect-complete-theme-builder-for-elementor' );
 		} elseif ( is_404() ) {
 			$title = __( 'Page Not Found', 'architect-complete-theme-builder-for-elementor' );
+		} elseif ( is_archive() ) {
+			// WordPress builds every archive title; the prefix ("Category:", "Tag:"...) is its context.
+			if ( ! $include_context ) {
+				add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+			}
+
+			$title = get_the_archive_title();
+
+			remove_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
 		}
 
-		$title = apply_filters( 'archt/core_elements/get_the_archive_title', $title );
-
-		return $title;
+		return apply_filters( 'archt/core_elements/get_the_archive_title', $title );
 	}
 
 	/**
@@ -230,36 +156,6 @@ class ARCHT_Helper {
 	 */
 	public static function is_acf_field( $meta_key ) {
 		return function_exists( 'get_field_object' ) && get_field_object( $meta_key ) !== false;
-	}
-
-	/**
-	 * Get taxonomies.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @param array  $args     Taxonomy query arguments.
-	 * @param string $output   'names' or 'objects'.
-	 * @param string $operator Operator to combine the arguments.
-	 * @return array
-	 */
-	public static function archt_get_taxonomies( $args = [], $output = 'names', $operator = 'and' ) {
-		global $wp_taxonomies;
-
-		$field = ( 'names' === $output ) ? 'name' : false;
-
-		if ( isset( $args['object_type'] ) ) {
-			$object_type = (array) $args['object_type'];
-			unset( $args['object_type'] );
-		}
-
-		$taxonomies = wp_filter_object_list( $wp_taxonomies, $args, $operator );
-
-		if ( $field ) {
-			$taxonomies = wp_list_pluck( $taxonomies, $field );
-		}
-
-		return $taxonomies;
 	}
 
 	/**
@@ -387,57 +283,6 @@ class ARCHT_Helper {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * Get a human-readable elapsed time.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @param string $datetime Datetime to compare.
-	 * @param bool   $full     Whether to show every unit.
-	 * @return string
-	 */
-	public static function time_elapsed_string( $datetime, $full = false ) {
-		$now  = new \DateTime();
-		$ago  = new \DateTime( $datetime );
-		$diff = $now->diff( $ago );
-
-		$weeks    = (int) floor( $diff->d / 7 );
-		$diff->d -= $weeks * 7;
-
-		$units = [
-			'y' => [ __( 'year', 'architect-complete-theme-builder-for-elementor' ), __( 'years', 'architect-complete-theme-builder-for-elementor' ) ],
-			'm' => [ __( 'month', 'architect-complete-theme-builder-for-elementor' ), __( 'months', 'architect-complete-theme-builder-for-elementor' ) ],
-			'w' => [ __( 'week', 'architect-complete-theme-builder-for-elementor' ), __( 'weeks', 'architect-complete-theme-builder-for-elementor' ) ],
-			'd' => [ __( 'day', 'architect-complete-theme-builder-for-elementor' ), __( 'days', 'architect-complete-theme-builder-for-elementor' ) ],
-			'h' => [ __( 'hour', 'architect-complete-theme-builder-for-elementor' ), __( 'hours', 'architect-complete-theme-builder-for-elementor' ) ],
-			'i' => [ __( 'minute', 'architect-complete-theme-builder-for-elementor' ), __( 'minutes', 'architect-complete-theme-builder-for-elementor' ) ],
-			's' => [ __( 'second', 'architect-complete-theme-builder-for-elementor' ), __( 'seconds', 'architect-complete-theme-builder-for-elementor' ) ],
-		];
-
-		$string_values = [];
-		foreach ( $units as $k => $labels ) {
-			$count = ( 'w' === $k ) ? $weeks : $diff->$k;
-			if ( $count ) {
-				$string_values[ $k ] = $count . ' ' . ( 1 === $count ? $labels[0] : $labels[1] );
-			}
-		}
-
-		if ( ! $full ) {
-			$string_values = array_slice( $string_values, 0, 1 );
-		}
-
-		if ( ! $string_values ) {
-			return __( 'just now', 'architect-complete-theme-builder-for-elementor' );
-		}
-
-		return sprintf(
-			/* translators: %s: time difference, e.g. "3 minutes" */
-			__( '%s ago', 'architect-complete-theme-builder-for-elementor' ),
-			implode( ', ', $string_values )
-		);
 	}
 
 	/**

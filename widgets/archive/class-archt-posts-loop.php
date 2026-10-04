@@ -11,8 +11,6 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
-use Elementor\Group_Control_Image_Size;
-use Elementor\Group_Control_Css_Filter;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Widget_Base;
@@ -62,6 +60,18 @@ class ARCHT_Posts_Loop_Widget extends Widget_Base {
 	 */
 	public function get_icon() {
 		return 'eicon-loop-builder';
+	}
+
+	/**
+	 * Get the style dependencies.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return [ 'archt-theme-widgets-style' ];
 	}
 
 	/**

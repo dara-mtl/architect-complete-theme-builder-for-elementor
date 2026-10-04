@@ -3,7 +3,7 @@
  * Custom CSS for elements and pages, skipped when Elementor Pro is active.
  *
  * Portions adapted from Elementor / Elementor Pro, Copyright (C) Elementor Ltd.,
- * licensed GPLv3. See https://elementor.com
+ * licensed GPLv3.
  *
  * @package ARCHT_Widgets
  * @since 1.0.0

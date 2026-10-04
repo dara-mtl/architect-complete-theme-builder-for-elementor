@@ -2,20 +2,20 @@
 /**
  * Navigation Menu widget.
  *
+ * Adapted from Elementor Header & Footer Builder by Brainstorm Force, licensed GPLv2 or later,
+ * itself based on the Elementor Pro Nav Menu widget.
+ *
  * @package ARCHT_Widgets
  * @since 1.0.0
  */
 
 use Elementor\Controls_Manager;
-use Elementor\Utils;
 use Elementor\Group_Control_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Group_Control_Background;
 use Elementor\Widget_Base;
-use Elementor\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -135,22 +135,6 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 		}
 
 		return $options;
-	}
-
-	/**
-	 * Check if the Elementor is updated.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @return boolean if Elementor updated.
-	 */
-	public static function is_elementor_updated() {
-		if ( class_exists( 'Elementor\Icons_Manager' ) ) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
@@ -1196,32 +1180,6 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Add itemprop for Navigation Schema.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @param string $atts link attributes.
-	 */
-	public function handle_link_attrs( $atts ) {
-		$atts .= ' itemprop="url"';
-		return $atts;
-	}
-
-	/**
-	 * Add itemprop to the li tag of Navigation Schema.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @param string $value link attributes.
-	 */
-	public function handle_li_values( $value ) {
-		$value .= ' itemprop="name"';
-		return $value;
-	}
-
-	/**
 	 * Render Nav Menu output on the frontend.
 	 *
 	 * @since 1.0.0
@@ -1256,9 +1214,6 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 		if ( 'yes' === $settings['schema_support'] ) {
 			$this->add_render_attribute( 'archt-nav-menu', 'itemscope', 'itemscope' );
 			$this->add_render_attribute( 'archt-nav-menu', 'itemtype', 'https://schema.org/SiteNavigationElement' );
-
-			add_filter( 'archt_nav_menu_attrs', [ $this, 'handle_link_attrs' ] );
-			add_filter( 'nav_menu_li_values', [ $this, 'handle_li_values' ] );
 		}
 
 		$this->add_render_attribute(

@@ -60,6 +60,18 @@ class ARCHT_Post_Meta_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Get the style dependencies.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return array
+	 */
+	public function get_style_depends() {
+		return [ 'archt-theme-widgets-style' ];
+	}
+
+	/**
 	 * Get widget categories.
 	 *
 	 * @since 1.0.0
@@ -444,8 +456,9 @@ class ARCHT_Post_Meta_Widget extends Widget_Base {
 				$date_format = ! empty( $item['date_format'] ) ? $item['date_format'] : 'j M. Y';
 
 				if ( 'from_time' === $date_format ) {
-					$raw_date   = 'date' === $type ? get_the_date( 'Y-m-d H:i:s' ) : get_the_modified_date( 'Y-m-d H:i:s' );
-					$value_html = esc_html( ARCHT_Helper::time_elapsed_string( $raw_date ) );
+					$timestamp  = 'date' === $type ? get_post_time( 'U', true ) : get_post_modified_time( 'U', true );
+					/* translators: %s: Time difference, e.g. "3 days". */
+					$value_html = esc_html( sprintf( __( '%s ago', 'architect-complete-theme-builder-for-elementor' ), human_time_diff( $timestamp ) ) );
 				} else {
 					$date_format = sanitize_text_field( $date_format );
 					$value_html  = 'date' === $type

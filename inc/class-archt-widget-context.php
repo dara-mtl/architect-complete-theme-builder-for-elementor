@@ -68,28 +68,4 @@ class ARCHT_Widget_Context {
 
 		return self::$document_type;
 	}
-
-	/**
-	 * Whether the current editing context is a Single template.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @return bool
-	 */
-	public static function is_single() {
-		return 'single' === self::get_document_type();
-	}
-
-	/**
-	 * Whether the current editing context is an Archive template.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @return bool
-	 */
-	public static function is_archive() {
-		return 'archive' === self::get_document_type();
-	}
 }

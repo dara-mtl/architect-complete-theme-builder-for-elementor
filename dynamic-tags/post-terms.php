@@ -8,7 +8,6 @@
 
 namespace ARCHT_Dynamic_Tag\Tags;
 
-use ARCHT\Inc\Classes\ARCHT_Helper;
 use Elementor\Controls_Manager;
 use Elementor\Core\DynamicTags\Tag;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
@@ -79,14 +78,10 @@ class Post_Terms extends Tag {
 	 * @access protected
 	 */
 	protected function register_controls() {
-		$taxonomy_filter_args = [
-			'show_in_nav_menus' => true,
-			'object_type'       => [ get_post_type() ],
-		];
+		// Not limited to a post type: in a template, the post being edited is the template itself.
+		$taxonomy_args = apply_filters( 'archt_taxonomy_args', [ 'show_in_nav_menus' => true ] );
 
-		$taxonomy_filter_args = apply_filters( 'archt_taxonomy_args', $taxonomy_filter_args );
-
-		$taxonomies = ARCHT_Helper::archt_get_taxonomies( $taxonomy_filter_args, 'objects' );
+		$taxonomies = get_taxonomies( $taxonomy_args, 'objects' );
 
 		$options = [];
 

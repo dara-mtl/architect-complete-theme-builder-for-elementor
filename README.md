@@ -2,7 +2,7 @@
 
 A theme builder for the free version of Elementor. Design your own headers, footers, single and archive layouts and popups, then choose exactly where each one appears.
 
-> **Public beta (1.0.0-beta).** Architect is being prepared for WordPress.org. Bug reports, test results on your themes and setups, and feature ideas are very welcome in [Issues](../../issues).
+> **Public beta (1.0.0-beta.2).** Architect is being prepared for WordPress.org. Bug reports, test results on your themes and setups, and feature ideas are very welcome in [Issues](../../issues).
 
 ## Key Features
 
@@ -50,7 +50,7 @@ The post and custom data tags are shared with [Better Post & Filter Widgets for 
 
 ## Crafted for Seamless Elementor Integration
 - Blends into Elementor's native interface and uses its own controls, icons and resources.
-- No branding and no upsells.
+- No branding, no upsells and no extra admin pages.
 - Lightweight, with no external dependencies.
 
 ## Requirements
