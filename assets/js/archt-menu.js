@@ -10,214 +10,158 @@
 	window.addEventListener('elementor/frontend/init', function () {
 		const NavMenuHandler = elementorModules.frontend.handlers.Base.extend({
 			bindEvents() {
-				this.initMenu();
-			},
+				this.menu = this.$element[0].querySelector('.archt-menu');
 
-			getDefaultSettings() {
-				return {
-					selectors: {
-						menuLinks: '.archt-has-submenu-container > a.archt-menu-item',
-						menuIcons: '.archt-has-submenu-container svg',
-						openSubmenus: '.archt-has-submenu .sub-menu.open',
-						submenuSelector: ':scope > .sub-menu, :scope > .archt-has-submenu-container ~ .sub-menu',
-						hasSubmenu: '.archt-has-submenu',
-					},
-				};
-			},
+				if (!this.menu) return;
 
-			getDefaultElements() {
-				const selectors = this.getSettings('selectors');
+				this.layout = this.menu.dataset.layout;
+				this.onClick = this.onClick.bind(this);
+				this.onKeydown = this.onKeydown.bind(this);
+				this.onFocusout = this.onFocusout.bind(this);
+				this.onPointer = this.onPointer.bind(this);
+				this.onOutsideClick = this.onOutsideClick.bind(this);
 
-				return {
-					$menuLinks: this.$element.find(selectors.menuLinks),
-					$menuIcons: this.$element.find(selectors.menuIcons),
-				};
-			},
+				this.menu.addEventListener('click', this.onClick);
+				this.menu.addEventListener('keydown', this.onKeydown);
 
-			initMenu() {
-				const $menu = this.$element.find('[data-layout]').first();
-
-				if ('expanded' === $menu.data('layout')) {
-					this.initExpandedMenu($menu);
-					return;
+				if ('expanded' !== this.layout) {
+					this.menu.addEventListener('focusout', this.onFocusout);
+					document.addEventListener('click', this.onOutsideClick);
 				}
 
-				this.bindMenuLinkEvents();
-				this.bindMenuIconEvents();
-				this.bindOutsideClickEvent();
-				this.bindHoverEvents();
-				this.initSubmenuPositions();
+				if ('horizontal' === this.layout) this.menu.addEventListener('mouseover', this.onPointer);
+
+				// The editor has no current page, so open the first branch to keep the submenu styles visible.
+				if ('expanded' === this.layout && elementorFrontend.isEditMode() && !this.menu.querySelector('.is-open')) {
+					const first = this.menu.querySelector('.archt-has-submenu');
+
+					if (first) this.setOpen(first, true, false);
+				}
+			},
+
+			unbindEvents() {
+				if (!this.menu) return;
+
+				this.menu.removeEventListener('click', this.onClick);
+				this.menu.removeEventListener('keydown', this.onKeydown);
+				this.menu.removeEventListener('focusout', this.onFocusout);
+				this.menu.removeEventListener('mouseover', this.onPointer);
+				document.removeEventListener('click', this.onOutsideClick);
 			},
 
 			/**
-			 * Expanded layout: submenus open in the flow, on click only. The arrow toggles; a parent link toggles
-			 * when it has no URL, or when there is no arrow to click (first click opens, second follows the link).
+			 * The toggle button opens its submenu. A parent link opens it instead when it has no URL,
+			 * or when there is no toggle to press (first click opens, second follows the link).
 			 */
-			initExpandedMenu($menu) {
-				if ($menu.hasClass('archt-expanded-always-open')) return;
+			onClick(event) {
+				const toggle = event.target.closest('.archt-menu__toggle');
 
-				const accordion = '1' === String($menu.data('accordion'));
-
-				const setOpen = (li, open, animate) => {
-					const $sub = $(li).children('.sub-menu');
-
-					$(li).toggleClass('archt-submenu-open', open);
-					$(li).find('> .archt-has-submenu-container > a').attr('aria-expanded', open ? 'true' : 'false');
-
-					if (!animate) {
-						$sub.toggleClass('open', open);
-						return;
-					}
-
-					$sub.stop(true, true)[open ? 'slideDown' : 'slideUp'](200, () => {
-						$sub.toggleClass('open', open).css('display', '');
-					});
-				};
-
-				const toggle = (li) => {
-					const open = !$(li).hasClass('archt-submenu-open');
-
-					if (open && accordion) {
-						$(li).siblings('.archt-submenu-open').each((i, sibling) => setOpen(sibling, false, true));
-					}
-
-					setOpen(li, open, true);
-				};
-
-				$menu.find('.archt-has-submenu').each((i, li) => {
-					setOpen(li, $(li).is('.current-menu-ancestor, .current-menu-parent'), false);
-				});
-
-				// The editor has no current page, so open the first branch to keep the submenu styles visible.
-				if (elementorFrontend.isEditMode() && !$menu.find('.archt-submenu-open').length) {
-					setOpen($menu.find('.archt-has-submenu').first()[0], true, false);
+				if (toggle) {
+					event.preventDefault();
+					this.toggle(toggle.parentElement);
+					return;
 				}
 
-				$menu.on('click', '.archt-has-submenu-container svg', function (event) {
+				const link = event.target.closest('.archt-menu__link');
+				const li = link && link.parentElement;
+
+				if (!li || !li.classList.contains('archt-has-submenu')) return;
+
+				const href = link.getAttribute('href') || '';
+				const noToggle = !li.querySelector(':scope > .archt-menu__toggle');
+
+				if ('' === href || '#' === href || (noToggle && !li.classList.contains('is-open'))) {
 					event.preventDefault();
-					toggle(this.closest('.archt-has-submenu'));
-				});
-
-				$menu.on('click', '.archt-has-submenu-container > a', function (event) {
-					const li = this.closest('.archt-has-submenu');
-					const href = this.getAttribute('href') || '';
-					const noUrl = '' === href || '#' === href;
-					const noArrow = !this.parentNode.querySelector('svg');
-
-					if (noUrl || (noArrow && !$(li).hasClass('archt-submenu-open'))) {
-						event.preventDefault();
-						toggle(li);
-					}
-				});
-			},
-
-			adjustSubmenuPosition(submenu) {
-				submenu.classList.remove('archt-submenu-flip-left');
-
-				if (submenu.getBoundingClientRect().right > window.innerWidth) {
-					submenu.classList.add('archt-submenu-flip-left');
+					this.toggle(li);
 				}
 			},
 
-			initSubmenuPositions() {
-				if (window.innerWidth <= 1024) return;
+			onKeydown(event) {
+				if ('Escape' !== event.key) return;
 
-				const selectors = this.getSettings('selectors');
-				const self = this;
+				const li = event.target.closest('.archt-has-submenu.is-open');
 
-				this.$element.find(selectors.hasSubmenu).each(function () {
-					const submenu = this.querySelector(selectors.submenuSelector);
+				if (!li || 'expanded' === this.layout) return;
 
-					if (!submenu) return;
+				this.setOpen(li, false);
+				(li.querySelector(':scope > .archt-menu__toggle') || li.querySelector(':scope > .archt-menu__link')).focus();
+			},
 
-					// Temporarily make the submenu measurable without showing it.
-					submenu.style.visibility = 'hidden';
-					submenu.style.display = 'block';
-					self.adjustSubmenuPosition(submenu);
-					submenu.style.display = '';
-					submenu.style.visibility = '';
+			onFocusout(event) {
+				this.menu.querySelectorAll('.archt-has-submenu.is-open').forEach((li) => {
+					if (!li.contains(event.relatedTarget)) this.setOpen(li, false);
 				});
 			},
 
-			bindHoverEvents() {
-				const selectors = this.getSettings('selectors');
-				const self = this;
+			onOutsideClick(event) {
+				if (this.menu.contains(event.target)) return;
 
-				this.$element.find(selectors.hasSubmenu).on('mouseenter', function () {
-					if (window.innerWidth <= 1024) return;
-
-					const submenu = this.querySelector(selectors.submenuSelector);
-
-					if (submenu) self.adjustSubmenuPosition(submenu);
-				});
+				this.menu.querySelectorAll('.archt-has-submenu.is-open').forEach((li) => this.setOpen(li, false));
 			},
 
-			bindMenuLinkEvents() {
-				const selectors = this.getSettings('selectors');
-				const self = this;
+			onPointer(event) {
+				const li = event.target.closest('.archt-has-submenu');
 
-				this.elements.$menuLinks.on('click', function (event) {
-					event.stopImmediatePropagation();
+				if (li && li !== this.hovered) this.flip(li);
 
-					const parentLi = this.closest('.archt-has-submenu');
-
-					if (!parentLi) return;
-
-					const submenu = parentLi.querySelector(selectors.submenuSelector);
-
-					if (!submenu) return;
-
-					if (window.innerWidth <= 1024 || !submenu.classList.contains('open')) {
-						event.preventDefault();
-						submenu.classList.toggle('open');
-
-						if (submenu.classList.contains('open')) self.adjustSubmenuPosition(submenu);
-					}
-				});
+				this.hovered = li;
 			},
 
-			bindMenuIconEvents() {
-				const selectors = this.getSettings('selectors');
-				const self = this;
+			toggle(li) {
+				const open = !li.classList.contains('is-open');
 
-				this.elements.$menuIcons.on('click', function (event) {
-					event.preventDefault();
-					event.stopImmediatePropagation();
+				// Dropdowns overlap, so only one branch stays open; Expanded closes siblings when set as an accordion.
+				if (open && ('expanded' !== this.layout || '1' === this.menu.dataset.accordion)) {
+					li.parentElement.querySelectorAll(':scope > .is-open').forEach((sibling) => this.setOpen(sibling, false));
+				}
 
-					const parentLi = this.closest('.archt-has-submenu');
-
-					if (!parentLi) return;
-
-					const submenu = parentLi.querySelector(selectors.submenuSelector);
-
-					if (!submenu) return;
-
-					submenu.classList.toggle('open');
-
-					if (submenu.classList.contains('open')) self.adjustSubmenuPosition(submenu);
-				});
+				this.setOpen(li, open);
 			},
 
-			// Namespaced per widget, so destroying one menu leaves the others' handlers in place.
-			getEventNamespace() {
-				return '.archtNavMenu-' + this.getID();
-			},
+			setOpen(li, open, animate = true) {
+				const toggle = li.querySelector(':scope > .archt-menu__toggle');
+				const sub = li.querySelector(':scope > .archt-menu__sub');
 
-			bindOutsideClickEvent() {
-				const selectors = this.getSettings('selectors');
-				const $element = this.$element;
+				if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
 
-				$(document).on('click' + this.getEventNamespace(), function (event) {
-					$element.find(selectors.openSubmenus).each(function () {
-						if (!$(this).closest('.archt-has-submenu')[0].contains(event.target)) {
-							$(this).removeClass('open');
-						}
+				if (!open) li.querySelectorAll('.is-open').forEach((child) => this.setOpen(child, false, false));
+
+				if ('horizontal' === this.layout && open && sub) this.flip(li);
+
+				if ('expanded' !== this.layout || !animate || !sub) {
+					li.classList.toggle('is-open', open);
+					return;
+				}
+
+				const $sub = $(sub).stop(true, true);
+
+				if (open) {
+					li.classList.add('is-open');
+					$sub.hide().slideDown(200, () => $sub.css('display', ''));
+				} else {
+					$sub.slideUp(200, () => {
+						li.classList.remove('is-open');
+						$sub.css('display', '');
 					});
-				});
+				}
 			},
 
-			onDestroy() {
-				$(document).off(this.getEventNamespace());
+			// Closed dropdowns are not rendered, so they are shown invisibly for the measure.
+			flip(li) {
+				const sub = li.querySelector(':scope > .archt-menu__sub');
+
+				if (!sub) return;
+
+				sub.classList.remove('is-flipped');
+				sub.style.cssText += 'display:block;visibility:hidden;transition:none';
+
+				const rect = sub.getBoundingClientRect();
+				const overflow = 'rtl' === getComputedStyle(sub).direction ? rect.left < 0 : rect.right > document.documentElement.clientWidth;
+
+				sub.style.removeProperty('display');
+				sub.style.removeProperty('visibility');
+				sub.style.removeProperty('transition');
+				sub.classList.toggle('is-flipped', overflow);
 			},
 		});
 

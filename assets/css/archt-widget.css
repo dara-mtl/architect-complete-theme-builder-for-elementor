@@ -1,815 +1,426 @@
-/* Navigation Menu widget. Adapted from Elementor Header & Footer Builder by Brainstorm Force, licensed GPLv2 or later. */
+/* Navigation Menu widget. Controls set the --archt-* variables on the widget wrapper. */
 
-ul.archt-nav-menu,
-.archt-nav-menu li,
-.archt-nav-menu ul {
-	list-style: none !important;
+.archt-nav-menu__align-center .archt-menu,
+.archt-nav-menu__align-justify .archt-menu {
+	--archt-justify: center;
+}
+
+.archt-nav-menu__align-right .archt-menu {
+	--archt-justify: flex-end;
+}
+
+.archt-menu__list,
+.archt-menu__sub {
+	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-.archt-nav-menu li.menu-item {
+.archt-menu__item {
+	--archt-px: var(--archt-item-px, 15px);
+	--archt-py: var(--archt-item-py, 15px);
 	position: relative;
-}
-
-.archt-nav-menu .sub-menu li.menu-item {
-	position: relative;
-	background: inherit;
-}
-
-div.archt-nav-menu {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	-moz-box-orient: vertical;
-	-moz-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
+	align-items: center;
+	justify-content: var(--archt-justify, flex-start);
 }
 
-.archt-nav-menu__layout-horizontal,
-.archt-nav-menu__layout-horizontal .archt-nav-menu {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
+.archt-menu__sub .archt-menu__item {
+	--archt-px: var(--archt-sub-px, 15px);
+	--archt-py: var(--archt-sub-py, 15px);
+}
+
+.archt-menu .archt-menu__link {
 	display: flex;
+	align-items: center;
+	min-width: 0;
+	padding: var(--archt-py) var(--archt-px);
+	text-decoration: none;
+	box-shadow: none;
 }
 
-.archt-nav-menu__layout-horizontal .archt-nav-menu {
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
+.archt-menu__link:has(+ .archt-menu__toggle) {
+	padding-inline-end: 0;
+}
+
+/* Reset theme button styles, hover and focus included. */
+.archt-menu .archt-menu__toggle,
+.archt-menu .archt-menu__toggle:hover,
+.archt-menu .archt-menu__toggle:focus {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	align-self: stretch;
+	width: auto;
+	min-height: 0;
+	margin: 0;
+	margin-inline: var(--archt-icon-gap, 5px) 0;
+	padding: 0;
+	padding-inline: 0 var(--archt-px);
+	border: 0;
+	border-radius: 0;
+	background: none;
+	box-shadow: none;
+	color: inherit;
+	font: inherit;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.archt-menu .archt-menu__toggle:focus:not(:focus-visible) {
+	outline: 0;
+}
+
+.archt-menu__toggle svg {
+	transition: transform 0.2s ease;
+}
+
+.archt-submenu-icon-left .archt-menu .archt-menu__toggle {
+	order: -1;
+	margin-inline: 0 var(--archt-icon-gap, 5px);
+	padding-inline: var(--archt-px) 0;
+}
+
+.archt-submenu-icon-left .archt-menu__link:has(+ .archt-menu__toggle) {
+	padding-inline: 0 var(--archt-px);
+}
+
+/* Expanded: an open submenu sits inside its item: the link and toggle carry the item background, so the gap is padding. */
+.archt-menu[data-layout="expanded"] .archt-menu__toggle,
+.archt-menu[data-layout="expanded"] .archt-menu__toggle:hover,
+.archt-menu[data-layout="expanded"] .archt-menu__toggle:focus {
+	margin-inline: 0;
+	padding-inline: var(--archt-icon-gap, 5px) var(--archt-px);
+}
+
+.archt-submenu-icon-left .archt-menu[data-layout="expanded"] .archt-menu__toggle {
+	margin-inline: 0;
+	padding-inline: var(--archt-px) var(--archt-icon-gap, 5px);
+}
+
+/* Horizontal and Vertical: dropdowns open on hover where the device can hover, and on click. */
+.archt-menu[data-layout="horizontal"] .archt-menu__list {
+	display: flex;
 	flex-wrap: wrap;
+	justify-content: var(--archt-justify, flex-start);
+	column-gap: var(--archt-gap, 0px);
+	row-gap: var(--archt-row-gap, 0px);
 }
 
-.archt-nav-menu__layout-horizontal .archt-nav-menu .sub-menu {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	z-index: 16;
-	visibility: hidden;
-	opacity: 0;
-	text-align: left;
-	-webkit-transition: all 300ms ease-in;
-	transition: all 300ms ease-in;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu .menu-item-has-children:hover > .sub-menu,
-.archt-nav-menu__layout-horizontal .archt-nav-menu .menu-item-has-children:focus > .sub-menu,
-.archt-nav-menu__layout-vertical .archt-nav-menu .menu-item-has-children:hover > .sub-menu,
-.archt-nav-menu__layout-vertical .archt-nav-menu .menu-item-has-children:focus > .sub-menu {
-	visibility: visible;
-	opacity: 1;
-	height: 100% !important;
-}
-
-.archt-nav-menu .menu-item-has-children .sub-menu {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	z-index: 9999;
-	visibility: hidden;
-	opacity: 0;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu .menu-item-has-children:hover > .sub-menu,
-.archt-nav-menu__layout-vertical .archt-nav-menu .menu-item-has-children:hover > .sub-menu {
-	visibility: visible;
-	opacity: 1;
-	-webkit-transition: all 300ms ease-out;
-	transition: all 300ms ease-out;
-}
-
-.archt-nav-menu:before,
-.archt-nav-menu:after {
-	content: '';
-	display: table;
-	clear: both;
-}
-
-.archt-nav-menu__align-right .archt-nav-menu {
-	margin-left: auto;
-	-webkit-box-pack: end;
-	-ms-flex-pack: end;
-	-webkit-justify-content: flex-end;
-	-moz-box-pack: end;
-	justify-content: flex-end;
-}
-
-.archt-nav-menu__align-right .archt-nav-menu__layout-vertical li a.archt-menu-item,
-.archt-nav-menu__align-right .archt-nav-menu__layout-expanded li a.archt-menu-item,
-.archt-nav-menu__align-right .archt-nav-menu__layout-vertical li a.archt-sub-menu-item,
-.archt-nav-menu__align-right .archt-nav-menu__layout-expanded li a.archt-sub-menu-item,
-.archt-nav-menu__align-right .archt-nav-menu__layout-vertical li .archt-has-submenu-container,
-.archt-nav-menu__align-right .archt-nav-menu__layout-expanded li .archt-has-submenu-container {
-	-webkit-box-pack: end;
-	-ms-flex-pack: end;
-	-webkit-justify-content: flex-end;
-	-moz-box-pack: end;
-	justify-content: flex-end;
-}
-
-.archt-nav-menu__align-right .archt-nav-menu__layout-vertical li.archt-has-submenu .elementor-button-wrapper,
-.archt-nav-menu__align-right .archt-nav-menu__layout-expanded li.archt-has-submenu .elementor-button-wrapper,
-.rtl .archt-nav-menu__align-left .archt-nav-menu__layout-vertical li.archt-has-submenu .elementor-button-wrapper,
-.rtl .archt-nav-menu__align-left .archt-nav-menu__layout-expanded li.archt-has-submenu .elementor-button-wrapper,
-.archt-nav-menu__align-right .archt-nav-menu__layout-vertical li.elementor-button-wrapper,
-.archt-nav-menu__align-right .archt-nav-menu__layout-expanded li.elementor-button-wrapper,
-.rtl .archt-nav-menu__align-left .archt-nav-menu__layout-vertical li.elementor-button-wrapper,
-.rtl .archt-nav-menu__align-left .archt-nav-menu__layout-expanded li.elementor-button-wrapper {
-	text-align: right;
-}
-
-.archt-nav-menu__align-left .archt-nav-menu__layout-vertical li.archt-has-submenu .elementor-button-wrapper,
-.archt-nav-menu__align-left .archt-nav-menu__layout-expanded li.archt-has-submenu .elementor-button-wrapper,
-.rtl .archt-nav-menu__align-right .archt-nav-menu__layout-vertical li.archt-has-submenu .elementor-button-wrapper,
-.rtl .archt-nav-menu__align-right .archt-nav-menu__layout-expanded li.archt-has-submenu .elementor-button-wrapper,
-.archt-nav-menu__align-left .archt-nav-menu__layout-vertical li.elementor-button-wrapper,
-.archt-nav-menu__align-left .archt-nav-menu__layout-expanded li.elementor-button-wrapper,
-.rtl .archt-nav-menu__align-right .archt-nav-menu__layout-vertical li.elementor-button-wrapper,
-.rtl .archt-nav-menu__align-right .archt-nav-menu__layout-expanded li.elementor-button-wrapper {
-	text-align: left;
-}
-
-.archt-nav-menu__align-center .archt-nav-menu__layout-vertical li.archt-has-submenu .elementor-button-wrapper,
-.archt-nav-menu__align-center .archt-nav-menu__layout-expanded li.archt-has-submenu .elementor-button-wrapper,
-.archt-nav-menu__align-center .archt-nav-menu__layout-vertical li.elementor-button-wrapper,
-.archt-nav-menu__align-center .archt-nav-menu__layout-expanded li.elementor-button-wrapper {
-	text-align: center;
-}
-
-.archt-nav-menu__align-left .archt-nav-menu {
-	margin-right: auto;
-	-webkit-box-pack: start;
-	-ms-flex-pack: start;
-	-webkit-justify-content: flex-start;
-	-moz-box-pack: start;
-	justify-content: flex-start;
-}
-
-.archt-nav-menu__align-left .archt-nav-menu__layout-vertical li a.archt-menu-item,
-.archt-nav-menu__align-left .archt-nav-menu__layout-expanded li a.archt-menu-item,
-.archt-nav-menu__align-left .archt-nav-menu__layout-vertical li a.archt-sub-menu-item,
-.archt-nav-menu__align-left .archt-nav-menu__layout-expanded li a.archt-sub-menu-item,
-.archt-nav-menu__align-left .archt-nav-menu__layout-vertical li .archt-has-submenu-container,
-.archt-nav-menu__align-left .archt-nav-menu__layout-expanded li .archt-has-submenu-container {
-	-webkit-box-pack: start;
-	-ms-flex-pack: start;
-	-webkit-justify-content: flex-start;
-	-moz-box-pack: start;
-	justify-content: flex-start;
-}
-
-.archt-nav-menu__align-center .archt-nav-menu {
-	margin-left: auto;
-	margin-right: auto;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	-webkit-justify-content: center;
-	-moz-box-pack: center;
-	justify-content: center;
-}
-
-.archt-nav-menu__align-center .archt-nav-menu__layout-vertical li a.archt-menu-item,
-.archt-nav-menu__align-center .archt-nav-menu__layout-expanded li a.archt-menu-item,
-.archt-nav-menu__align-center .archt-nav-menu__layout-vertical li a.archt-sub-menu-item,
-.archt-nav-menu__align-center .archt-nav-menu__layout-expanded li a.archt-sub-menu-item,
-.archt-nav-menu__align-center .archt-nav-menu__layout-vertical li .archt-has-submenu-container,
-.archt-nav-menu__align-center .archt-nav-menu__layout-expanded li .archt-has-submenu-container {
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	-webkit-justify-content: center;
-	-moz-box-pack: center;
-	justify-content: center;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
-}
-
-.archt-nav-menu__align-justify .archt-nav-menu__layout-horizontal .archt-nav-menu,
-.archt-nav-menu__align-justify .archt-nav-menu__layout-horizontal li .archt-has-submenu-container,
-.archt-nav-menu__align-justify .archt-nav-menu__layout-vertical li .archt-has-submenu-container a,
-.archt-nav-menu__align-justify .archt-nav-menu__layout-expanded li .archt-has-submenu-container a {
-	width: 100%;
-}
-
-.archt-nav-menu__align-justify .archt-nav-menu__layout-horizontal .archt-nav-menu li.menu-item,
-.archt-nav-menu__align-justify .archt-nav-menu__layout-horizontal li .archt-has-submenu-container {
-	-webkit-box-flex: 1;
-	-ms-flex-positive: 1;
-	-webkit-flex-grow: 1;
-	-moz-box-flex: 1;
+.archt-nav-menu__align-justify .archt-menu[data-layout="horizontal"] .archt-menu__list > li {
 	flex-grow: 1;
 }
 
-.archt-nav-menu__align-justify .archt-nav-menu__layout-horizontal .archt-nav-menu li a.archt-menu-item,
-.archt-nav-menu__align-justify .archt-nav-menu__layout-horizontal li .archt-has-submenu-container {
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	-webkit-justify-content: center;
-	-moz-box-pack: center;
-	justify-content: center;
-}
-
-.archt-nav-menu a.archt-menu-item,
-.archt-nav-menu a.archt-sub-menu-item {
-	text-decoration: none;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: justify;
-	-moz-box-pack: justify;
-	-ms-flex-pack: justify;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-moz-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-justify-content: space-between;
-	justify-content: space-between;
-}
-
-.archt-nav-menu a.archt-menu-item:hover,
-.archt-nav-menu a.archt-sub-menu-item:hover {
-	text-decoration: none;
-}
-
-.archt-nav-menu .sub-menu {
-	min-width: 220px;
-	margin: 0;
+.archt-menu:not([data-layout="expanded"]) .archt-menu__sub {
+	position: absolute;
+	top: 100%;
+	inset-inline-start: 0;
 	z-index: 9999;
-}
-
-.archt-nav-menu__layout-horizontal {
-	font-size: 0;
-}
-
-.archt-nav-menu__layout-horizontal li.menu-item,
-.archt-nav-menu__layout-horizontal>li.menu-item {
-	font-size: medium;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu .sub-menu {
-	-webkit-box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.1);
-	box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.1);
-}
-
-.archt-has-submenu-container {
-	display: flex;
-	align-items: center;
-	position: relative;
-}
-
-.archt-has-submenu-container svg {
-	position: relative;
-	cursor: pointer;
-}
-
-.sub-menu a:before,
-.sub-menu a:after {
-	display: none !important;
-}
-
-.archt-has-submenu-container a.archt-menu-item:focus,
-.archt-has-submenu-container a.archt-sub-menu-item:focus {
-	outline: 0;
-}
-
-.archt-nav-menu .menu-item-has-children:focus,
-.archt-nav-menu .menu-item-has-children .sub-menu:focus {
-	outline: 0;
-}
-
-.archt-nav-menu__layout-vertical .sub-menu {
-	position: relative;
-	height: 0;
-}
-
-.archt-nav-menu__submenu-none .archt-nav-menu li a.archt-menu-item,
-.archt-nav-menu__submenu-none .archt-nav-menu li a.archt-sub-menu-item {
-	margin-right: 0px;
-}
-
-.archt-nav-menu__layout-vertical .menu-item-has-children .menu-item-has-children .sub-menu {
-	left: 0;
-}
-
-/* Expanded: submenus take space in the flow and open on click only. */
-.archt-nav-menu__layout-expanded .archt-nav-menu .menu-item-has-children .sub-menu {
+	width: var(--archt-sub-width, 220px);
 	display: none;
-	position: static;
-	visibility: visible;
+	opacity: 0;
+	pointer-events: none;
+	box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.1);
+	transition: opacity 0.3s, transform 0.3s, display 0.3s;
+	transition-behavior: allow-discrete;
+}
+
+.archt-menu:not([data-layout="expanded"]) .archt-menu__sub .archt-menu__item {
+	justify-content: flex-start;
+}
+
+.archt-menu:not([data-layout="expanded"]) .archt-menu__list > li > .archt-menu__sub {
+	margin-top: var(--archt-sub-offset, 0px);
+}
+
+/* Keeps the hover alive across the Top Distance gap. */
+.archt-menu:not([data-layout="expanded"]) .archt-menu__list > li > .archt-menu__sub::before {
+	content: '';
+	position: absolute;
+	inset-inline: 0;
+	bottom: 100%;
+	height: var(--archt-sub-offset, 0px);
+}
+
+.archt-menu[data-layout="horizontal"] .archt-menu__sub .archt-menu__sub {
+	top: 0;
+	inset-inline-start: 100%;
+}
+
+.archt-menu[data-layout="horizontal"] .archt-menu__list > li > .archt-menu__sub.is-flipped {
+	inset-inline: auto 0;
+}
+
+.archt-menu[data-layout="horizontal"] .archt-menu__sub .archt-menu__sub.is-flipped {
+	inset-inline: auto 100%;
+}
+
+.archt-submenu-animation-slide_up .archt-menu[data-layout="horizontal"] .archt-menu__sub {
+	transform: translateY(20%);
+}
+
+.archt-submenu-animation-slide_down .archt-menu[data-layout="horizontal"] .archt-menu__sub {
+	transform: translateY(-20%);
+}
+
+.archt-menu:not([data-layout="expanded"]) .is-open > .archt-menu__sub {
+	display: block;
 	opacity: 1;
-	height: auto;
+	pointer-events: auto;
 	transform: none;
 }
 
-.archt-nav-menu__layout-expanded .archt-nav-menu .menu-item-has-children .sub-menu.open,
-.archt-expanded-always-open .archt-nav-menu .menu-item-has-children .sub-menu {
+@media (hover: hover) {
+	.archt-menu:not([data-layout="expanded"]) .archt-has-submenu:hover > .archt-menu__sub {
+		display: block;
+		opacity: 1;
+		pointer-events: auto;
+		transform: none;
+	}
+}
+
+/* Closed dropdowns are not rendered, so they add no scroll space; these are the states they fade in from. */
+@starting-style {
+	.archt-menu:not([data-layout="expanded"]) .is-open > .archt-menu__sub,
+	.archt-menu:not([data-layout="expanded"]) .archt-has-submenu:hover > .archt-menu__sub {
+		opacity: 0;
+	}
+
+	.archt-submenu-animation-slide_up .archt-menu[data-layout="horizontal"] .is-open > .archt-menu__sub,
+	.archt-submenu-animation-slide_up .archt-menu[data-layout="horizontal"] .archt-has-submenu:hover > .archt-menu__sub {
+		transform: translateY(20%);
+	}
+
+	.archt-submenu-animation-slide_down .archt-menu[data-layout="horizontal"] .is-open > .archt-menu__sub,
+	.archt-submenu-animation-slide_down .archt-menu[data-layout="horizontal"] .archt-has-submenu:hover > .archt-menu__sub {
+		transform: translateY(-20%);
+	}
+}
+
+/* Vertical: the dropdown overlays the items below, at the width of its item. */
+.archt-menu[data-layout="vertical"] .archt-menu__sub,
+.archt-menu[data-layout="vertical"] .archt-menu__sub .archt-menu__sub {
+	top: 100%;
+	inset-inline-start: 0;
+	width: 100%;
+	box-shadow: none;
+}
+
+.archt-menu:not([data-layout="horizontal"]) .archt-menu__list {
+	display: flex;
+	flex-direction: column;
+	row-gap: var(--archt-gap, 0px);
+}
+
+.archt-nav-menu__align-justify .archt-menu:not([data-layout="horizontal"]) .archt-menu__link {
+	flex-grow: 1;
+}
+
+/* Expanded: submenus open in the flow, on click only. The grid keeps the arrow beside the label, the submenu spans below. */
+.archt-menu[data-layout="expanded"] .archt-menu__item {
+	display: grid;
+	grid-template-columns: minmax(0, max-content) auto;
+}
+
+.archt-nav-menu__align-justify .archt-menu[data-layout="expanded"] .archt-menu__item {
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.archt-menu[data-layout="expanded"] .archt-menu__sub {
+	display: none;
+	grid-column: 1 / -1;
+}
+
+.archt-menu[data-layout="expanded"] .archt-menu__sub .archt-menu__sub {
+	padding-inline-start: 20px;
+}
+
+.archt-menu[data-layout="expanded"] .is-open > .archt-menu__sub,
+.archt-menu[data-layout="expanded"][data-submenus="open"] .archt-menu__sub {
 	display: block;
 }
 
-.archt-nav-menu__layout-expanded .archt-has-submenu-container svg {
-	transition: transform 0.2s ease;
-	cursor: pointer;
-}
-
-.archt-nav-menu__layout-expanded .archt-submenu-open > .archt-has-submenu-container svg {
+.archt-menu[data-layout="expanded"] .is-open > .archt-menu__toggle svg {
 	transform: rotate(180deg);
 }
 
-.archt-expanded-always-open .archt-has-submenu-container svg {
+.archt-menu[data-submenus="open"] .archt-menu__list .archt-menu__toggle {
 	display: none;
 }
 
-.archt-nav-menu__layout-expanded .sub-menu,
-.archt-nav-menu__layout-expanded .child,
-.archt-nav-menu__layout-vertical .sub-menu,
-.archt-nav-menu__layout-vertical .child {
-	left: 0 !important;
-	width: 100% !important;
+.archt-menu[data-submenus="open"] .archt-menu__link:has(+ .archt-menu__toggle) {
+	padding-inline: var(--archt-px);
 }
 
-.archt-nav-menu .menu-item a:before,
-.archt-nav-menu .menu-item a:after {
-	display: block;
+/* Hover effects: ::before is the top line, ::after the bottom line or the second frame corner. */
+.archt-menu[data-pointer] .archt-menu__list > li::before,
+.archt-menu[data-pointer] .archt-menu__list > li::after {
+	content: '';
 	position: absolute;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
-	-webkit-transition-timing-function: cubic-bezier(0.58, 0.3, 0.005, 1);
-	transition-timing-function: cubic-bezier(0.58, 0.3, 0.005, 1);
-}
-
-.archt-nav-menu .menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-nav-menu .menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	opacity: 0;
-}
-
-.archt-nav-menu .menu-item a.archt-menu-item:hover:before,
-.archt-nav-menu .menu-item a.archt-menu-item:hover:after,
-.archt-nav-menu .menu-item a.archt-menu-item:focus:before,
-.archt-nav-menu .menu-item a.archt-menu-item:focus:after,
-.archt-nav-menu .current-menu-item:before,
-.archt-nav-menu .current-menu-item:after {
-	-webkit-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-}
-
-.archt-pointer__double-line .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__double-line .menu-item.parent a.archt-menu-item:after,
-.archt-pointer__underline .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__underline .menu-item.parent a.archt-menu-item:after,
-.archt-pointer__overline .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__overline .menu-item.parent a.archt-menu-item:after {
-	height: 3px;
-	width: 100%;
-	left: 0;
-	background-color: #55595c;
 	z-index: 2;
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.3s cubic-bezier(0.58, 0.3, 0.005, 1);
 }
 
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	height: 0;
-	width: 0;
-	left: 50%;
+.archt-menu[data-pointer] .archt-menu__list > li:is(:hover, :focus-within)::before,
+.archt-menu[data-pointer] .archt-menu__list > li:is(:hover, :focus-within)::after,
+.archt-menu[data-pointer] .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::before,
+.archt-menu[data-pointer] .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::after {
+	opacity: 1;
 }
 
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
-	top: 10px;
+.archt-menu[data-animation="none"] .archt-menu__list > li::before,
+.archt-menu[data-animation="none"] .archt-menu__list > li::after {
+	transition: none;
 }
 
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	bottom: 10px;
+/* Lines. */
+.archt-menu:is([data-pointer="underline"], [data-pointer="overline"], [data-pointer="double-line"]) .archt-menu__list > li::before,
+.archt-menu:is([data-pointer="underline"], [data-pointer="overline"], [data-pointer="double-line"]) .archt-menu__list > li::after {
+	inset-inline-start: 0;
+	width: 100%;
+	height: 3px;
+	background-color: var(--archt-pointer-color, #55595c);
 }
 
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
+.archt-menu .archt-menu__list > li::before {
+	top: 0;
+}
+
+.archt-menu .archt-menu__list > li::after {
+	bottom: 0;
+}
+
+.archt-menu[data-pointer="underline"] .archt-menu__list > li::before,
+.archt-menu[data-pointer="overline"] .archt-menu__list > li::after,
+.archt-menu[data-pointer="framed"]:not([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li::after {
+	display: none;
+}
+
+/* Resting states of the line animations, the shown state resets them. */
+.archt-menu[data-animation="slide"] .archt-menu__list > li::before {
+	inset-inline-start: -20px;
+	width: 10px;
+}
+
+.archt-menu[data-animation="slide"] .archt-menu__list > li::after {
+	inset-inline-start: calc(100% + 20px);
+	width: 10px;
+}
+
+.archt-menu[data-animation="grow"]:not([data-pointer="framed"]) .archt-menu__list > li::before,
+.archt-menu[data-animation="grow"]:not([data-pointer="framed"]) .archt-menu__list > li::after {
+	transform: scaleX(0);
+}
+
+.archt-menu[data-animation="drop-in"] .archt-menu__list > li::before {
 	top: -10px;
 }
 
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
+.archt-menu[data-animation="drop-in"] .archt-menu__list > li::after {
 	bottom: -10px;
 }
 
-.archt-pointer__double-line.archt-animation__none,
-.archt-pointer__double-line.archt-animation__none .menu-item.parent a.archt-menu-item,
-.archt-pointer__underline.archt-animation__none,
-.archt-pointer__underline.archt-animation__none .menu-item.parent a.archt-menu-item,
-.archt-pointer__overline.archt-animation__none,
-.archt-pointer__overline.archt-animation__none .menu-item.parent a.archt-menu-item {
-	-webkit-transition-duration: 0s;
-	transition-duration: 0s;
+.archt-menu[data-animation="drop-out"] .archt-menu__list > li::before {
+	top: 10px;
 }
 
-.archt-pointer__double-line.archt-animation__none:before,
-.archt-pointer__double-line.archt-animation__none:after,
-.archt-pointer__double-line.archt-animation__none:hover,
-.archt-pointer__double-line.archt-animation__none:focus,
-.archt-pointer__double-line.archt-animation__none .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__double-line.archt-animation__none .menu-item.parent a.archt-menu-item:after,
-.archt-pointer__double-line.archt-animation__none .menu-item.parent a.archt-menu-item:hover,
-.archt-pointer__double-line.archt-animation__none .menu-item.parent a.archt-menu-item:focus,
-.archt-pointer__underline.archt-animation__none:before,
-.archt-pointer__underline.archt-animation__none:after,
-.archt-pointer__underline.archt-animation__none:hover,
-.archt-pointer__underline.archt-animation__none:focus,
-.archt-pointer__underline.archt-animation__none .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__underline.archt-animation__none .menu-item.parent a.archt-menu-item:after,
-.archt-pointer__underline.archt-animation__none .menu-item.parent a.archt-menu-item:hover,
-.archt-pointer__underline.archt-animation__none .menu-item.parent a.archt-menu-item:focus,
-.archt-pointer__overline.archt-animation__none:before,
-.archt-pointer__overline.archt-animation__none:after,
-.archt-pointer__overline.archt-animation__none:hover,
-.archt-pointer__overline.archt-animation__none:focus,
-.archt-pointer__overline.archt-animation__none .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__overline.archt-animation__none .menu-item.parent a.archt-menu-item:after,
-.archt-pointer__overline.archt-animation__none .menu-item.parent a.archt-menu-item:hover,
-.archt-pointer__overline.archt-animation__none .menu-item.parent a.archt-menu-item:focus {
-	-webkit-transition-duration: 0s;
-	transition-duration: 0s;
+.archt-menu[data-animation="drop-out"] .archt-menu__list > li::after {
+	bottom: 10px;
 }
 
-.archt-pointer__double-line .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__overline .menu-item.parent a.archt-menu-item:before {
-	content: '';
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(:hover, :focus-within)::before,
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(:hover, :focus-within)::after,
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::before,
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::after {
+	inset-inline-start: 0;
+	width: 100%;
+	transform: none;
+}
+
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(:hover, :focus-within)::before,
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::before {
 	top: 0;
 }
 
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
-	width: 10px;
-	left: -20px;
-}
-
-.archt-pointer__double-line .menu-item.parent a.archt-menu-item:after,
-.archt-pointer__underline .menu-item.parent a.archt-menu-item:after {
-	content: '';
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(:hover, :focus-within)::after,
+.archt-menu:not([data-pointer="framed"]) .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::after {
 	bottom: 0;
 }
 
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__underline.archt-animation__slide .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	width: 10px;
-	left: -webkit-calc(100% + 20px);
-	left: calc(100% + 20px);
+/* Frame. */
+.archt-menu[data-pointer="framed"] .archt-menu__list > li::before,
+.archt-menu[data-pointer="framed"] .archt-menu__list > li::after {
+	inset: 0;
+	border: 3px solid var(--archt-pointer-color, #55595c);
 }
 
-.archt-pointer__framed .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__framed .menu-item.parent a.archt-menu-item:after {
-	background: transparent;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	border: 3px solid #55595c;
-}
-
-.archt-pointer__framed .menu-item.parent a.archt-menu-item:before {
-	content: '';
-}
-
-.archt-pointer__framed.archt-animation__grow .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
-	-webkit-transform: scale(0.75);
-	-ms-transform: scale(0.75);
+.archt-menu[data-pointer="framed"][data-animation="grow"] .archt-menu__list > li::before {
 	transform: scale(0.75);
-}
-
-.archt-pointer__framed.archt-animation__shrink .menu-item.parent a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
-	-webkit-transform: scale(1.25);
-	-ms-transform: scale(1.25);
-	transform: scale(1.25);
-}
-
-.archt-pointer__framed.archt-animation__grow .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__framed.archt-animation__shrink .menu-item.parent a.archt-menu-item:before {
-	-webkit-transition: opacity 0.2s, -webkit-transform 0.4s;
-	transition: opacity 0.2s, -webkit-transform 0.4s;
 	transition: opacity 0.2s, transform 0.4s;
-	transition: opacity 0.2s, transform 0.4s, -webkit-transform 0.4s;
 }
 
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:after {
+.archt-menu[data-pointer="framed"][data-animation="shrink"] .archt-menu__list > li::before {
+	transform: scale(1.25);
+	transition: opacity 0.2s, transform 0.4s;
+}
+
+.archt-menu[data-pointer="framed"] .archt-menu__list > li:is(:hover, :focus-within)::before,
+.archt-menu[data-pointer="framed"] .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::before {
+	transform: none;
+}
+
+/* Draw and Corners: two corner pieces that grow to the full frame. */
+.archt-menu[data-pointer="framed"]:is([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li::before,
+.archt-menu[data-pointer="framed"]:is([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li::after {
 	width: 3px;
 	height: 3px;
 }
 
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:before {
+.archt-menu[data-pointer="framed"]:is([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li::after {
+	inset: auto 0 0 auto;
+}
+
+.archt-menu[data-pointer="framed"][data-animation="draw"] .archt-menu__list > li::before {
+	inset: auto auto 0 0;
 	border-width: 0 0 3px 3px;
-	-webkit-transition: width 0.1s 0.2s, height 0.1s 0.3s, opacity 0.12s 0.22s;
 	transition: width 0.1s 0.2s, height 0.1s 0.3s, opacity 0.12s 0.22s;
 }
 
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:after {
-	content: '';
-	top: initial;
-	bottom: 0;
-	left: initial;
-	right: 0;
+.archt-menu[data-pointer="framed"][data-animation="draw"] .archt-menu__list > li::after {
+	inset: 0 0 auto auto;
 	border-width: 3px 3px 0 0;
-	-webkit-transition: width 0.1s, height 0.1s 0.1s, opacity 0.02s 0.18s;
 	transition: width 0.1s, height 0.1s 0.1s, opacity 0.02s 0.18s;
 }
 
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:hover:before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:hover:after,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:after,
-.archt-pointer__framed.archt-animation__draw .current-menu-item:before,
-.archt-pointer__framed.archt-animation__draw .current-menu-item:after {
-	width: 100%;
-	height: 100%;
-}
-
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:hover:before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:before,
-.archt-pointer__framed.archt-animation__draw .current-menu-item:before {
-	-webkit-transition: opacity 0.02s, height 0.1s, width 0.1s 0.1s;
-	transition: opacity 0.02s, height 0.1s, width 0.1s 0.1s;
-}
-
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:hover:after,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent a.archt-menu-item:focus:after,
-.archt-pointer__framed.archt-animation__draw .current-menu-item:after {
-	-webkit-transition: opacity 0.02s 0.2s, height 0.1s 0.2s, width 0.1s 0.3s;
-	transition: opacity 0.02s 0.2s, height 0.1s 0.2s, width 0.1s 0.3s;
-}
-
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:after {
-	width: 3px;
-	height: 3px;
-}
-
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:before {
+.archt-menu[data-pointer="framed"][data-animation="corners"] .archt-menu__list > li::before {
 	border-width: 3px 0 0 3px;
 }
 
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:after {
-	content: '';
-	top: initial;
-	bottom: 0;
-	left: initial;
-	right: 0;
+.archt-menu[data-pointer="framed"][data-animation="corners"] .archt-menu__list > li::after {
 	border-width: 0 3px 3px 0;
 }
 
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:hover:before,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:hover:after,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:focus:before,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent a.archt-menu-item:focus:after,
-.archt-pointer__framed.archt-animation__corners .current-menu-item:before,
-.archt-pointer__framed.archt-animation__corners .current-menu-item:after {
+.archt-menu[data-pointer="framed"]:is([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li:is(:hover, :focus-within)::before,
+.archt-menu[data-pointer="framed"]:is([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li:is(:hover, :focus-within)::after,
+.archt-menu[data-pointer="framed"]:is([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::before,
+.archt-menu[data-pointer="framed"]:is([data-animation="draw"], [data-animation="corners"]) .archt-menu__list > li:is(.current-menu-item, .current-menu-ancestor)::after {
 	width: 100%;
 	height: 100%;
-	-webkit-transition: opacity 0.002s, width 0.4s, height 0.4s;
+}
+
+.archt-menu[data-pointer="framed"][data-animation="draw"] .archt-menu__list > li:is(:hover, :focus-within)::before {
+	transition: opacity 0.02s, height 0.1s, width 0.1s 0.1s;
+}
+
+.archt-menu[data-pointer="framed"][data-animation="draw"] .archt-menu__list > li:is(:hover, :focus-within)::after {
+	transition: opacity 0.02s 0.2s, height 0.1s 0.2s, width 0.1s 0.3s;
+}
+
+.archt-menu[data-pointer="framed"][data-animation="corners"] .archt-menu__list > li:is(:hover, :focus-within)::before,
+.archt-menu[data-pointer="framed"][data-animation="corners"] .archt-menu__list > li:is(:hover, :focus-within)::after {
 	transition: opacity 0.002s, width 0.4s, height 0.4s;
-}
-
-.archt-pointer__framed.archt-animation__none,
-.archt-pointer__framed.archt-animation__none .menu-item.parent a.archt-menu-item {
-	-webkit-transition-duration: 0s;
-	transition-duration: 0s;
-}
-
-.archt-pointer__framed.archt-animation__none:before,
-.archt-pointer__framed.archt-animation__none:after,
-.archt-pointer__framed.archt-animation__none:hover,
-.archt-pointer__framed.archt-animation__none:focus,
-.archt-pointer__framed.archt-animation__none .menu-item.parent a.archt-menu-item:before,
-.archt-pointer__framed.archt-animation__none .menu-item.parent a.archt-menu-item:after,
-.archt-pointer__framed.archt-animation__none .menu-item.parent a.archt-menu-item:hover,
-.archt-pointer__framed.archt-animation__none .menu-item.parent a.archt-menu-item:focus {
-	-webkit-transition-duration: 0s;
-	transition-duration: 0s;
-}
-
-.archt-pointer__underline .menu-item.parent a.archt-menu-item.elementor-button:after,
-.archt-pointer__overline .menu-item.parent a.archt-menu-item.elementor-button:before,
-.archt-pointer__double-line .menu-item.parent a.archt-menu-item.elementor-button:after,
-.archt-pointer__double-line .menu-item.parent a.archt-menu-item.elementor-button:before {
-	height: 0px;
-}
-
-.archt-pointer__framed .menu-item.parent a.archt-menu-item.elementor-button:before,
-.archt-pointer__framed .menu-item.parent a.archt-menu-item.elementor-button:after {
-	border-width: 0px;
-}
-
-.archt-submenu-animation-slide_up .archt-layout-horizontal .menu-item-has-children > ul.sub-menu {
-	-webkit-transform: translateY(20%);
-	-ms-transform: translateY(20%);
-	transform: translateY(20%);
-	opacity: 0;
-	-webkit-transition: all 0.1s;
-	transition: all 0.1s;
-}
-
-.archt-submenu-animation-slide_up .archt-layout-horizontal .menu-item-has-children:hover > ul.sub-menu {
-	-webkit-transform: translateY(0);
-	-ms-transform: translateY(0);
-	transform: translateY(0);
-	opacity: 1;
-}
-
-.archt-submenu-animation-slide_down .archt-layout-horizontal .menu-item-has-children > ul.sub-menu {
-	-webkit-transform: translateY(-20%);
-	-ms-transform: translateY(-20%);
-	transform: translateY(-20%);
-	opacity: 0;
-	-webkit-transition: all 0.1s;
-	transition: all 0.1s;
-}
-
-.archt-submenu-animation-slide_down .archt-layout-horizontal .menu-item-has-children:hover > ul.sub-menu {
-	-webkit-transform: translateY(0);
-	-ms-transform: translateY(0);
-	transform: translateY(0);
-	opacity: 1;
-}
-
-.archt-nav-menu .archt-has-submenu .sub-menu li.menu-item:first-child,
-.archt-nav-menu .archt-has-submenu .sub-menu li.menu-item:last-child {
-	overflow: visible !important;
-}
-
-.archt-layout-vertical ul.sub-menu.open {
-	opacity: 1;
-	visibility: visible;
-	height: 100%;
-	position: absolute;
-}
-
-.archt-layout-horizontal ul.sub-menu.open {
-	opacity: 1;
-	visibility: visible;
-}
-
-.archt-nav-menu li.elementor-button-wrapper {
-	align-self: center;
-}
-
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__double-line.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__underline.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__overline.archt-animation__slide .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
-	width: 100%;
-	left: 0;
-	opacity: 1;
-}
-
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	bottom: 0px;
-	opacity: 1;
-}
-
-.archt-pointer__double-line.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__underline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__drop-out .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__double-line.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__underline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__drop-in .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
-	top: 0px;
-	opacity: 1;
-}
-
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__double-line.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__underline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__overline.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	height: 3px;
-	width: 100%;
-	left: 0;
-	opacity: 1;
-}
-
-.archt-pointer__framed.archt-animation__grow .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__framed.archt-animation__shrink .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before {
-	opacity: 1;
-	-webkit-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-}
-
-.archt-pointer__framed.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:before,
-.archt-pointer__underline.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__double-line.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__double-line.archt-animation__fade .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	opacity: 1;
-}
-
-.archt-pointer__framed.archt-animation__corners .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__framed.archt-animation__corners .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):before,
-.archt-pointer__framed.archt-animation__draw .menu-item.parent.current-menu-item a.archt-menu-item:not(:hover):not(:focus):not(.current-menu-item):after {
-	border-width: 3px;
-	width: 100%;
-	opacity: 1;
-	height: 100%;
-}
-
-.archt-nav-menu .sub-menu.archt-submenu-vertical {
-	top: 100%;
-	left: 0;
-	right: auto;
-}
-
-.archt-layout-horizontal .archt-nav-menu .sub-menu.archt-submenu-horizontal {
-	top: 0;
-	left: 100%;
-	right: auto;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu > li.archt-has-submenu > .sub-menu {
-	left: 0;
-	right: auto;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu > li.archt-has-submenu > .sub-menu.archt-submenu-flip-left {
-	left: auto;
-	right: 0;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu .sub-menu li.archt-has-submenu > .sub-menu {
-	top: 0;
-	left: 100%;
-	right: auto;
-}
-
-.archt-nav-menu__layout-horizontal .archt-nav-menu .sub-menu li.archt-has-submenu > .sub-menu.archt-submenu-flip-left {
-	left: auto;
-	right: 100%;
-}
-
-@media only screen and (max-width: 1024px) {
-	.archt-nav-menu .sub-menu {
-	min-width: auto;
-	margin: 0;
-	}
-
-	.archt-submenu-animation-slide_up .archt-layout-horizontal .menu-item-has-children ul.sub-menu,
-	.archt-submenu-animation-slide_up .archt-layout-horizontal .menu-item-has-children:hover ul.sub-menu,
-	.archt-submenu-animation-slide_down .archt-layout-horizontal .menu-item-has-children ul.sub-menu,
-	.archt-submenu-animation-slide_down .archt-layout-horizontal .menu-item-has-children:hover ul.sub-menu {
-	-webkit-transform: none;
-	-ms-transform: none;
-	transform: none;
-	}
-}
-
-@media only screen and (max-width: 767px) {
-	.archt-nav-menu .sub-menu {
-	min-width: auto;
-	margin: 0;
-	}
-
-	.archt-submenu-animation-slide_up .archt-layout-horizontal .menu-item-has-children ul.sub-menu,
-	.archt-submenu-animation-slide_up .archt-layout-horizontal .menu-item-has-children:hover ul.sub-menu,
-	.archt-submenu-animation-slide_down .archt-layout-horizontal .menu-item-has-children ul.sub-menu,
-	.archt-submenu-animation-slide_down .archt-layout-horizontal .menu-item-has-children:hover ul.sub-menu {
-	-webkit-transform: none;
-	-ms-transform: none;
-	transform: none;
-	}
 }
 
 .elementor-editor-active .archt-condition-yes {

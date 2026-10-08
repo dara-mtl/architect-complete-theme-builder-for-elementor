@@ -7,7 +7,7 @@
  * Author: WP Smart Widgets
  * Author URI: https://wpsmartwidgets.com/
  * Documentation URI: https://wpsmartwidgets.com/doc/architect-theme-builder-for-elementor/
- * Version: 1.0.0-beta.2
+ * Version: 1.0.0-beta.3
  * Requires PHP: 7.4
  * Requires at least: 6.2
  * Tested up to: 7.1
@@ -38,7 +38,7 @@ require_once ARCHT_PLUGIN_DIR . 'widget-categories.php';
  * @since 1.0.0
  */
 final class ARCHT_Elementor {
-	const VERSION                   = '1.0.0-beta.2';
+	const VERSION                   = '1.0.0-beta.3';
 	const MINIMUM_ELEMENTOR_VERSION = '3.0.0';
 	const MINIMUM_PHP_VERSION       = '7.4';
 
@@ -141,6 +141,7 @@ final class ARCHT_Elementor {
 		add_action( 'elementor/editor/before_enqueue_styles', [ $this, 'backend_widget_styles' ] );
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'archt_doc_css' ] );
 		add_filter( 'template_include', [ $this, 'handle_preview_endpoint' ], 999 );
+		add_action( 'init', [ $this, 'maybe_clear_css' ], 20 );
 
 		if ( self::is_pro_active() ) {
 			add_action( 'admin_notices', [ $this, 'admin_notice_pro_active' ] );
@@ -156,6 +157,21 @@ final class ARCHT_Elementor {
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-custom-attributes.php';
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-ajax.php';
 		require_once ARCHT_PLUGIN_DIR . 'inc/class-archt-theme-widgets-registrar.php';
+	}
+
+	/**
+	 * Clear Elementor's generated CSS once after an update, as widget selectors may have changed.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function maybe_clear_css() {
+		if ( self::VERSION === get_option( 'archt_version' ) ) {
+			return;
+		}
+
+		\Elementor\Plugin::$instance->files_manager->clear_cache();
+		update_option( 'archt_version', self::VERSION );
 	}
 
 	/**

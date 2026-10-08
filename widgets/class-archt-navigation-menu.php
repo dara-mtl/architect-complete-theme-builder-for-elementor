@@ -344,7 +344,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'global'   => [
 						'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 					],
-					'selector' => '{{WRAPPER}} a.archt-menu-item, {{WRAPPER}} a.archt-sub-menu-item',
+					'selector' => '{{WRAPPER}} .archt-menu__link',
 				]
 			);
 
@@ -365,10 +365,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'unit' => 'px',
 					],
 					'selectors'  => [
-						'{{WRAPPER}} .parent > a, {{WRAPPER}} .parent > .archt-has-submenu-container'      => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}};',
-						'{{WRAPPER}} .archt-nav-menu__layout-vertical .menu-item ul ul > .menu-item'       => 'padding-left: calc( {{SIZE}}{{UNIT}} + 20px ); padding-right: {{SIZE}}{{UNIT}};',
-						'{{WRAPPER}} .archt-nav-menu__layout-vertical .menu-item ul ul ul > .menu-item'    => 'padding-left: calc( {{SIZE}}{{UNIT}} + 40px ); padding-right: {{SIZE}}{{UNIT}};',
-						'{{WRAPPER}} .archt-nav-menu__layout-vertical .menu-item ul ul ul ul > .menu-item' => 'padding-left: calc( {{SIZE}}{{UNIT}} + 60px ); padding-right: {{SIZE}}{{UNIT}};',
+						'{{WRAPPER}}' => '--archt-item-px: {{SIZE}}{{UNIT}};',
 					],
 				]
 			);
@@ -389,7 +386,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'unit' => 'px',
 					],
 					'selectors'  => [
-						'{{WRAPPER}} .parent > a, {{WRAPPER}} .parent > .archt-has-submenu-container' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
+						'{{WRAPPER}}' => '--archt-item-py: {{SIZE}}{{UNIT}};',
 					],
 
 				]
@@ -407,13 +404,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						],
 					],
 					'selectors'  => [
-						'body:not(.rtl) {{WRAPPER}} .archt-nav-menu__layout-horizontal .archt-nav-menu > li.menu-item:not(:last-child)' => 'margin-right: {{SIZE}}{{UNIT}}',
-						'body.rtl {{WRAPPER}} .archt-nav-menu__layout-horizontal .archt-nav-menu > li.menu-item:not(:last-child)' => 'margin-left: {{SIZE}}{{UNIT}}',
-						'{{WRAPPER}} nav:not(.archt-nav-menu__layout-horizontal) .archt-nav-menu > li.menu-item:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}}',
-						'(tablet)body:not(.rtl) {{WRAPPER}}.archt-nav-menu__breakpoint-tablet .archt-nav-menu__layout-horizontal .archt-nav-menu > li.menu-item:not(:last-child)' => 'margin-right: 0px',
-						'(mobile)body:not(.rtl) {{WRAPPER}}.archt-nav-menu__breakpoint-mobile .archt-nav-menu__layout-horizontal .archt-nav-menu > li.menu-item:not(:last-child)' => 'margin-right: 0px',
-						'(tablet)body {{WRAPPER}} nav.archt-nav-menu__layout-vertical .archt-nav-menu > li.menu-item:not(:last-child)' => 'margin-bottom: 0px',
-						'(mobile)body {{WRAPPER}} nav.archt-nav-menu__layout-vertical .archt-nav-menu > li.menu-item:not(:last-child)' => 'margin-bottom: 0px',
+						'{{WRAPPER}}' => '--archt-gap: {{SIZE}}{{UNIT}};',
 					],
 
 				]
@@ -431,7 +422,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						],
 					],
 					'selectors'  => [
-						'body:not(.rtl) {{WRAPPER}} .archt-nav-menu__layout-horizontal .archt-nav-menu > li.menu-item' => 'margin: {{SIZE}}{{UNIT}} 0',
+						'{{WRAPPER}}' => '--archt-row-gap: {{SIZE}}{{UNIT}};',
 					],
 					'condition'  => [
 						'layout' => 'horizontal',
@@ -446,8 +437,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'name'      => 'menu_border_width',
 					'label'     => esc_html__( 'Border', 'architect-complete-theme-builder-for-elementor' ),
 					'separator' => 'before',
-					'selector'  =>
-						'body:not(.rtl) {{WRAPPER}} .archt-nav-menu > li:not(.cta)',
+					'selector' => '{{WRAPPER}} .archt-menu__list > li',
 				]
 			);
 
@@ -458,8 +448,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'type'       => Controls_Manager::SLIDER,
 					'size_units' => [ 'px', '%' ],
 					'selectors'  => [
-						'body:not(.rtl) {{WRAPPER}} .archt-nav-menu__layout-horizontal .archt-nav-menu > li:not(.cta)' =>
-							'border-radius: {{SIZE}}{{UNIT}}',
+						'{{WRAPPER}} .archt-menu__list > li' => 'border-radius: {{SIZE}}{{UNIT}};',
 					],
 				]
 			);
@@ -545,7 +534,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						],
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .parent > a.archt-menu-item, {{WRAPPER}} .parent > .archt-has-submenu-container a, {{WRAPPER}} .parent > .archt-has-submenu-container svg' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu__list > li > :is(.archt-menu__link, .archt-menu__toggle)' => 'color: {{VALUE}};',
 						],
 					]
 				);
@@ -557,7 +546,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .parent:not(.cta)' => 'background-color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__list > li, {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__list > li > :is(.archt-menu__link, .archt-menu__toggle)' => 'background-color: {{VALUE}};',
 						],
 					]
 				);
@@ -580,7 +569,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 							'default' => Global_Colors::COLOR_ACCENT,
 						],
 						'selectors' => [
-							'{{WRAPPER}} .parent:hover > a,  {{WRAPPER}} .parent > .archt-has-submenu-container:hover a, {{WRAPPER}} .parent > .archt-has-submenu-container:hover svg, {{WRAPPER}} .parent.current_page_item:hover .archt-has-submenu-container > a:not(.archt-sub-menu-item), {{WRAPPER}} .parent.current_page_item:hover > .archt-has-submenu-container > svg, {{WRAPPER}} .parent.current_page_item:hover > a, {{WRAPPER}} .parent.current_page_item:hover > svg, {{WRAPPER}} .parent.current-menu-ancestor:hover .archt-has-submenu-container > a:not(.archt-sub-menu-item), {{WRAPPER}} .parent.current-menu-ancestor:hover > .archt-has-submenu-container > svg' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__list > li:is(:hover, :focus-within) > :is(.archt-menu__link, .archt-menu__toggle), {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__list > li:has(> :is(.archt-menu__link, .archt-menu__toggle):is(:hover, :focus-visible)) > :is(.archt-menu__link, .archt-menu__toggle)' => 'color: {{VALUE}};',
 						],
 					]
 				);
@@ -591,7 +580,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'label'     => esc_html__( 'Background Color', 'architect-complete-theme-builder-for-elementor' ),
 						'type'      => Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} .parent:not(.cta):hover, {{WRAPPER}} .parent:not(.cta).current_page_item:hover, {{WRAPPER}} .parent:not(.cta).current-menu-ancestor:hover > .archt-has-submenu-container' => 'background-color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__list > li:is(:hover, :focus-within), {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__list > li:has(> :is(.archt-menu__link, .archt-menu__toggle):is(:hover, :focus-visible)) > :is(.archt-menu__link, .archt-menu__toggle)' => 'background-color: {{VALUE}};',
 						],
 					]
 				);
@@ -602,7 +591,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'label'     => esc_html__( 'Hover Effect Color', 'architect-complete-theme-builder-for-elementor' ),
 						'type'      => Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} .menu-item.parent a.archt-menu-item:hover:after, {{WRAPPER}} .menu-item.parent a.archt-menu-item:before' => 'background-color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu__list > li:is(:hover, :focus-within)' => '--archt-pointer-color: {{VALUE}};',
 						],
 						'condition' => [
 							'layout'  => [ 'horizontal' ],
@@ -617,7 +606,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'label'     => esc_html__( 'Hover Effect Color', 'architect-complete-theme-builder-for-elementor' ),
 						'type'      => Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} .menu-item.parent a.archt-menu-item:hover:after, {{WRAPPER}} .menu-item.parent a.archt-menu-item:before' => 'border-color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu__list > li:is(:hover, :focus-within)' => '--archt-pointer-color: {{VALUE}};',
 						],
 						'condition' => [
 							'layout'  => [ 'horizontal' ],
@@ -642,7 +631,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .parent.current-menu-ancestor .archt-has-submenu-container > a:not(.archt-sub-menu-item), {{WRAPPER}} .parent.current-menu-ancestor > .archt-has-submenu-container > svg, {{WRAPPER}} .parent.current_page_item .archt-has-submenu-container > a:not(.archt-sub-menu-item), {{WRAPPER}} .parent.current_page_item > .archt-has-submenu-container > svg, {{WRAPPER}} .parent.current_page_item > a, {{WRAPPER}} .parent.current_page_item > svg' => 'color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu__list > li:where(.current-menu-item, .current-menu-ancestor) > :is(.archt-menu__link, .archt-menu__toggle)' => 'color: {{VALUE}};',
 						],
 					]
 				);
@@ -654,7 +643,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'type'      => Controls_Manager::COLOR,
 						'default'   => '',
 						'selectors' => [
-							'{{WRAPPER}} .parent.current-menu-ancestor, {{WRAPPER}} .parent.current_page_item' => 'background-color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__list > li:where(.current-menu-item, .current-menu-ancestor), {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__list > li:where(.current-menu-item, .current-menu-ancestor) > :is(.archt-menu__link, .archt-menu__toggle)' => 'background-color: {{VALUE}};',
 						],
 					]
 				);
@@ -665,7 +654,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'label'     => esc_html__( 'Hover Effect Color', 'architect-complete-theme-builder-for-elementor' ),
 						'type'      => Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} .menu-item.parent a.archt-menu-item:after, {{WRAPPER}} .menu-item.parent a.archt-menu-item:before' => 'background-color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu__list > li:where(.current-menu-item, .current-menu-ancestor)' => '--archt-pointer-color: {{VALUE}};',
 						],
 						'condition' => [
 							'layout'  => [ 'horizontal' ],
@@ -680,7 +669,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'label'     => esc_html__( 'Hover Effect Color', 'architect-complete-theme-builder-for-elementor' ),
 						'type'      => Controls_Manager::COLOR,
 						'selectors' => [
-							'{{WRAPPER}} .menu-item.parent a.archt-menu-item:after, {{WRAPPER}} .menu-item.parent a.archt-menu-item:before' => 'border-color: {{VALUE}}',
+							'{{WRAPPER}} .archt-menu__list > li:where(.current-menu-item, .current-menu-ancestor)' => '--archt-pointer-color: {{VALUE}};',
 						],
 						'condition' => [
 							'layout'  => [ 'horizontal' ],
@@ -720,10 +709,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					],
 					'separator' => 'before',
-					'selector'  => '
-							{{WRAPPER}} .sub-menu li a.archt-sub-menu-item,
-							{{WRAPPER}} nav.archt-dropdown li a.archt-sub-menu-item,
-							{{WRAPPER}} nav.archt-dropdown li a.archt-menu-item',
+					'selector' => '{{WRAPPER}} .archt-menu__sub .archt-menu__link',
 				]
 			);
 
@@ -743,7 +729,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						],
 					],
 					'selectors'  => [
-						'{{WRAPPER}} .sub-menu .menu-item' => 'padding-left: {{SIZE}}{{UNIT}}; padding-right: {{SIZE}}{{UNIT}}',
+						'{{WRAPPER}}' => '--archt-sub-px: {{SIZE}}{{UNIT}};',
 					],
 
 				]
@@ -765,7 +751,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						],
 					],
 					'selectors'  => [
-						'{{WRAPPER}} .sub-menu .menu-item' => 'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}}',
+						'{{WRAPPER}}' => '--archt-sub-py: {{SIZE}}{{UNIT}};',
 					],
 
 				]
@@ -790,7 +776,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					],
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu .archt-sub-menu-item, {{WRAPPER}} .sub-menu .archt-has-submenu-container svg' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .archt-menu__sub :is(.archt-menu__link, .archt-menu__toggle)' => 'color: {{VALUE}};',
 					],
 				]
 			);
@@ -802,7 +788,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu li' => 'background-color: {{VALUE}}',
+						'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__sub li, {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__sub li > :is(.archt-menu__link, .archt-menu__toggle)' => 'background-color: {{VALUE}};',
 					],
 				]
 			);
@@ -825,7 +811,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'default' => Global_Colors::COLOR_ACCENT,
 					],
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu li:hover > .archt-sub-menu-item, {{WRAPPER}} .sub-menu li:hover .archt-has-submenu-container svg, {{WRAPPER}} .sub-menu li:hover .archt-has-submenu-container a' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__sub li:is(:hover, :focus-within) > :is(.archt-menu__link, .archt-menu__toggle), {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__sub li:has(> :is(.archt-menu__link, .archt-menu__toggle):is(:hover, :focus-visible)) > :is(.archt-menu__link, .archt-menu__toggle)' => 'color: {{VALUE}};',
 					],
 				]
 			);
@@ -836,7 +822,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'label'     => esc_html__( 'Background Color', 'architect-complete-theme-builder-for-elementor' ),
 					'type'      => Controls_Manager::COLOR,
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu li:hover' => 'background-color: {{VALUE}}',
+						'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__sub li:is(:hover, :focus-within), {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__sub li:has(> :is(.archt-menu__link, .archt-menu__toggle):is(:hover, :focus-visible)) > :is(.archt-menu__link, .archt-menu__toggle)' => 'background-color: {{VALUE}};',
 					],
 				]
 			);
@@ -857,7 +843,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu .current-menu-item > .archt-sub-menu-item, {{WRAPPER}} .sub-menu .archt-sub-menu-item-active, {{WRAPPER}} .sub-menu .current-menu-item .archt-has-submenu-container svg' => 'color: {{VALUE}};',
+						'{{WRAPPER}} .archt-menu__sub li:where(.current-menu-item, .current-menu-ancestor) > :is(.archt-menu__link, .archt-menu__toggle)' => 'color: {{VALUE}};',
 					],
 				]
 			);
@@ -869,7 +855,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '',
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu .current-menu-item, {{WRAPPER}} .sub-menu .current_page_item' => 'background-color: {{VALUE}}',
+						'{{WRAPPER}} .archt-menu:not([data-layout="expanded"]) .archt-menu__sub li:where(.current-menu-item, .current-menu-ancestor), {{WRAPPER}} .archt-menu[data-layout="expanded"] .archt-menu__sub li:where(.current-menu-item, .current-menu-ancestor) > :is(.archt-menu__link, .archt-menu__toggle)' => 'background-color: {{VALUE}};',
 					],
 				]
 			);
@@ -921,7 +907,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'size' => 5,
 					],
 					'selectors'  => [
-						'{{WRAPPER}} .archt-has-submenu-container svg' => 'margin-right: {{SIZE}}{{UNIT}};',
+						'{{WRAPPER}}' => '--archt-icon-gap: {{SIZE}}{{UNIT}};',
 					],
 					'condition'  => [
 						'icon_position' => 'left',
@@ -946,7 +932,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'size' => 5,
 					],
 					'selectors'  => [
-						'{{WRAPPER}} .archt-has-submenu-container svg' => 'margin-left: {{SIZE}}{{UNIT}};',
+						'{{WRAPPER}}' => '--archt-icon-gap: {{SIZE}}{{UNIT}};',
 					],
 					'condition'  => [
 						'icon_position' => 'right',
@@ -1021,8 +1007,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'dashed' => esc_html__( 'Dashed', 'architect-complete-theme-builder-for-elementor' ),
 					],
 					'selectors'   => [
-						'{{WRAPPER}} .sub-menu li.menu-item:not(:last-child),
-						{{WRAPPER}} nav.archt-dropdown li.menu-item:not(:last-child)' => 'border-bottom-style: {{VALUE}};',
+						'{{WRAPPER}} .archt-menu__sub > li:not(:last-child)' => 'border-bottom-style: {{VALUE}};',
 					],
 				]
 			);
@@ -1034,8 +1019,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '#c4c4c4',
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu li.menu-item:not(:last-child),
-						{{WRAPPER}} nav.archt-dropdown li.menu-item:not(:last-child)' => 'border-bottom-color: {{VALUE}};',
+						'{{WRAPPER}} .archt-menu__sub > li:not(:last-child)' => 'border-bottom-color: {{VALUE}};',
 					],
 					'condition' => [
 						'dropdown_divider_border!' => 'none',
@@ -1058,8 +1042,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'unit' => 'px',
 					],
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu li.menu-item:not(:last-child),
-						{{WRAPPER}} nav.archt-dropdown li.menu-item:not(:last-child)' => 'border-width: {{SIZE}}{{UNIT}};',
+						'{{WRAPPER}} .archt-menu__sub > li:not(:last-child)' => 'border-bottom-width: {{SIZE}}{{UNIT}};',
 					],
 					'condition' => [
 						'dropdown_divider_border!' => 'none',
@@ -1080,9 +1063,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 				Group_Control_Border::get_type(),
 				[
 					'name'     => 'dropdown_border',
-					'selector' => '{{WRAPPER}} nav.archt-nav-menu__layout-horizontal .sub-menu,
-							{{WRAPPER}} nav:not(.archt-nav-menu__layout-horizontal) .sub-menu.sub-menu-open,
-							{{WRAPPER}} nav.archt-dropdown .archt-nav-menu',
+					'selector' => '{{WRAPPER}} .archt-menu__sub',
 				]
 			);
 
@@ -1093,12 +1074,9 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'type'       => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', '%' ],
 					'selectors'  => [
-						'{{WRAPPER}} .sub-menu'          => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} .sub-menu li.menu-item:first-child' => 'border-top-left-radius: {{TOP}}{{UNIT}}; border-top-right-radius: {{RIGHT}}{{UNIT}};overflow:hidden;',
-						'{{WRAPPER}} .sub-menu li.menu-item:last-child' => 'border-bottom-right-radius: {{BOTTOM}}{{UNIT}}; border-bottom-left-radius: {{LEFT}}{{UNIT}};overflow:hidden',
-						'{{WRAPPER}} nav.archt-dropdown' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-						'{{WRAPPER}} nav.archt-dropdown li.menu-item:first-child' => 'border-top-left-radius: {{TOP}}{{UNIT}}; border-top-right-radius: {{RIGHT}}{{UNIT}};overflow:hidden',
-						'{{WRAPPER}} nav.archt-dropdown li.menu-item:last-child' => 'border-bottom-right-radius: {{BOTTOM}}{{UNIT}}; border-bottom-left-radius: {{LEFT}}{{UNIT}};overflow:hidden',
+						'{{WRAPPER}} .archt-menu__sub' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .archt-menu__sub > li:first-child' => 'border-start-start-radius: {{TOP}}{{UNIT}}; border-start-end-radius: {{RIGHT}}{{UNIT}};',
+						'{{WRAPPER}} .archt-menu__sub > li:last-child' => 'border-end-end-radius: {{BOTTOM}}{{UNIT}}; border-end-start-radius: {{LEFT}}{{UNIT}};',
 					],
 
 				]
@@ -1120,7 +1098,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'unit' => 'px',
 					],
 					'selectors' => [
-						'{{WRAPPER}} ul.sub-menu' => 'width: {{SIZE}}{{UNIT}}',
+						'{{WRAPPER}}' => '--archt-sub-width: {{SIZE}}{{UNIT}};',
 					],
 					'condition' => [
 						'layout' => 'horizontal',
@@ -1141,8 +1119,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						],
 					],
 					'selectors' => [
-						'{{WRAPPER}} nav.archt-nav-menu__layout-horizontal:not(.archt-dropdown) ul.sub-menu, {{WRAPPER}} nav.archt-nav-menu__layout-vertical:not(.archt-dropdown) ul.sub-menu' => 'margin-top: {{SIZE}}px;',
-						'{{WRAPPER}} .archt-dropdown.menu-is-active' => 'margin-top: {{SIZE}}px;',
+						'{{WRAPPER}}' => '--archt-sub-offset: {{SIZE}}px;',
 					],
 					'condition' => [
 						'layout' => [ 'horizontal', 'vertical' ],
@@ -1158,7 +1135,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'type'      => Controls_Manager::COLOR,
 					'default'   => '#ffffff',
 					'selectors' => [
-						'{{WRAPPER}} .sub-menu' => 'background-color: {{VALUE}}',
+						'{{WRAPPER}} .archt-menu__sub' => 'background-color: {{VALUE}};',
 					],
 				]
 			);
@@ -1170,8 +1147,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'exclude'   => [
 						'box_shadow_position',
 					],
-					'selector'  => '{{WRAPPER}} .archt-nav-menu .sub-menu,
-								{{WRAPPER}} nav.archt-dropdown',
+					'selector' => '{{WRAPPER}} .archt-menu__sub',
 					'separator' => 'after',
 				]
 			);
@@ -1195,81 +1171,58 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-		$vertical_children_expanded = (
-			'vertical' === $settings['layout'] &&
-			! empty( $settings['vertical_children_expanded'] ) &&
-			'yes' === $settings['vertical_children_expanded']
+		$layout = $settings['layout'];
+		$menu   = wp_get_nav_menu_object( $settings['menu'] );
+
+		$this->add_render_attribute(
+			'archt-menu',
+			[
+				'class'       => 'archt-menu',
+				'data-layout' => $layout,
+				'aria-label'  => $menu ? $menu->name : __( 'Menu', 'architect-complete-theme-builder-for-elementor' ),
+			]
 		);
+
+		if ( 'yes' === $settings['schema_support'] ) {
+			$this->add_render_attribute(
+				'archt-menu',
+				[
+					'itemscope' => 'itemscope',
+					'itemtype'  => 'https://schema.org/SiteNavigationElement',
+				]
+			);
+		}
+
+		if ( 'horizontal' === $layout && ! empty( $settings['pointer'] ) && 'none' !== $settings['pointer'] ) {
+			$this->add_render_attribute(
+				'archt-menu',
+				[
+					'data-pointer'   => $settings['pointer'],
+					'data-animation' => 'framed' === $settings['pointer'] ? $settings['animation_framed'] : $settings['animation_line'],
+				]
+			);
+		}
+
+		if ( 'expanded' === $layout && 'open' === $settings['expanded_submenus'] ) {
+			$this->add_render_attribute( 'archt-menu', 'data-submenus', 'open' );
+		} elseif ( 'expanded' === $layout && 'yes' === $settings['expanded_accordion'] ) {
+			$this->add_render_attribute( 'archt-menu', 'data-accordion', '1' );
+		}
 
 		$args = [
 			'echo'        => false,
 			'menu'        => $settings['menu'],
-			'menu_class'  => 'archt-nav-menu',
+			'menu_class'  => 'archt-menu__list',
 			'menu_id'     => 'menu-' . $this->get_nav_menu_index() . '-' . $this->get_id(),
 			'fallback_cb' => '__return_empty_string',
 			'container'   => '',
 			'walker'      => new ARCHT_Menu_Walker( $settings ),
 		];
 
-		if ( 'yes' === $settings['schema_support'] ) {
-			$this->add_render_attribute( 'archt-nav-menu', 'itemscope', 'itemscope' );
-			$this->add_render_attribute( 'archt-nav-menu', 'itemtype', 'https://schema.org/SiteNavigationElement' );
-		}
-
-		$this->add_render_attribute(
-			'archt-main-menu',
-			'class',
-			[
-				'archt-nav-menu',
-				'archt-layout-' . $settings['layout'],
-			]
-		);
-
-		$this->add_render_attribute( 'archt-main-menu', 'class', $settings['layout'] );
-
-		if ( $vertical_children_expanded ) {
-			$this->add_render_attribute( 'archt-main-menu', 'class', 'archt-vertical-children-expanded' );
-		}
-
-		$this->add_render_attribute( 'archt-main-menu', 'data-layout', $settings['layout'] );
-
-		if ( 'expanded' === $settings['layout'] ) {
-			if ( 'open' === $settings['expanded_submenus'] ) {
-				$this->add_render_attribute( 'archt-main-menu', 'class', 'archt-expanded-always-open' );
-			} elseif ( 'yes' === $settings['expanded_accordion'] ) {
-				$this->add_render_attribute( 'archt-main-menu', 'data-accordion', '1' );
-			}
-		}
-
-		if ( $settings['pointer'] ) {
-			if ( 'horizontal' === $settings['layout'] || 'vertical' === $settings['layout'] ) {
-				$this->add_render_attribute( 'archt-main-menu', 'class', 'archt-pointer__' . $settings['pointer'] );
-
-				if ( in_array( $settings['pointer'], [ 'double-line', 'underline', 'overline' ], true ) ) {
-					$key = 'animation_line';
-					$this->add_render_attribute( 'archt-main-menu', 'class', 'archt-animation__' . $settings[ $key ] );
-				} elseif ( 'framed' === $settings['pointer'] ) {
-					$key = 'animation_' . $settings['pointer'];
-					$this->add_render_attribute( 'archt-main-menu', 'class', 'archt-animation__' . $settings[ $key ] );
-				}
-			}
-		}
-
-		$this->add_render_attribute(
-			'archt-nav-menu',
-			'class',
-			[
-				'archt-nav-menu__layout-' . $settings['layout'],
-				'archt-nav-menu__submenu-' . $settings['submenu_icon'],
-			]
-		);
-
 		?>
-			<div <?php $this->print_render_attribute_string( 'archt-main-menu' ); ?>>
-				<nav <?php $this->print_render_attribute_string( 'archt-nav-menu' ); ?>>
-					<?php echo wp_nav_menu( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by the menu walker. ?> 
-				</nav>
-			</div>
-			<?php
+		<nav <?php $this->print_render_attribute_string( 'archt-menu' ); ?>>
+			<?php echo wp_nav_menu( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped by the menu walker. ?>
+		</nav>
+		<?php
 	}
 }
