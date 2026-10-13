@@ -297,7 +297,7 @@ class ARCHT_Post_Navigation_Widget extends Widget_Base {
 		echo '<div class="archt-nav-item archt-nav-prev">';
 		if ( $prev_post ) {
 			$prev_url = esc_url( get_permalink( $prev_post ) );
-			echo '<a href="' . esc_url( $prev_url ) . '">';
+			echo '<a href="' . esc_url( $prev_url ) . '" rel="prev">';
 
 			if ( $show_arrows ) {
 				echo '<i class="eicon-chevron-left archt-nav-arrow" aria-hidden="true"></i>';
@@ -318,7 +318,7 @@ class ARCHT_Post_Navigation_Widget extends Widget_Base {
 		echo '<div class="archt-nav-item archt-nav-next">';
 		if ( $next_post ) {
 			$next_url = esc_url( get_permalink( $next_post ) );
-			echo '<a href="' . esc_url( $next_url ) . '">';
+			echo '<a href="' . esc_url( $next_url ) . '" rel="next">';
 
 			if ( $show_label ) {
 				echo '<span class="archt-nav-label">' . esc_html( $next_label ) . '</span>';

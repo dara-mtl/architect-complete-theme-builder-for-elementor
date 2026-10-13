@@ -83,7 +83,6 @@ class ARCHT_Theme_Builder {
 		add_action( 'before_delete_post', [ __CLASS__, 'flush_template_cache' ] );
 		add_action( 'elementor/document/after_save', [ __CLASS__, 'flush_template_cache' ] );
 
-		add_action( 'wp_head', [ $this, 'output_critical_css' ], 1 );
 		add_action( 'wp_footer', [ $this, 'insert_popup' ] );
 	}
 
@@ -207,7 +206,7 @@ class ARCHT_Theme_Builder {
 			<body <?php body_class(); ?>>
 			<?php
 			wp_body_open();
-			echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.
 			return;
 		}
 
@@ -220,7 +219,7 @@ class ARCHT_Theme_Builder {
 				: $html . $template;
 		}
 
-		echo $swapped; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $swapped; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The theme's own header.php/footer.php output with the Elementor template swapped in, both escaped where generated.
 	}
 
 	/**
@@ -236,7 +235,7 @@ class ARCHT_Theme_Builder {
 		$template = $this->capture_template( $this->active_templates['footer'], 'footer' );
 
 		if ( '' === trim( $html ) ) {
-			echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.
 			wp_footer();
 			echo '</body></html>';
 			return;
@@ -250,7 +249,7 @@ class ARCHT_Theme_Builder {
 			$swapped  = false === $position ? $template . $html : substr_replace( $html, $template, $position, 0 );
 		}
 
-		echo $swapped; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $swapped; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The theme's own header.php/footer.php output with the Elementor template swapped in, both escaped where generated.
 	}
 
 	/**
@@ -428,19 +427,6 @@ class ARCHT_Theme_Builder {
 	}
 
 	/**
-	 * Print the popup CSS needed before archt-popup.css loads.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 */
-	public function output_critical_css() {
-		if ( empty( $this->active_popup_ids ) ) {
-			return;
-		}
-		echo '<style id="archt-critical-css">[data-elementor-type="popup"],[class^="popup-bg-"]{display:none;}</style>' . "\n";
-	}
-
-	/**
 	 * Render the active popups.
 	 *
 	 * @since 1.0.0
@@ -474,19 +460,19 @@ class ARCHT_Theme_Builder {
 		switch ( $type ) {
 			case 'header':
 				do_action( 'archt/header/before' );
-				echo '<header itemtype="https://schema.org/WPHeader" itemscope="itemscope" role="banner">' . $content . '</header>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<header itemtype="https://schema.org/WPHeader" itemscope="itemscope" role="banner">' . $content . '</header>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.
 				do_action( 'archt/header/after' );
 				break;
 			case 'footer':
 				do_action( 'archt/footer/before' );
-				echo '<footer itemtype="https://schema.org/WPFooter" itemscope="itemscope" role="contentinfo">' . $content . '</footer>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<footer itemtype="https://schema.org/WPFooter" itemscope="itemscope" role="contentinfo">' . $content . '</footer>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.
 				do_action( 'archt/footer/after' );
 				break;
 			case 'popup':
-				echo $content . '<div class="popup-bg-' . esc_attr( $template_id ) . '"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $content . '<div class="popup-bg-' . esc_attr( $template_id ) . '"></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.
 				break;
 			case 'content':
-				echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.
 				break;
 		}
 	}
@@ -533,6 +519,7 @@ class ARCHT_Theme_Builder {
 
 		if ( $this->active_popup_ids ) {
 			wp_enqueue_style( 'archt-popup-style', ARCHT_Elementor::asset_url( 'assets/css/archt-popup.css' ), [], ARCHT_Elementor::VERSION );
+			wp_add_inline_style( 'archt-popup-style', '[data-elementor-type="popup"],[class^="popup-bg-"]{display:none;}' );
 			ARCHT_Elementor::enqueue_popup_script();
 
 			foreach ( $this->active_popup_ids as $popup_id ) {

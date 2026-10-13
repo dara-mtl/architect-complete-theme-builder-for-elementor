@@ -7,10 +7,9 @@
  * Author: WP Smart Widgets
  * Author URI: https://wpsmartwidgets.com/
  * Documentation URI: https://wpsmartwidgets.com/doc/architect-theme-builder-for-elementor/
- * Version: 1.0.0-beta.3
+ * Version: 1.0.0
  * Requires PHP: 7.4
  * Requires at least: 6.2
- * Tested up to: 7.1
  * Elementor tested up to: 4.3.2
  * Text Domain: architect-complete-theme-builder-for-elementor
  * Domain Path: /lang
@@ -38,7 +37,7 @@ require_once ARCHT_PLUGIN_DIR . 'widget-categories.php';
  * @since 1.0.0
  */
 final class ARCHT_Elementor {
-	const VERSION                   = '1.0.0-beta.3';
+	const VERSION                   = '1.0.0';
 	const MINIMUM_ELEMENTOR_VERSION = '3.0.0';
 	const MINIMUM_PHP_VERSION       = '7.4';
 

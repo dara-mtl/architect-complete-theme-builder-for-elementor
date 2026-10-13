@@ -670,7 +670,7 @@ class Repeater extends Tag {
 			echo '</tbody></table>';
 		} elseif ( 'ul' === $html_tag || 'ol' === $html_tag ) {
 			if ( 'grouped' === $settings['list_output_mode'] ) {
-				echo "<{$html_tag} class='repeater-list'>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped on line 326 and in the final output.
+				echo '<' . tag_escape( $html_tag ) . ' class="repeater-list">';
 
 				for ( $counter = 1; $counter <= $max_child_keys; $counter++ ) {
 					$child_key     = "child_key_{$counter}";
@@ -699,9 +699,9 @@ class Repeater extends Tag {
 					}
 				}
 
-				echo "</{$html_tag}>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped on line 326 and in the final output.
+				echo '</' . tag_escape( $html_tag ) . '>';
 			} else {
-				echo "<{$html_tag} class='repeater-list'>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped on line 326 and in the final output.
+				echo '<' . tag_escape( $html_tag ) . ' class="repeater-list">';
 
 				foreach ( $entries as $entry ) {
 					for ( $counter = 1; $counter <= $max_child_keys; $counter++ ) {
@@ -724,7 +724,7 @@ class Repeater extends Tag {
 					}
 				}
 
-				echo "</{$html_tag}>"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped on line 326 and in the final output.
+				echo '</' . tag_escape( $html_tag ) . '>';
 			}
 		} else {
 			foreach ( $entries as $entry ) {

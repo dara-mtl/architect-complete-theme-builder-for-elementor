@@ -816,10 +816,12 @@ class ARCHT_Posts_Loop_Widget extends Widget_Base {
 				get_post_thumbnail_id(),
 				$thumb_size,
 				false,
-				[
-					'class' => 'archt-loop-thumb-img',
-					'alt'   => esc_attr( get_the_title() ),
-				]
+				array_filter(
+					[
+						'class' => 'archt-loop-thumb-img',
+						'alt'   => get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true ) ? '' : get_the_title(),
+					]
+				)
 			);
 			if ( $thumb_link ) {
 				echo '</a>';
@@ -854,7 +856,7 @@ class ARCHT_Posts_Loop_Widget extends Widget_Base {
 
 		if ( $show_meta ) {
 			echo '<div class="archt-loop-meta">';
-			printf( '<span class="archt-loop-date">%s</span>', esc_html( get_the_date() ) );
+			printf( '<time class="archt-loop-date" datetime="%s">%s</time>', esc_attr( get_the_date( 'c' ) ), esc_html( get_the_date() ) );
 			printf(
 				'<span class="archt-loop-author">%s</span>',
 				sprintf(

@@ -465,6 +465,8 @@ class ARCHT_Post_Meta_Widget extends Widget_Base {
 						? esc_html( get_the_date( $date_format ) )
 						: esc_html( get_the_modified_date( $date_format ) );
 				}
+
+				$value_html = sprintf( '<time datetime="%s">%s</time>', esc_attr( 'date' === $type ? get_the_date( 'c' ) : get_the_modified_date( 'c' ) ), $value_html );
 				break;
 
 			case 'author':
@@ -569,7 +571,7 @@ class ARCHT_Post_Meta_Widget extends Widget_Base {
 
 		// Keeps <i> and <svg> icons, which wp_kses_post() strips.
 		echo '<div class="archt-post-meta">';
-		echo ARCHT_Helper::sanitize_and_escape_svg_input( implode( esc_html( $separator ), $parts ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo ARCHT_Helper::sanitize_and_escape_svg_input( implode( esc_html( $separator ), $parts ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped with wp_kses() in sanitize_and_escape_svg_input(), using the post allowlist plus SVG icon tags.
 		echo '</div>';
 	}
 }

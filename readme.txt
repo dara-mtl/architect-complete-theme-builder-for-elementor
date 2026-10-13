@@ -6,11 +6,11 @@ Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
 Requires Plugins: elementor
-Stable tag: 1.0.0-beta.3
+Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-A theme builder for the free version of Elementor. Build headers, footers, single and archive templates and popups, and choose where each one appears.
+A theme builder for the free version of Elementor. Build headers, footers, single and archive templates, and popups with display conditions.
 
 == Description ==
 
@@ -68,7 +68,7 @@ The post and custom data tags are shared with [Better Post & Filter Widgets for 
 
 = Compatibility =
 
-* **Elementor v4:** atomic widgets and Global Classes render correctly inside every template, and the widgets and dynamic tags work in both v3 and v4. Display Conditions, Custom CSS and Custom Attributes are available on v3 elements only for now.
+* **Elementor v4:** atomic widgets and Global Classes render correctly inside every template, and the widgets and dynamic tags work in both v3 and v4. Display Conditions, Custom CSS and Custom Attributes apply to v3 elements.
 * **Elementor Pro:** when Pro is active, the theme builder, popups, Custom CSS and Custom Attributes step aside so nothing conflicts. The widgets and dynamic tags Pro doesn't have remain available.
 * **Themes:** on classic themes, only the theme's site header and footer are swapped for your templates, so its page wrappers and layout stay intact.
 
@@ -127,7 +127,7 @@ Yes. Architect is open source, and contributions are welcome on [GitHub](https:/
 
 = Does it work with Elementor v4? =
 
-Yes. Atomic widgets and Global Classes render in every template, and Architect's widgets and dynamic tags work in v4. Display Conditions, Custom CSS and Custom Attributes are available on v3 elements only for now.
+Yes. Atomic widgets and Global Classes render in every template, and Architect's widgets and dynamic tags work in v4. Display Conditions, Custom CSS and Custom Attributes apply to v3 elements.
 
 = Which translation plugins are supported? =
 

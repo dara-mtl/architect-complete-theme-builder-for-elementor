@@ -435,6 +435,8 @@ class ARCHT_Post_Featured_Image_Widget extends Widget_Base {
 		$settings     = $this->get_settings_for_display();
 		$size         = sanitize_key( $settings['image_size'] );
 		$thumbnail_id = get_post_thumbnail_id();
+		// The image of the post being viewed is usually the largest one on screen: load it first, never lazily.
+		$hero         = is_singular() && get_queried_object_id() === get_the_ID();
 
 		if ( ! $thumbnail_id ) {
 			if ( ! empty( $settings['fallback']['id'] ) ) {
@@ -442,9 +444,10 @@ class ARCHT_Post_Featured_Image_Widget extends Widget_Base {
 			} elseif ( ! empty( $settings['fallback']['url'] ) ) {
 				echo '<div class="archt-featured-image-wrap">';
 				printf(
-					'<img class="archt-featured-image" src="%s" alt="%s" />',
+					'<img class="archt-featured-image" src="%s" alt="%s"%s />',
 					esc_url( $settings['fallback']['url'] ),
-					esc_attr( get_the_title() )
+					esc_attr( get_the_title() ),
+					$hero ? ' fetchpriority="high"' : ' loading="lazy"'
 				);
 				echo '</div>';
 				return;
@@ -457,10 +460,13 @@ class ARCHT_Post_Featured_Image_Widget extends Widget_Base {
 			$thumbnail_id,
 			$size,
 			false,
-			[
-				'class' => 'archt-featured-image',
-				'alt'   => esc_attr( get_the_title() ),
-			]
+			array_filter(
+				[
+					'class'         => 'archt-featured-image',
+					'alt'           => get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) ? '' : get_the_title(),
+					'fetchpriority' => $hero ? 'high' : '',
+				]
+			) + ( $hero ? [ 'loading' => false ] : [] )
 		);
 
 		if ( empty( $image_html ) ) {

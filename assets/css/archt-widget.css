@@ -216,19 +216,55 @@
 	flex-grow: 1;
 }
 
-/* Expanded: submenus open in the flow, on click only. The grid keeps the arrow beside the label, the submenu spans below. */
+/* Expanded: submenus open in the flow, on click only. The grid keeps the arrow beside the label, the submenu spans below;
+   a flexible column takes the free space, so an open submenu never widens the label column. */
 .archt-menu[data-layout="expanded"] .archt-menu__item {
 	display: grid;
-	grid-template-columns: minmax(0, max-content) auto;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	justify-items: start;
 }
 
-.archt-nav-menu__align-justify .archt-menu[data-layout="expanded"] .archt-menu__item {
-	grid-template-columns: minmax(0, 1fr) auto;
+.archt-nav-menu__align-right .archt-menu[data-layout="expanded"] .archt-menu__item,
+.archt-submenu-icon-right.archt-nav-menu__align-justify .archt-menu[data-layout="expanded"] .archt-menu__item {
+	grid-template-columns: 1fr auto;
+}
+
+.archt-submenu-icon-right.archt-nav-menu__align-right .archt-menu[data-layout="expanded"] .archt-menu__link,
+.archt-submenu-icon-left.archt-nav-menu__align-right .archt-menu[data-layout="expanded"] .archt-menu__toggle {
+	justify-self: end;
+}
+
+.archt-submenu-icon-right.archt-nav-menu__align-justify .archt-menu[data-layout="expanded"] .archt-menu__link,
+.archt-submenu-icon-left.archt-nav-menu__align-justify .archt-menu[data-layout="expanded"] .archt-menu__link {
+	justify-self: stretch;
+}
+
+.archt-nav-menu__align-center .archt-menu[data-layout="expanded"] .archt-menu__item {
+	grid-template-columns: 1fr auto auto 1fr;
+}
+
+.archt-nav-menu__align-center .archt-menu[data-layout="expanded"] .archt-menu__link,
+.archt-submenu-icon-left.archt-nav-menu__align-center .archt-menu[data-layout="expanded"] .archt-menu__toggle {
+	grid-column: 2;
+}
+
+.archt-nav-menu__align-center .archt-menu[data-layout="expanded"] .archt-menu__toggle,
+.archt-submenu-icon-left.archt-nav-menu__align-center .archt-menu[data-layout="expanded"] .archt-menu__link {
+	grid-column: 3;
+}
+
+/* Items without an arrow span the row, aligned as set. */
+.archt-menu[data-layout="expanded"] .archt-menu__item:not(:has(> .archt-menu__toggle)) > .archt-menu__link,
+.archt-menu[data-layout="expanded"][data-submenus="open"] .archt-menu__item > .archt-menu__link {
+	grid-column: 1 / -1;
+	justify-self: var(--archt-justify, start);
 }
 
 .archt-menu[data-layout="expanded"] .archt-menu__sub {
 	display: none;
 	grid-column: 1 / -1;
+	justify-self: stretch;
 }
 
 .archt-menu[data-layout="expanded"] .archt-menu__sub .archt-menu__sub {
@@ -424,5 +460,6 @@
 }
 
 .elementor-editor-active .archt-condition-yes {
-	outline: 1px dashed rgba(0, 0, 0, 0.2) !important;
+	outline: 1px dashed #D97706 !important;
+	outline-offset: -1px;
 }

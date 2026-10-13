@@ -32,12 +32,15 @@ class ARCHT_Ajax {
 		}
 
 		$search   = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';
-		$mode     = isset( $_GET['mode'] ) ? sanitize_text_field( wp_unslash( $_GET['mode'] ) ) : 'post';
+		$mode     = isset( $_GET['mode'] ) && 'term' === $_GET['mode'] ? 'term' : 'post';
 		$page     = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
 		$per_page = 6;
 		$results  = [];
 
-		$post_type = ! empty( $_GET['post_type'] ) ? sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) : 'any';
+		$post_type = ! empty( $_GET['post_type'] ) ? sanitize_key( wp_unslash( $_GET['post_type'] ) ) : 'any';
+		if ( 'any' !== $post_type && ! post_type_exists( $post_type ) ) {
+			$post_type = 'any';
+		}
 		if ( 'post' === $mode ) {
 			$post_query = new WP_Query(
 				[

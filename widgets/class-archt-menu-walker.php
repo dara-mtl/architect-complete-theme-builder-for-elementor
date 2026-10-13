@@ -23,11 +23,18 @@ class ARCHT_Menu_Walker extends \Walker_Nav_Menu {
 	protected $settings;
 
 	/**
-	 * Whether the first vertical submenu is already open.
+	 * Whether the first submenu is already open.
 	 *
 	 * @var bool
 	 */
 	protected $first_opened = false;
+
+	/**
+	 * Whether the first expanded submenu opens, as no branch holds the current page.
+	 *
+	 * @var bool
+	 */
+	protected $open_first = false;
 
 	/**
 	 * Constructor.
@@ -39,6 +46,28 @@ class ARCHT_Menu_Walker extends \Walker_Nav_Menu {
 	 */
 	public function __construct( $settings ) {
 		$this->settings = $settings;
+	}
+
+	/**
+	 * Walk the menu items, checking first whether any branch holds the current page.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param array $elements  Menu items.
+	 * @param int   $max_depth Maximum depth.
+	 * @param mixed ...$args   Additional arguments.
+	 *
+	 * @return string
+	 */
+	public function walk( $elements, $max_depth, ...$args ) {
+		$this->open_first = isset( $this->settings['layout'], $this->settings['expanded_open_first'], $this->settings['expanded_submenus'] )
+			&& 'expanded' === $this->settings['layout']
+			&& 'yes' === $this->settings['expanded_open_first']
+			&& 'collapsed' === $this->settings['expanded_submenus']
+			&& ! array_filter( (array) $elements, fn( $element ) => array_intersect( [ 'current-menu-ancestor', 'current-menu-parent' ], (array) $element->classes ) );
+
+		return parent::walk( $elements, $max_depth, ...$args );
 	}
 
 	/**
@@ -124,6 +153,11 @@ class ARCHT_Menu_Walker extends \Walker_Nav_Menu {
 		$layout = isset( $this->settings['layout'] ) ? $this->settings['layout'] : 'horizontal';
 
 		if ( 'vertical' === $layout && 0 === $depth && ! $this->first_opened && ! empty( $this->settings['vertical_children_expanded'] ) && 'yes' === $this->settings['vertical_children_expanded'] ) {
+			$this->first_opened = true;
+			return true;
+		}
+
+		if ( $this->open_first && 0 === $depth && ! $this->first_opened ) {
 			$this->first_opened = true;
 			return true;
 		}

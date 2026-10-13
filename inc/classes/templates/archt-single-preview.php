@@ -84,7 +84,7 @@ setup_postdata( $archt_preview_post );
 <?php wp_body_open(); ?>
 
 <?php
-echo \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $archt_template_id, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $archt_template_id, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.
 ?>
 
 <?php wp_footer(); ?>

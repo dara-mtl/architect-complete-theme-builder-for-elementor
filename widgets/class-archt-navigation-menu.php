@@ -272,6 +272,23 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 			);
 
 			$this->add_control(
+				'expanded_open_first',
+				[
+					'label'        => esc_html__( 'Open First Submenu', 'architect-complete-theme-builder-for-elementor' ),
+					'type'         => Controls_Manager::SWITCHER,
+					'label_on'     => esc_html__( 'Yes', 'architect-complete-theme-builder-for-elementor' ),
+					'label_off'    => esc_html__( 'No', 'architect-complete-theme-builder-for-elementor' ),
+					'return_value' => 'yes',
+					'default'      => '',
+					'description'  => esc_html__( 'Opens the first submenu when the current page is not in any of them.', 'architect-complete-theme-builder-for-elementor' ),
+					'condition'    => [
+						'layout'            => 'expanded',
+						'expanded_submenus' => 'collapsed',
+					],
+				]
+			);
+
+			$this->add_control(
 				'vertical_children_expanded',
 				[
 					'label'        => esc_html__( 'Start With Submenu Expanded', 'architect-complete-theme-builder-for-elementor' ),

@@ -1,12 +1,12 @@
-# Copyright (C) 2026 Architect - Complete Theme Builder for Elementor 1.0.0-beta
-# This file is distributed under the same license as the Architect - Complete Theme Builder for Elementor 1.0.0-beta package.
+# Copyright (C) 2026 Architect - Complete Theme Builder for Elementor 1.0.0
+# This file is distributed under the same license as the Architect - Complete Theme Builder for Elementor 1.0.0 package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Architect - Complete Theme Builder for Elementor 1.0.0-beta\n"
+"Project-Id-Version: Architect - Complete Theme Builder for Elementor 1.0.0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-04 05:14+0000\n"
+"POT-Creation-Date: 2026-10-09 01:25+0000\n"
 "Report-Msgid-Bugs-To: https://github.com/dara-mtl/architect-complete-theme-builder-for-elementor/issues\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -183,11 +183,11 @@ msgstr ""
 msgid "Add Paragraphs"
 msgstr ""
 
-#: dynamic-tags/custom-field.php:216, dynamic-tags/image-custom-field.php:185, dynamic-tags/post-terms.php:128, dynamic-tags/post-terms.php:139, inc/classes/class-archt-display-conditions.php:109, inc/classes/documents/popup.php:716, inc/classes/documents/popup.php:728, inc/classes/documents/popup.php:740, inc/classes/documents/popup.php:773, inc/classes/documents/popup.php:785, inc/classes/documents/popup.php:811, widgets/class-archt-navigation-menu.php:210, widgets/class-archt-navigation-menu.php:263, widgets/class-archt-navigation-menu.php:279, widgets/archive/class-archt-archive-pagination.php:135, widgets/archive/class-archt-archive-title.php:141, widgets/archive/class-archt-posts-loop.php:195, widgets/archive/class-archt-posts-loop.php:339, widgets/single/class-archt-post-featured-image.php:128, widgets/single/class-archt-post-featured-image.php:139, widgets/single/class-archt-post-meta.php:146, widgets/single/class-archt-post-meta.php:157, widgets/single/class-archt-post-navigation.php:118, widgets/single/class-archt-post-navigation.php:149, widgets/single/class-archt-post-navigation.php:160, widgets/single/class-archt-post-navigation.php:171, widgets/single/class-archt-post-title.php:138
+#: dynamic-tags/custom-field.php:216, dynamic-tags/image-custom-field.php:185, dynamic-tags/post-terms.php:128, dynamic-tags/post-terms.php:139, inc/classes/class-archt-display-conditions.php:109, inc/classes/documents/popup.php:716, inc/classes/documents/popup.php:728, inc/classes/documents/popup.php:740, inc/classes/documents/popup.php:773, inc/classes/documents/popup.php:785, inc/classes/documents/popup.php:811, widgets/class-archt-navigation-menu.php:210, widgets/class-archt-navigation-menu.php:263, widgets/class-archt-navigation-menu.php:279, widgets/class-archt-navigation-menu.php:296, widgets/archive/class-archt-archive-pagination.php:135, widgets/archive/class-archt-archive-title.php:141, widgets/archive/class-archt-posts-loop.php:195, widgets/archive/class-archt-posts-loop.php:339, widgets/single/class-archt-post-featured-image.php:128, widgets/single/class-archt-post-featured-image.php:139, widgets/single/class-archt-post-meta.php:146, widgets/single/class-archt-post-meta.php:157, widgets/single/class-archt-post-navigation.php:118, widgets/single/class-archt-post-navigation.php:149, widgets/single/class-archt-post-navigation.php:160, widgets/single/class-archt-post-navigation.php:171, widgets/single/class-archt-post-title.php:138
 msgid "Yes"
 msgstr ""
 
-#: dynamic-tags/custom-field.php:217, dynamic-tags/image-custom-field.php:186, dynamic-tags/post-terms.php:129, dynamic-tags/post-terms.php:140, inc/classes/class-archt-display-conditions.php:110, inc/classes/documents/popup.php:717, inc/classes/documents/popup.php:729, inc/classes/documents/popup.php:741, inc/classes/documents/popup.php:774, inc/classes/documents/popup.php:786, inc/classes/documents/popup.php:812, widgets/class-archt-navigation-menu.php:211, widgets/class-archt-navigation-menu.php:264, widgets/class-archt-navigation-menu.php:280, widgets/archive/class-archt-archive-pagination.php:136, widgets/archive/class-archt-archive-title.php:142, widgets/archive/class-archt-posts-loop.php:196, widgets/archive/class-archt-posts-loop.php:340, widgets/single/class-archt-post-featured-image.php:129, widgets/single/class-archt-post-featured-image.php:140, widgets/single/class-archt-post-meta.php:147, widgets/single/class-archt-post-meta.php:158, widgets/single/class-archt-post-navigation.php:119, widgets/single/class-archt-post-navigation.php:150, widgets/single/class-archt-post-navigation.php:161, widgets/single/class-archt-post-navigation.php:172, widgets/single/class-archt-post-title.php:139
+#: dynamic-tags/custom-field.php:217, dynamic-tags/image-custom-field.php:186, dynamic-tags/post-terms.php:129, dynamic-tags/post-terms.php:140, inc/classes/class-archt-display-conditions.php:110, inc/classes/documents/popup.php:717, inc/classes/documents/popup.php:729, inc/classes/documents/popup.php:741, inc/classes/documents/popup.php:774, inc/classes/documents/popup.php:786, inc/classes/documents/popup.php:812, widgets/class-archt-navigation-menu.php:211, widgets/class-archt-navigation-menu.php:264, widgets/class-archt-navigation-menu.php:280, widgets/class-archt-navigation-menu.php:297, widgets/archive/class-archt-archive-pagination.php:136, widgets/archive/class-archt-archive-title.php:142, widgets/archive/class-archt-posts-loop.php:196, widgets/archive/class-archt-posts-loop.php:340, widgets/single/class-archt-post-featured-image.php:129, widgets/single/class-archt-post-featured-image.php:140, widgets/single/class-archt-post-meta.php:147, widgets/single/class-archt-post-meta.php:158, widgets/single/class-archt-post-navigation.php:119, widgets/single/class-archt-post-navigation.php:150, widgets/single/class-archt-post-navigation.php:161, widgets/single/class-archt-post-navigation.php:172, widgets/single/class-archt-post-title.php:139
 msgid "No"
 msgstr ""
 
@@ -231,7 +231,7 @@ msgstr ""
 msgid "Content Length"
 msgstr ""
 
-#: dynamic-tags/post-content.php:117
+#: dynamic-tags/post-content.php:113
 msgid "This is the post content. The full content will only display live."
 msgstr ""
 
@@ -737,7 +737,7 @@ msgstr ""
 msgid "Page Layout"
 msgstr ""
 
-#: inc/classes/documents/archive.php:146, inc/classes/documents/single.php:308, widgets/class-archt-navigation-menu.php:950, widgets/single/class-archt-post-featured-image.php:273
+#: inc/classes/documents/archive.php:146, inc/classes/documents/single.php:308, widgets/class-archt-navigation-menu.php:967, widgets/single/class-archt-post-featured-image.php:273
 msgid "Default"
 msgstr ""
 
@@ -769,7 +769,7 @@ msgstr ""
 msgid "Add New Popup Template"
 msgstr ""
 
-#: inc/classes/documents/popup.php:250, widgets/class-archt-navigation-menu.php:479
+#: inc/classes/documents/popup.php:250, widgets/class-archt-navigation-menu.php:496
 msgid "Animation"
 msgstr ""
 
@@ -837,15 +837,15 @@ msgstr ""
 msgid "Horizontal"
 msgstr ""
 
-#: inc/classes/documents/popup.php:468, widgets/class-archt-navigation-menu.php:296, widgets/class-archt-navigation-menu.php:968, widgets/archive/class-archt-archive-description.php:138, widgets/archive/class-archt-archive-pagination.php:157, widgets/archive/class-archt-archive-title.php:188, widgets/archive/class-archt-posts-loop.php:725, widgets/single/class-archt-post-content.php:138, widgets/single/class-archt-post-excerpt.php:169, widgets/single/class-archt-post-featured-image.php:174, widgets/single/class-archt-post-meta.php:334, widgets/single/class-archt-post-title.php:186
+#: inc/classes/documents/popup.php:468, widgets/class-archt-navigation-menu.php:313, widgets/class-archt-navigation-menu.php:985, widgets/archive/class-archt-archive-description.php:138, widgets/archive/class-archt-archive-pagination.php:157, widgets/archive/class-archt-archive-title.php:188, widgets/archive/class-archt-posts-loop.php:725, widgets/single/class-archt-post-content.php:138, widgets/single/class-archt-post-excerpt.php:169, widgets/single/class-archt-post-featured-image.php:174, widgets/single/class-archt-post-meta.php:334, widgets/single/class-archt-post-title.php:186
 msgid "Left"
 msgstr ""
 
-#: inc/classes/documents/popup.php:472, inc/classes/documents/popup.php:504, widgets/class-archt-navigation-menu.php:300, widgets/archive/class-archt-archive-description.php:142, widgets/archive/class-archt-archive-pagination.php:161, widgets/archive/class-archt-archive-title.php:192, widgets/archive/class-archt-posts-loop.php:729, widgets/single/class-archt-post-content.php:142, widgets/single/class-archt-post-excerpt.php:173, widgets/single/class-archt-post-featured-image.php:178, widgets/single/class-archt-post-meta.php:338, widgets/single/class-archt-post-title.php:190
+#: inc/classes/documents/popup.php:472, inc/classes/documents/popup.php:504, widgets/class-archt-navigation-menu.php:317, widgets/archive/class-archt-archive-description.php:142, widgets/archive/class-archt-archive-pagination.php:161, widgets/archive/class-archt-archive-title.php:192, widgets/archive/class-archt-posts-loop.php:729, widgets/single/class-archt-post-content.php:142, widgets/single/class-archt-post-excerpt.php:173, widgets/single/class-archt-post-featured-image.php:178, widgets/single/class-archt-post-meta.php:338, widgets/single/class-archt-post-title.php:190
 msgid "Center"
 msgstr ""
 
-#: inc/classes/documents/popup.php:476, widgets/class-archt-navigation-menu.php:304, widgets/class-archt-navigation-menu.php:972, widgets/archive/class-archt-archive-description.php:146, widgets/archive/class-archt-archive-pagination.php:165, widgets/archive/class-archt-archive-title.php:196, widgets/archive/class-archt-posts-loop.php:733, widgets/single/class-archt-post-content.php:146, widgets/single/class-archt-post-excerpt.php:177, widgets/single/class-archt-post-featured-image.php:182, widgets/single/class-archt-post-meta.php:342, widgets/single/class-archt-post-title.php:194
+#: inc/classes/documents/popup.php:476, widgets/class-archt-navigation-menu.php:321, widgets/class-archt-navigation-menu.php:989, widgets/archive/class-archt-archive-description.php:146, widgets/archive/class-archt-archive-pagination.php:165, widgets/archive/class-archt-archive-title.php:196, widgets/archive/class-archt-posts-loop.php:733, widgets/single/class-archt-post-content.php:146, widgets/single/class-archt-post-excerpt.php:177, widgets/single/class-archt-post-featured-image.php:182, widgets/single/class-archt-post-meta.php:342, widgets/single/class-archt-post-title.php:194
 msgid "Right"
 msgstr ""
 
@@ -889,7 +889,7 @@ msgstr ""
 msgid "Offset Side"
 msgstr ""
 
-#: inc/classes/documents/popup.php:623, widgets/class-archt-navigation-menu.php:523, widgets/class-archt-navigation-menu.php:765, widgets/archive/class-archt-posts-loop.php:589, widgets/single/class-archt-post-featured-image.php:320
+#: inc/classes/documents/popup.php:623, widgets/class-archt-navigation-menu.php:540, widgets/class-archt-navigation-menu.php:782, widgets/archive/class-archt-posts-loop.php:589, widgets/single/class-archt-post-featured-image.php:320
 msgid "Normal"
 msgstr ""
 
@@ -897,15 +897,15 @@ msgstr ""
 msgid "Icon Color"
 msgstr ""
 
-#: inc/classes/documents/popup.php:640, inc/classes/documents/popup.php:667, widgets/class-archt-navigation-menu.php:1134
+#: inc/classes/documents/popup.php:640, inc/classes/documents/popup.php:667, widgets/class-archt-navigation-menu.php:1151
 msgid "Background"
 msgstr ""
 
-#: inc/classes/documents/popup.php:650, widgets/class-archt-navigation-menu.php:559, widgets/class-archt-navigation-menu.php:801, widgets/archive/class-archt-posts-loop.php:618, widgets/single/class-archt-post-featured-image.php:353
+#: inc/classes/documents/popup.php:650, widgets/class-archt-navigation-menu.php:576, widgets/class-archt-navigation-menu.php:818, widgets/archive/class-archt-posts-loop.php:618, widgets/single/class-archt-post-featured-image.php:353
 msgid "Hover"
 msgstr ""
 
-#: inc/classes/documents/popup.php:691, widgets/class-archt-navigation-menu.php:447, widgets/class-archt-navigation-menu.php:1073, widgets/archive/class-archt-posts-loop.php:393, widgets/archive/class-archt-posts-loop.php:479, widgets/archive/class-archt-posts-loop.php:666, widgets/single/class-archt-post-featured-image.php:299
+#: inc/classes/documents/popup.php:691, widgets/class-archt-navigation-menu.php:464, widgets/class-archt-navigation-menu.php:1090, widgets/archive/class-archt-posts-loop.php:393, widgets/archive/class-archt-posts-loop.php:479, widgets/archive/class-archt-posts-loop.php:666, widgets/single/class-archt-post-featured-image.php:299
 msgid "Border Radius"
 msgstr ""
 
@@ -1027,7 +1027,7 @@ msgid "Architect"
 msgstr ""
 
 #. translators: %s: Menu item title.
-#: widgets/class-archt-menu-walker.php:162
+#: widgets/class-archt-menu-walker.php:196
 msgid "Toggle submenu for %s"
 msgstr ""
 
@@ -1035,7 +1035,7 @@ msgstr ""
 msgid "Navigation Menu"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:164, widgets/class-archt-navigation-menu.php:174, widgets/class-archt-navigation-menu.php:1182
+#: widgets/class-archt-navigation-menu.php:164, widgets/class-archt-navigation-menu.php:174, widgets/class-archt-navigation-menu.php:1199
 msgid "Menu"
 msgstr ""
 
@@ -1074,198 +1074,206 @@ msgid "Close Other Submenus"
 msgstr ""
 
 #: widgets/class-archt-navigation-menu.php:277
+msgid "Open First Submenu"
+msgstr ""
+
+#: widgets/class-archt-navigation-menu.php:283
+msgid "Opens the first submenu when the current page is not in any of them."
+msgstr ""
+
+#: widgets/class-archt-navigation-menu.php:294
 msgid "Start With Submenu Expanded"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:292, widgets/archive/class-archt-archive-description.php:134, widgets/archive/class-archt-archive-pagination.php:153, widgets/archive/class-archt-archive-title.php:184, widgets/archive/class-archt-posts-loop.php:721, widgets/single/class-archt-post-content.php:134, widgets/single/class-archt-post-excerpt.php:165, widgets/single/class-archt-post-featured-image.php:170, widgets/single/class-archt-post-meta.php:330, widgets/single/class-archt-post-title.php:182
+#: widgets/class-archt-navigation-menu.php:309, widgets/archive/class-archt-archive-description.php:134, widgets/archive/class-archt-archive-pagination.php:153, widgets/archive/class-archt-archive-title.php:184, widgets/archive/class-archt-posts-loop.php:721, widgets/single/class-archt-post-content.php:134, widgets/single/class-archt-post-excerpt.php:165, widgets/single/class-archt-post-featured-image.php:170, widgets/single/class-archt-post-meta.php:330, widgets/single/class-archt-post-title.php:182
 msgid "Alignment"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:308, widgets/archive/class-archt-archive-description.php:150, widgets/single/class-archt-post-content.php:150, widgets/single/class-archt-post-excerpt.php:181
+#: widgets/class-archt-navigation-menu.php:325, widgets/archive/class-archt-archive-description.php:150, widgets/single/class-archt-post-content.php:150, widgets/single/class-archt-post-excerpt.php:181
 msgid "Justify"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:335
+#: widgets/class-archt-navigation-menu.php:352
 msgid "Main Menu"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:354, widgets/class-archt-navigation-menu.php:719
+#: widgets/class-archt-navigation-menu.php:371, widgets/class-archt-navigation-menu.php:736
 msgid "Horizontal Padding"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:376, widgets/class-archt-navigation-menu.php:741
+#: widgets/class-archt-navigation-menu.php:393, widgets/class-archt-navigation-menu.php:758
 msgid "Vertical Padding"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:398
+#: widgets/class-archt-navigation-menu.php:415
 msgid "Space Between"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:416
+#: widgets/class-archt-navigation-menu.php:433
 msgid "Row Spacing"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:438
+#: widgets/class-archt-navigation-menu.php:455
 msgid "Border"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:459
+#: widgets/class-archt-navigation-menu.php:476
 msgid "Link Hover Effect"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:464, widgets/class-archt-navigation-menu.php:488, widgets/class-archt-navigation-menu.php:509, widgets/class-archt-navigation-menu.php:886, widgets/class-archt-navigation-menu.php:1003
+#: widgets/class-archt-navigation-menu.php:481, widgets/class-archt-navigation-menu.php:505, widgets/class-archt-navigation-menu.php:526, widgets/class-archt-navigation-menu.php:903, widgets/class-archt-navigation-menu.php:1020
 msgid "None"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:465
+#: widgets/class-archt-navigation-menu.php:482
 msgid "Underline"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:466
+#: widgets/class-archt-navigation-menu.php:483
 msgid "Overline"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:467
+#: widgets/class-archt-navigation-menu.php:484
 msgid "Double Line"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:468
+#: widgets/class-archt-navigation-menu.php:485
 msgid "Framed"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:483, widgets/class-archt-navigation-menu.php:504
+#: widgets/class-archt-navigation-menu.php:500, widgets/class-archt-navigation-menu.php:521
 msgid "Fade"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:484
+#: widgets/class-archt-navigation-menu.php:501
 msgid "Slide"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:485, widgets/class-archt-navigation-menu.php:505
+#: widgets/class-archt-navigation-menu.php:502, widgets/class-archt-navigation-menu.php:522
 msgid "Grow"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:486
+#: widgets/class-archt-navigation-menu.php:503
 msgid "Drop In"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:487
+#: widgets/class-archt-navigation-menu.php:504
 msgid "Drop Out"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:500
+#: widgets/class-archt-navigation-menu.php:517
 msgid "Frame Animation"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:506
+#: widgets/class-archt-navigation-menu.php:523
 msgid "Shrink"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:507
+#: widgets/class-archt-navigation-menu.php:524
 msgid "Draw"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:508
+#: widgets/class-archt-navigation-menu.php:525
 msgid "Corners"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:530, widgets/class-archt-navigation-menu.php:566, widgets/class-archt-navigation-menu.php:630, widgets/class-archt-navigation-menu.php:772, widgets/class-archt-navigation-menu.php:808, widgets/class-archt-navigation-menu.php:842, widgets/archive/class-archt-posts-loop.php:595, widgets/archive/class-archt-posts-loop.php:624, widgets/single/class-archt-post-meta.php:289
+#: widgets/class-archt-navigation-menu.php:547, widgets/class-archt-navigation-menu.php:583, widgets/class-archt-navigation-menu.php:647, widgets/class-archt-navigation-menu.php:789, widgets/class-archt-navigation-menu.php:825, widgets/class-archt-navigation-menu.php:859, widgets/archive/class-archt-posts-loop.php:595, widgets/archive/class-archt-posts-loop.php:624, widgets/single/class-archt-post-meta.php:289
 msgid "Text Color"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:545, widgets/class-archt-navigation-menu.php:580, widgets/class-archt-navigation-menu.php:642, widgets/class-archt-navigation-menu.php:787, widgets/class-archt-navigation-menu.php:822, widgets/class-archt-navigation-menu.php:854, widgets/archive/class-archt-posts-loop.php:606, widgets/archive/class-archt-posts-loop.php:635
+#: widgets/class-archt-navigation-menu.php:562, widgets/class-archt-navigation-menu.php:597, widgets/class-archt-navigation-menu.php:659, widgets/class-archt-navigation-menu.php:804, widgets/class-archt-navigation-menu.php:839, widgets/class-archt-navigation-menu.php:871, widgets/archive/class-archt-posts-loop.php:606, widgets/archive/class-archt-posts-loop.php:635
 msgid "Background Color"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:591, widgets/class-archt-navigation-menu.php:606, widgets/class-archt-navigation-menu.php:654, widgets/class-archt-navigation-menu.php:669
+#: widgets/class-archt-navigation-menu.php:608, widgets/class-archt-navigation-menu.php:623, widgets/class-archt-navigation-menu.php:671, widgets/class-archt-navigation-menu.php:686
 msgid "Hover Effect Color"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:623, widgets/class-archt-navigation-menu.php:835
+#: widgets/class-archt-navigation-menu.php:640, widgets/class-archt-navigation-menu.php:852
 msgid "Active"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:699
+#: widgets/class-archt-navigation-menu.php:716
 msgid "Submenu"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:870, widgets/class-archt-navigation-menu.php:879
+#: widgets/class-archt-navigation-menu.php:887, widgets/class-archt-navigation-menu.php:896
 msgid "Submenu Icon"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:883
+#: widgets/class-archt-navigation-menu.php:900
 msgid "Arrows"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:884
+#: widgets/class-archt-navigation-menu.php:901
 msgid "Plus Sign"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:885
+#: widgets/class-archt-navigation-menu.php:902
 msgid "Caret"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:896, widgets/class-archt-navigation-menu.php:921
+#: widgets/class-archt-navigation-menu.php:913, widgets/class-archt-navigation-menu.php:938
 msgid "Icon Spacing"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:946
+#: widgets/class-archt-navigation-menu.php:963
 msgid "Submenu Animation"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:951
+#: widgets/class-archt-navigation-menu.php:968
 msgid "Slide Up"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:952
+#: widgets/class-archt-navigation-menu.php:969
 msgid "Slide Down"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:964
+#: widgets/class-archt-navigation-menu.php:981
 msgid "Icon Position"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:989
+#: widgets/class-archt-navigation-menu.php:1006
 msgid "Divider"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:998
+#: widgets/class-archt-navigation-menu.php:1015
 msgid "Border Style"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1004
+#: widgets/class-archt-navigation-menu.php:1021
 msgid "Solid"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1005
+#: widgets/class-archt-navigation-menu.php:1022
 msgid "Double"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1006
+#: widgets/class-archt-navigation-menu.php:1023
 msgid "Dotted"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1007
+#: widgets/class-archt-navigation-menu.php:1024
 msgid "Dashed"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1018
+#: widgets/class-archt-navigation-menu.php:1035
 msgid "Border Color"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1033
+#: widgets/class-archt-navigation-menu.php:1050
 msgid "Border Width"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1056
+#: widgets/class-archt-navigation-menu.php:1073
 msgid "Dropdown"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1088
+#: widgets/class-archt-navigation-menu.php:1105
 msgid "Dropdown Width (px)"
 msgstr ""
 
-#: widgets/class-archt-navigation-menu.php:1113
+#: widgets/class-archt-navigation-menu.php:1130
 msgid "Top Distance"
 msgstr ""
 
@@ -1462,11 +1470,11 @@ msgid "Full"
 msgstr ""
 
 #. translators: %s: Author display name.
-#: widgets/archive/class-archt-posts-loop.php:862
+#: widgets/archive/class-archt-posts-loop.php:864
 msgid "by %s"
 msgstr ""
 
-#: widgets/archive/class-archt-posts-loop.php:920
+#: widgets/archive/class-archt-posts-loop.php:922
 msgid "No posts found."
 msgstr ""
 
@@ -1616,7 +1624,7 @@ msgid "%s ago"
 msgstr ""
 
 #. translators: %d: Number of comments.
-#: widgets/single/class-archt-post-meta.php:486
+#: widgets/single/class-archt-post-meta.php:488
 msgid "%d Comment"
 msgid_plural "%d Comments"
 msgstr[0] ""
