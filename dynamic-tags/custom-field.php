@@ -312,12 +312,9 @@ class Custom_Field extends Tag {
 			}
 
 			if ( 'theme' === $source ) {
-				$option_key   = $this->get_settings( 'option_key' );
-				$theme_option = get_option( $option_key );
+				$value = ARCHT_Helper::get_theme_option_field( $this->get_settings( 'option_key' ), $key );
 
-				if ( isset( $theme_option[ $key ] ) ) {
-					$value = $theme_option[ $key ];
-				} else {
+				if ( null === $value ) {
 					return;
 				}
 			}

@@ -48,7 +48,7 @@ Available on Elementor v3 elements.
 
 Available on Elementor v3 elements.
 
-* Custom CSS in the Advanced tab of your elements, with the `selector` keyword.
+* Custom CSS in the Advanced tab of your elements, with the `selector` keyword. The field is shown only to users who hold `edit_css`, the capability WordPress requires for its own Additional CSS editor, and what they write is sanitized when it is saved.
 * Custom attributes per element, written as `key|value`.
 
 = Widgets =
@@ -74,7 +74,7 @@ The post and custom data tags are shared with [Better Post & Filter Widgets for 
 
 = Developers =
 
-Action hooks `archt/header/before`, `archt/header/after`, `archt/footer/before` and `archt/footer/after` let themes and plugins add markup around your header and footer. Filters are available for the blocked custom attributes (`archt/element/attributes/black_list`), the archive title (`archt/core_elements/get_the_archive_title`) and the taxonomies offered by the Post Terms tag (`archt_taxonomy_args`). The Navigation Menu supports the standard WordPress menu filters, such as `nav_menu_link_attributes` and `nav_menu_css_class`.
+Action hooks `archt/header/before`, `archt/header/after`, `archt/footer/before` and `archt/footer/after` let themes and plugins add markup around your header and footer. Filters are available for the blocked custom attributes (`archt/element/attributes/black_list`), the Custom CSS capability (`archt/custom_css/capability`), the archive title (`archt/core_elements/get_the_archive_title`) and the taxonomies offered by the Post Terms tag (`archt_taxonomy_args`). The Navigation Menu supports the standard WordPress menu filters, such as `nav_menu_link_attributes` and `nav_menu_css_class`.
 
 = Documentation =
 
@@ -136,6 +136,8 @@ WPML and Polylang. Templates assigned to a page or term show on its translation.
 = How do I add custom CSS? =
 
 It works the same way as in Elementor Pro. Open any widget or container in Elementor, go to its Advanced tab and find the Custom CSS section. Use the `selector` keyword to target the element.
+
+The section appears only for users who can edit CSS. WordPress gates its own Additional CSS editor on the `edit_css` capability, which it maps to `unfiltered_html`, and Architect uses the same capability: nobody when `DISALLOW_UNFILTERED_HTML` is defined, and only network administrators on multisite. Use the `archt/custom_css/capability` filter to require a different capability.
 
 = How do I show a popup only a few times? =
 

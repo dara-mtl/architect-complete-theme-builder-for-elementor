@@ -277,9 +277,8 @@ class Image_Custom_Field extends Data_Tag {
 				}
 				$value = get_the_author_meta( $key, $author_id );
 			} elseif ( 'theme' === $source ) {
-				$option_key   = sanitize_key( $this->get_settings( 'option_key' ) );
-				$theme_option = get_option( $option_key );
-				$value        = isset( $theme_option[ $key ] ) ? $theme_option[ $key ] : '';
+				$theme_value = ARCHT_Helper::get_theme_option_field( $this->get_settings( 'option_key' ), $key );
+				$value       = null === $theme_value ? '' : $theme_value;
 			}
 		}
 

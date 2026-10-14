@@ -2,7 +2,9 @@
 
 A theme builder for the free version of Elementor. Design your own headers, footers, single and archive layouts and popups, then choose exactly where each one appears.
 
-> **Public beta (1.0.0-beta.3).** Architect is being prepared for WordPress.org. Bug reports, test results on your themes and setups, and feature ideas are very welcome in [Issues](../../issues).
+Available on the WordPress.org plugin directory: [Architect - Complete Theme Builder for Elementor](https://wordpress.org/plugins/architect-complete-theme-builder-for-elementor/).
+
+Development happens here. Bug reports, test results on your themes and setups, and feature ideas are welcome in [Issues](../../issues).
 
 ## Key Features
 
@@ -26,7 +28,7 @@ A theme builder for the free version of Elementor. Design your own headers, foot
 - Match all conditions or any of them. Conditional elements stay visible and outlined in the editor.
 
 ### Custom CSS and Custom Attributes (Elementor v3 elements)
-- Custom CSS per element and per page, with the `selector` keyword.
+- Custom CSS per element and per page, with the `selector` keyword. Shown only to users holding `edit_css` (the capability WordPress uses for its own Additional CSS editor), and sanitized on save.
 - Custom attributes per element using `key|value`, with unsafe attributes filtered out.
 
 ### Widgets
@@ -43,7 +45,7 @@ A theme builder for the free version of Elementor. Design your own headers, foot
 The post and custom data tags are shared with [Better Post & Filter Widgets for Elementor](https://wordpress.org/plugins/better-post-filter-widgets-for-elementor/). When both plugins are active, they are registered only once.
 
 ## Compatibility
-- **Elementor v4:** atomic widgets and Global Classes render correctly inside every template, and the widgets and dynamic tags work in both v3 and v4. Display Conditions, Custom CSS and Custom Attributes are available on v3 elements only for now.
+- **Elementor v4:** atomic widgets and Global Classes render correctly inside every template, and the widgets and dynamic tags work in both v3 and v4. Display Conditions, Custom CSS and Custom Attributes apply to v3 elements.
 - **Elementor Pro:** when Pro is active, Architect's theme builder, popups, Custom CSS and Custom Attributes step aside, and only the widgets and dynamic tags Pro doesn't have remain.
 - **Translation plugins:** WPML and Polylang.
 - **Themes:** on classic themes, only the theme's site header and footer are swapped for your templates, so its page wrappers and layout stay intact. The `archt/header/before`, `archt/header/after`, `archt/footer/before` and `archt/footer/after` hooks give themes and plugins a place to add their markup.
@@ -59,7 +61,7 @@ The post and custom data tags are shared with [Better Post & Filter Widgets for 
 - Elementor (free) 3.0 or later
 
 ## Installation
-1. Download the latest release from [Releases](../../releases), or clone this repository into `wp-content/plugins/`.
+1. Install from Plugins > Add New in WordPress, searching for "Architect - Complete Theme Builder for Elementor". To run the development version instead, download a [release](../../releases) or clone this repository into `wp-content/plugins/`.
 2. Activate **Architect - Complete Theme Builder for Elementor** in Plugins.
 3. Go to Templates > Saved Templates > Add New, and choose Header, Footer, Single, Archive or Popup.
 4. Build the template, then set where it appears in the editor's **Conditions** tab.

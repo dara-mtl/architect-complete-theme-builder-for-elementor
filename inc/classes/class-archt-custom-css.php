@@ -2,6 +2,9 @@
 /**
  * Custom CSS for elements and pages, skipped when Elementor Pro is active.
  *
+ * The control is registered only for users who hold the capability WordPress requires for
+ * its own Additional CSS editor, and every value is sanitized on save and again on render.
+ *
  * Portions adapted from Elementor / Elementor Pro, Copyright (C) Elementor Ltd.,
  * licensed GPLv3.
  *
@@ -30,6 +33,17 @@ if ( defined( 'ELEMENTOR_PRO_VERSION' ) ) {
 class ARCHT_Custom_Css {
 
 	/**
+	 * Capability required to write custom CSS.
+	 *
+	 * 'edit_css' is the capability WordPress gives its own Additional CSS editor. Core maps it
+	 * to 'unfiltered_html', so it is denied when DISALLOW_UNFILTERED_HTML is set and, on
+	 * multisite, to everyone but super admins.
+	 *
+	 * @since 1.0.0
+	 */
+	const CAPABILITY = 'edit_css';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -41,12 +55,173 @@ class ARCHT_Custom_Css {
 		add_action( 'elementor/css-file/post/parse', [ $this, 'add_page_settings_css' ] );
 		add_action( 'elementor/editor/after_enqueue_scripts', [ $this, 'enqueue_editor_scripts' ] );
 
-		// Elementor free strips custom_css from v4 atomic styles; keep it.
+		// Sanitize what is written to the database, not only what is printed.
+		add_filter( 'elementor/document/save/data', [ $this, 'sanitize_saved_data' ], 10, 2 );
+
+		// Elementor free strips custom_css from v4 atomic styles; keep it, sanitized.
 		add_filter( 'elementor/atomic_widgets/editor_data/element_styles', [ $this, 'keep_atomic_custom_css' ], 20, 2 );
 	}
 
 	/**
-	 * Keep the custom CSS stripped from v4 atomic styles.
+	 * Whether the current user may write custom CSS.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return bool
+	 */
+	public static function user_can_edit_css() {
+		/**
+		 * Filters the capability required to write custom CSS.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $capability Capability name.
+		 */
+		$capability = apply_filters( 'archt/custom_css/capability', self::CAPABILITY );
+
+		return current_user_can( $capability );
+	}
+
+	/**
+	 * Remove everything that could leave the CSS context, fetch a remote file, or execute.
+	 *
+	 * Follows WP_Customize_Custom_CSS_Setting, which guards against a '</style' breakout, and
+	 * goes further by dropping @import and the legacy script-in-CSS properties.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param string $css CSS as written in the editor.
+	 * @return string Sanitized CSS.
+	 */
+	public static function sanitize_css( $css ) {
+		if ( ! is_string( $css ) || '' === trim( $css ) ) {
+			return '';
+		}
+
+		// Control characters, keeping tab, newline and carriage return.
+		$css = preg_replace( '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $css );
+
+		/*
+		 * '<' has no meaning in CSS, and removing it makes a '</style>' breakout impossible,
+		 * including the partial '</sty' form that a concatenated stylesheet could complete.
+		 * '>' is kept, as child selectors need it.
+		 */
+		$css = str_replace( '<', '', $css );
+
+		// Remote fetches, and declarations that carry a script or a binding.
+		$css = preg_replace( '/@(?:import|charset)\b[^;{}]*;?/i', '', $css );
+		$css = preg_replace( '/(?<![\w-])(?:behavior|-moz-binding)\s*:[^;}]*;?/i', '', $css );
+		$css = preg_replace( '/[^;{}]*(?:expression\s*\(|(?:java|vb|live)script\s*:|mocha\s*:)[^;}]*;?/i', '', $css );
+
+		// Close an unterminated comment, so it cannot swallow the rules Elementor appends after ours.
+		if ( substr_count( $css, '/*' ) > substr_count( $css, '*/' ) ) {
+			$css .= '*/';
+		}
+
+		// Balance braces, for the same reason.
+		$unclosed = substr_count( $css, '{' ) - substr_count( $css, '}' );
+		if ( $unclosed > 0 ) {
+			$css .= str_repeat( '}', $unclosed );
+		}
+
+		return trim( $css );
+	}
+
+	/**
+	 * Sanitize the custom CSS in a document as it is saved.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param array $data Document data being saved.
+	 * @return array
+	 */
+	public function sanitize_saved_data( $data ) {
+		if ( ! is_array( $data ) ) {
+			return $data;
+		}
+
+		if ( isset( $data['settings']['custom_css'] ) ) {
+			$data['settings']['custom_css'] = self::sanitize_css( $data['settings']['custom_css'] );
+		}
+
+		if ( isset( $data['elements'] ) && is_array( $data['elements'] ) ) {
+			$data['elements'] = self::sanitize_elements( $data['elements'] );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Sanitize the custom CSS of every element in a tree.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @param array $elements Elements.
+	 * @return array
+	 */
+	private static function sanitize_elements( $elements ) {
+		foreach ( $elements as $index => $element ) {
+			if ( ! is_array( $element ) ) {
+				continue;
+			}
+
+			if ( isset( $element['settings']['custom_css'] ) ) {
+				$elements[ $index ]['settings']['custom_css'] = self::sanitize_css( $element['settings']['custom_css'] );
+			}
+
+			if ( isset( $element['styles'] ) && is_array( $element['styles'] ) ) {
+				$elements[ $index ]['styles'] = self::sanitize_atomic_styles( $element['styles'] );
+			}
+
+			if ( isset( $element['elements'] ) && is_array( $element['elements'] ) ) {
+				$elements[ $index ]['elements'] = self::sanitize_elements( $element['elements'] );
+			}
+		}
+
+		return $elements;
+	}
+
+	/**
+	 * Sanitize the custom CSS in v4 atomic style variants, where it is stored base64 encoded.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @param array $styles Atomic styles.
+	 * @return array
+	 */
+	private static function sanitize_atomic_styles( $styles ) {
+		foreach ( $styles as $style_id => $style ) {
+			if ( empty( $style['variants'] ) || ! is_array( $style['variants'] ) ) {
+				continue;
+			}
+
+			foreach ( $style['variants'] as $variant_index => $variant ) {
+				if ( empty( $variant['custom_css']['raw'] ) || ! is_string( $variant['custom_css']['raw'] ) ) {
+					continue;
+				}
+
+				$raw = base64_decode( $variant['custom_css']['raw'], true );
+				$raw = false === $raw ? '' : self::sanitize_css( $raw );
+
+				if ( '' === $raw ) {
+					unset( $styles[ $style_id ]['variants'][ $variant_index ]['custom_css'] );
+					continue;
+				}
+
+				$styles[ $style_id ]['variants'][ $variant_index ]['custom_css'] = [ 'raw' => base64_encode( $raw ) ];
+			}
+		}
+
+		return $styles;
+	}
+
+	/**
+	 * Keep the custom CSS stripped from v4 atomic styles, sanitized.
 	 *
 	 * @since 1.0.0
 	 * @access public
@@ -56,7 +231,7 @@ class ARCHT_Custom_Css {
 	 * @return array
 	 */
 	public function keep_atomic_custom_css( $filtered, $original ) {
-		return $original;
+		return is_array( $original ) ? self::sanitize_atomic_styles( $original ) : $filtered;
 	}
 
 	/**
@@ -66,6 +241,10 @@ class ARCHT_Custom_Css {
 	 * @access public
 	 */
 	public function enqueue_editor_scripts() {
+		if ( ! self::user_can_edit_css() ) {
+			return;
+		}
+
 		wp_enqueue_script( 'archt-custom-css-script', ARCHT_Elementor::asset_url( 'assets/js/archt-custom-css.js' ), [ 'jquery' ], ARCHT_Elementor::VERSION, true );
 	}
 
@@ -80,6 +259,11 @@ class ARCHT_Custom_Css {
 	 */
 	public static function add_controls_section( $element, $section_id ) {
 		if ( 'section_custom_css_pro' !== $section_id ) {
+			return;
+		}
+
+		// Users without the capability keep Elementor's own section, and never see a field.
+		if ( ! self::user_can_edit_css() ) {
 			return;
 		}
 
@@ -143,7 +327,7 @@ class ARCHT_Custom_Css {
 			return;
 		}
 
-		$css = trim( $element_settings['custom_css'] );
+		$css = self::sanitize_css( $element_settings['custom_css'] );
 
 		if ( empty( $css ) ) {
 			return;
@@ -169,11 +353,7 @@ class ARCHT_Custom_Css {
 	 */
 	public function add_page_settings_css( $post_css ) {
 		$document   = \Elementor\Plugin::$instance->documents->get( $post_css->get_post_id() );
-		$custom_css = $document->get_settings( 'custom_css' );
-
-		if ( null !== $custom_css ) {
-			$custom_css = trim( $custom_css );
-		}
+		$custom_css = self::sanitize_css( $document->get_settings( 'custom_css' ) );
 
 		if ( empty( $custom_css ) ) {
 			return;

@@ -413,13 +413,7 @@ class Repeater extends Tag {
 				}
 				break;
 			case 'theme':
-				$option_key   = $settings['option_key'];
-				$theme_option = get_option( $option_key );
-				if ( isset( $theme_option[ $key ] ) ) {
-					$entries = $theme_option[ $key ];
-				} else {
-					$entries = null;
-				}
+				$entries = ARCHT_Helper::get_theme_option_field( isset( $settings['option_key'] ) ? $settings['option_key'] : '', $key );
 				break;
 			default:
 				return;

@@ -22,13 +22,12 @@ class ARCHT_Ajax {
 	 * @access public
 	 */
 	public function archt_search_related_items() {
-		$nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['nonce'] ) ) : '';
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_send_json_error( [ 'message' => 'Access Denied' ], 403 );
+		if ( ! check_ajax_referer( 'archt_search_related_items', 'nonce', false ) ) {
+			wp_send_json_error( [ 'message' => 'Invalid nonce.' ], 403 );
 		}
 
-		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'archt_search_related_items' ) ) {
-			wp_send_json_error( [ 'message' => 'Access Denied' ], 403 );
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( [ 'message' => 'Insufficient permissions.' ], 403 );
 		}
 
 		$search   = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';

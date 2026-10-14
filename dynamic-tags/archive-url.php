@@ -10,7 +10,7 @@ namespace ARCHT_Dynamic_Tag\Tags;
 
 use Elementor\Core\DynamicTags\Data_Tag;
 use Elementor\Modules\DynamicTags\Module as TagsModule;
-use ARCHT_Dynamic_Tag\Inc\Classes\ARCHT_Helper;
+use ARCHT\Inc\Classes\ARCHT_Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

@@ -159,6 +159,101 @@ class ARCHT_Helper {
 	}
 
 	/**
+	 * Read one field from a theme option array, for the dynamic tags' Theme Option source.
+	 *
+	 * The option name comes from an editor-supplied control, so it is restricted: the option
+	 * must hold an array, its name must not look like a credential, and it must not be a core
+	 * or reserved option. Sites can narrow this further with the archt/theme_option/allowed_keys
+	 * filter: return a list of option names to allow only those.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param string $option_key Option name, as typed in the editor.
+	 * @param string $field_key  Key to read inside the option array.
+	 * @return mixed The field value, or null when it is not available.
+	 */
+	public static function get_theme_option_field( $option_key, $field_key ) {
+		$option_key = sanitize_key( (string) $option_key );
+		$field_key  = (string) $field_key;
+
+		if ( '' === $option_key || '' === $field_key ) {
+			return null;
+		}
+
+		/**
+		 * Filters the theme option names the dynamic tags may read.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string[] $allowed_keys Option names to allow. An empty list keeps the default checks.
+		 */
+		$allowed_keys = apply_filters( 'archt/theme_option/allowed_keys', [] );
+
+		if ( ! empty( $allowed_keys ) ) {
+			if ( ! in_array( $option_key, (array) $allowed_keys, true ) ) {
+				return null;
+			}
+		} elseif ( ! self::is_readable_theme_option( $option_key ) ) {
+			return null;
+		}
+
+		$option = get_option( $option_key );
+
+		// Only option arrays are theme option stores; anything else is not ours to read.
+		if ( ! is_array( $option ) || ! isset( $option[ $field_key ] ) ) {
+			return null;
+		}
+
+		return $option[ $field_key ];
+	}
+
+	/**
+	 * Whether an option name may be read as a theme option store.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 *
+	 * @param string $option_key Option name.
+	 * @return bool
+	 */
+	private static function is_readable_theme_option( $option_key ) {
+		// Names that commonly hold credentials, whatever plugin created them.
+		if ( preg_match( '/(^|_)(key|keys|secret|secrets|token|tokens|password|passwords|pass|pwd|salt|salts|credential|credentials|license|licence|api|auth|private|nonce|hash)(_|$)/', $option_key ) ) {
+			return false;
+		}
+
+		$reserved = [
+			'admin_email',
+			'new_admin_email',
+			'siteurl',
+			'home',
+			'cron',
+			'recently_activated',
+			'active_plugins',
+			'rewrite_rules',
+			'users_can_register',
+			'mailserver_login',
+			'mailserver_pass',
+			'mailserver_url',
+			'mailserver_port',
+			'db_upgraded',
+			'can_compress_scripts',
+		];
+
+		if ( in_array( $option_key, $reserved, true ) ) {
+			return false;
+		}
+
+		// Transients, options hidden from the options API, and core's protected meta style names.
+		if ( 0 === strpos( $option_key, '_' ) || 0 === strpos( $option_key, 'wp_' ) || 0 === strpos( $option_key, 'wordpress_' ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Summarize a template's include or exclude display conditions.
 	 *
 	 * @since 1.0.0
