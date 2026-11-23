@@ -8,7 +8,6 @@
 
 namespace ARCHT_Dynamic_Tag\Tags;
 
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }

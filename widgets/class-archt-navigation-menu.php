@@ -242,14 +242,14 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 			$this->add_control(
 				'expanded_submenus',
 				[
-					'label'       => esc_html__( 'Submenus', 'architect-complete-theme-builder-for-elementor' ),
-					'type'        => Controls_Manager::SELECT,
-					'default'     => 'collapsed',
-					'options'     => [
+					'label'     => esc_html__( 'Submenus', 'architect-complete-theme-builder-for-elementor' ),
+					'type'      => Controls_Manager::SELECT,
+					'default'   => 'collapsed',
+					'options'   => [
 						'collapsed' => esc_html__( 'Click to Expand', 'architect-complete-theme-builder-for-elementor' ),
 						'open'      => esc_html__( 'Always Open', 'architect-complete-theme-builder-for-elementor' ),
 					],
-					'condition'   => [
+					'condition' => [
 						'layout' => 'expanded',
 					],
 				]
@@ -454,7 +454,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'name'      => 'menu_border_width',
 					'label'     => esc_html__( 'Border', 'architect-complete-theme-builder-for-elementor' ),
 					'separator' => 'before',
-					'selector' => '{{WRAPPER}} .archt-menu__list > li',
+					'selector'  => '{{WRAPPER}} .archt-menu__list > li',
 				]
 			);
 
@@ -726,7 +726,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					],
 					'separator' => 'before',
-					'selector' => '{{WRAPPER}} .archt-menu__sub .archt-menu__link',
+					'selector'  => '{{WRAPPER}} .archt-menu__sub .archt-menu__link',
 				]
 			);
 
@@ -1164,7 +1164,7 @@ class ARCHT_Navigation_Menu_Widget extends Widget_Base {
 					'exclude'   => [
 						'box_shadow_position',
 					],
-					'selector' => '{{WRAPPER}} .archt-menu__sub',
+					'selector'  => '{{WRAPPER}} .archt-menu__sub',
 					'separator' => 'after',
 				]
 			);

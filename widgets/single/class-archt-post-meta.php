@@ -456,7 +456,7 @@ class ARCHT_Post_Meta_Widget extends Widget_Base {
 				$date_format = ! empty( $item['date_format'] ) ? $item['date_format'] : 'j M. Y';
 
 				if ( 'from_time' === $date_format ) {
-					$timestamp  = 'date' === $type ? get_post_time( 'U', true ) : get_post_modified_time( 'U', true );
+					$timestamp = 'date' === $type ? get_post_time( 'U', true ) : get_post_modified_time( 'U', true );
 					/* translators: %s: Time difference, e.g. "3 days". */
 					$value_html = esc_html( sprintf( __( '%s ago', 'architect-complete-theme-builder-for-elementor' ), human_time_diff( $timestamp ) ) );
 				} else {

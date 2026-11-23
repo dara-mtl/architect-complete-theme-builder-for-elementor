@@ -447,6 +447,35 @@ class Popup extends Library_Document {
 			]
 		);
 
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name'     => 'popup_border',
+				'selector' => '.elementor-' . $this->get_main_id(),
+			]
+		);
+
+		$this->add_responsive_control(
+			'popup_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'architect-complete-theme-builder-for-elementor' ),
+				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'selectors'  => [
+					'.elementor-' . $this->get_main_id() =>
+						'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'popup_box_shadow',
+				'selector' => '.elementor-' . $this->get_main_id(),
+			]
+		);
+
 		$this->add_control(
 			'position_heading',
 			[

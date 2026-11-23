@@ -436,7 +436,7 @@ class ARCHT_Post_Featured_Image_Widget extends Widget_Base {
 		$size         = sanitize_key( $settings['image_size'] );
 		$thumbnail_id = get_post_thumbnail_id();
 		// The image of the post being viewed is usually the largest one on screen: load it first, never lazily.
-		$hero         = is_singular() && get_queried_object_id() === get_the_ID();
+		$hero = is_singular() && get_queried_object_id() === get_the_ID();
 
 		if ( ! $thumbnail_id ) {
 			if ( ! empty( $settings['fallback']['id'] ) ) {

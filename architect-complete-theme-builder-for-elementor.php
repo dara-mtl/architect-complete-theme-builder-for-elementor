@@ -7,7 +7,7 @@
  * Author: WP Smart Widgets
  * Author URI: https://wpsmartwidgets.com/
  * Documentation URI: https://wpsmartwidgets.com/doc/architect-theme-builder-for-elementor/
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires PHP: 7.4
  * Requires at least: 6.2
  * Elementor tested up to: 4.3.2
@@ -37,7 +37,7 @@ require_once ARCHT_PLUGIN_DIR . 'widget-categories.php';
  * @since 1.0.0
  */
 final class ARCHT_Elementor {
-	const VERSION                   = '1.0.0';
+	const VERSION                   = '1.1.0';
 	const MINIMUM_ELEMENTOR_VERSION = '3.0.0';
 	const MINIMUM_PHP_VERSION       = '7.4';
 
@@ -155,6 +155,7 @@ final class ARCHT_Elementor {
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-custom-css.php';
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-custom-attributes.php';
 		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-ajax.php';
+		require_once ARCHT_PLUGIN_DIR . 'inc/classes/class-archt-mcp.php';
 		require_once ARCHT_PLUGIN_DIR . 'inc/class-archt-theme-widgets-registrar.php';
 	}
 

@@ -217,7 +217,7 @@
 }
 
 /* Expanded: submenus open in the flow, on click only. The grid keeps the arrow beside the label, the submenu spans below;
-   a flexible column takes the free space, so an open submenu never widens the label column. */
+	a flexible column takes the free space, so an open submenu never widens the label column. */
 .archt-menu[data-layout="expanded"] .archt-menu__item {
 	display: grid;
 	grid-template-columns: auto 1fr;

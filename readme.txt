@@ -6,7 +6,7 @@ Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
 Requires Plugins: elementor
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,7 +14,7 @@ A theme builder for the free version of Elementor. Build headers, footers, singl
 
 == Description ==
 
-Architect adds a theme builder to the free version of Elementor. Design your own headers, footers, single and archive layouts and popups with the regular Elementor editor, then choose exactly where each one appears on your site.
+Architect adds a theme builder to the free version of Elementor. Design your own headers, footers, single and archive layouts and popups with Elementor without restrictions.
 
 It works without Elementor Pro. If Elementor Pro is active, Architect steps aside and only its widgets and dynamic tags remain (see below).
 
@@ -22,15 +22,13 @@ It works without Elementor Pro. If Elementor Pro is active, Architect steps asid
 
 * Five template types: **Header**, **Footer**, **Single**, **Archive** and **Popup**.
 * **Display Location** conditions, to include or exclude: Entire Site, Front Page, 404 Page, All Singular, Single of any post type, specific pages and posts, All Archives, Blog Archive, Search Results, Author Archive, Date Archive, post type archives, taxonomy archives and specific terms.
-* Display Location has its own tab in the editor, a shortcut in the Publish menu, and a reminder when you publish a template that isn't assigned anywhere.
-* A **Display Location** column in Templates > Saved Templates shows where every template appears.
-* Preview a Single template against any real post with **Preview As** and **Apply & Preview**.
+* Preview a Single template against any real post.
 * Page Layout (Default, Full Width, Canvas) and Hide Title settings for Single and Archive templates.
 * Templates follow your translation plugin: WPML and Polylang are supported.
 
 = Popup Builder =
 
-* Entrance and exit animations, position, width, height, margin, background, overlay color and a styled close button.
+* Entrance and exit animations, position, width, height, margin, background, border, border radius, box shadow, overlay color and a styled close button.
 * Triggers: on page load, after a delay, on scroll to a percentage, or on click of any CSS selector.
 * Limit how many times a popup is shown to each visitor's browser.
 * Prevent page scrolling, close on overlay click or Escape, and close other popups first.
@@ -38,17 +36,18 @@ It works without Elementor Pro. If Elementor Pro is active, Architect steps asid
 
 = Element Display Conditions =
 
-Available on Elementor v3 elements.
+Available on Elementor v3 and v4 elements.
 
-* Show or hide any widget or container based on a custom field or a shortcode.
+* Show or hide any widget or container based on a custom field, a dynamic tag or a shortcode. A plain field key is read from the current post, or from the term or user on their archives.
 * Operators: equal, not equal, less than, greater than, empty, not empty, contains and doesn't contain.
-* Match all conditions or any of them. Conditional elements stay visible, and outlined, in the editor.
+* Match all conditions or any of them.
+* **Fallback Content:** show other content in place of the element when its conditions aren't met.
 
 = Custom CSS and Custom Attributes =
 
 Available on Elementor v3 elements.
 
-* Custom CSS in the Advanced tab of your elements, with the `selector` keyword. The field is shown only to users who hold `edit_css`, the capability WordPress requires for its own Additional CSS editor, and what they write is sanitized when it is saved.
+* Custom CSS in the Advanced tab of your elements.
 * Custom attributes per element, written as `key|value`.
 
 = Widgets =
@@ -66,15 +65,28 @@ Available on Elementor v3 elements.
 
 The post and custom data tags are shared with [Better Post & Filter Widgets for Elementor](https://wordpress.org/plugins/better-post-filter-widgets-for-elementor/). When both plugins are active, each tag is registered only once.
 
+= Pairs with Better Post & Filter Widgets =
+
+Architect builds the structure of your site. [Better Post & Filter Widgets for Elementor](https://wordpress.org/plugins/better-post-filter-widgets-for-elementor/), from the same developer, is also free and brings the content: post, user and taxonomy grids and carousels, free loop grids, and AJAX filtering by taxonomy, custom field, ACF or WooCommerce data. Put its post and filter widgets in an Architect archive template to build a filterable blog, directory or catalog without Elementor Pro.
+
+= AI Assistants (MCP) =
+
+Architect adds abilities to the WordPress Abilities API, so AI assistants connected through Elementor's MCP server or the WordPress MCP Adapter can build with it:
+
+* List, create, update and delete Header, Footer, Single, Archive and Popup templates, and set where they display.
+* List the available widgets, read a widget's controls, and read, add, update, move, duplicate and delete elements inside a template or page.
+
+Requires WordPress 6.9 or later and an MCP server. Every ability checks the user's permissions, and the template abilities are only available when Elementor Pro is inactive.
+
 = Compatibility =
 
-* **Elementor v4:** atomic widgets and Global Classes render correctly inside every template, and the widgets and dynamic tags work in both v3 and v4. Display Conditions, Custom CSS and Custom Attributes apply to v3 elements.
-* **Elementor Pro:** when Pro is active, the theme builder, popups, Custom CSS and Custom Attributes step aside so nothing conflicts. The widgets and dynamic tags Pro doesn't have remain available.
+* **Elementor v4:** atomic widgets and Global Classes render correctly inside every template, and the widgets and dynamic tags work in both v3 and v4. Display Conditions apply to v3 and v4 elements. Custom CSS and Custom Attributes apply to v3 elements.
+* **Elementor Pro:** when Pro is active, the theme builder, popups, Custom CSS and Custom Attributes step aside so nothing conflicts.
 * **Themes:** on classic themes, only the theme's site header and footer are swapped for your templates, so its page wrappers and layout stay intact.
 
 = Developers =
 
-Action hooks `archt/header/before`, `archt/header/after`, `archt/footer/before` and `archt/footer/after` let themes and plugins add markup around your header and footer. Filters are available for the blocked custom attributes (`archt/element/attributes/black_list`), the Custom CSS capability (`archt/custom_css/capability`), the archive title (`archt/core_elements/get_the_archive_title`) and the taxonomies offered by the Post Terms tag (`archt_taxonomy_args`). The Navigation Menu supports the standard WordPress menu filters, such as `nav_menu_link_attributes` and `nav_menu_css_class`.
+Action hooks `archt/header/before`, `archt/header/after`, `archt/footer/before` and `archt/footer/after` let themes and plugins add markup around your header and footer. Filters are available for the blocked custom attributes (`archt/element/attributes/black_list`), the Custom CSS capability (`archt/custom_css/capability`), the archive title (`archt/core_elements/get_the_archive_title`), the taxonomies offered by the Post Terms tag (`archt_taxonomy_args`) and the layout notes given to AI assistants about a widget (`archt/mcp/layout_guidance`). The Navigation Menu supports the standard WordPress menu filters, such as `nav_menu_link_attributes` and `nav_menu_css_class`.
 
 = Documentation =
 
@@ -82,7 +94,7 @@ Guides and the full list of settings are on the [Architect documentation](https:
 
 = Contributing =
 
-Architect is open source and is developed in the open on [GitHub](https://github.com/dara-mtl/architect-complete-theme-builder-for-elementor). Bug reports, test results on your themes and setups, translations and code contributions are welcome, and more contributors mean more can be built. Features that are not in the plugin yet, such as WooCommerce widgets, are good candidates for contributions.
+Architect is open source and is developed in the open on [GitHub](https://github.com/dara-mtl/architect-complete-theme-builder-for-elementor). Bug reports, test results on your themes and setups, translations and code contributions are welcome.
 
 == Installation ==
 
@@ -91,7 +103,6 @@ Architect is open source and is developed in the open on [GitHub](https://github
 3. Go to Templates > Saved Templates > Add New and choose Header, Footer, Single, Archive or Popup.
 4. Build the template with the Elementor editor.
 5. Open the Conditions tab in the editor panel and set Display On under Display Location.
-6. Publish. Visit your site to see it.
 
 == Frequently Asked Questions ==
 
@@ -101,7 +112,7 @@ No. Architect works with the free version of Elementor 3.0 or later.
 
 = What happens if I also have Elementor Pro? =
 
-Elementor Pro has its own theme builder, so Architect steps aside. The theme builder, popups, Custom CSS and Custom Attributes come from Elementor Pro. Architect's widgets and dynamic tags stay available. A notice in the WordPress admin explains this.
+Elementor Pro has its own theme builder, so Architect steps aside. The theme builder, popups, Custom CSS and Custom Attributes come from Elementor Pro. Architect's widgets and dynamic tags stay available.
 
 = Can I replace my theme's header and footer? =
 
@@ -127,7 +138,7 @@ Yes. Architect is open source, and contributions are welcome on [GitHub](https:/
 
 = Does it work with Elementor v4? =
 
-Yes. Atomic widgets and Global Classes render in every template, and Architect's widgets and dynamic tags work in v4. Display Conditions, Custom CSS and Custom Attributes apply to v3 elements.
+Yes. Atomic widgets and Global Classes render in every template, and Architect's widgets and dynamic tags work in v4. Display Conditions work on v3 and v4 elements. Custom CSS and Custom Attributes apply to v3 elements.
 
 = Which translation plugins are supported? =
 
@@ -136,12 +147,6 @@ WPML and Polylang. Templates assigned to a page or term show on its translation.
 = How do I add custom CSS? =
 
 It works the same way as in Elementor Pro. Open any widget or container in Elementor, go to its Advanced tab and find the Custom CSS section. Use the `selector` keyword to target the element.
-
-The section appears only for users who can edit CSS. WordPress gates its own Additional CSS editor on the `edit_css` capability, which it maps to `unfiltered_html`, and Architect uses the same capability: nobody when `DISALLOW_UNFILTERED_HTML` is defined, and only network administrators on multisite. Use the `archt/custom_css/capability` filter to require a different capability.
-
-= How do I show a popup only a few times? =
-
-In the popup template's settings, open Triggers and set Show X Times Per User. The popup counts each time it opens, using the visitor's browser storage. The count is per browser, so the same person on another browser or device, or in a private window, is counted separately, and clearing site data resets it. If the browser blocks storage, the limit is skipped. Set it to 0 for unlimited.
 
 = Where do I get help? =
 
@@ -158,6 +163,16 @@ See the [documentation](https://wpsmartwidgets.com/doc/architect-theme-builder-f
 
 == Changelog ==
 
+= 1.1.0 =
+* New: Display Conditions for Elementor v4 elements.
+* New: Fallback Content for display conditions, shown in place of an element when its conditions aren't met.
+* New: Border, Border Radius and Box Shadow for the popup box.
+* New: Add abilities for AI assistants over MCP, to manage templates, display locations and v3 elements.
+* New: `archt/mcp/layout_guidance` filter.
+* Fix: elements with display conditions are no longer served from Elementor's element cache, so their conditions are checked on every visit.
+* Fix: the footer template is listed in the admin bar's Edit with Elementor menu.
+* Tweak: coding standards cleanup.
+
 = 1.0.0 =
 * First public release.
 * Header, Footer, Single, Archive and Popup templates with Display Location conditions, in their own editor tab.
@@ -172,6 +187,9 @@ See the [documentation](https://wpsmartwidgets.com/doc/architect-theme-builder-f
 * Compatible with WPML and Polylang.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Display Conditions now work on Elementor v4 elements, with Fallback Content on v3 and v4. Adds popup border and shadow, and MCP abilities for AI assistants.
 
 = 1.0.0 =
 First public release of Architect - Complete Theme Builder for Elementor.

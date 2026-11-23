@@ -205,7 +205,7 @@ class ARCHT_Custom_Css {
 					continue;
 				}
 
-				$raw = base64_decode( $variant['custom_css']['raw'], true );
+				$raw = base64_decode( $variant['custom_css']['raw'], true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Elementor stores atomic custom CSS base64-encoded.
 				$raw = false === $raw ? '' : self::sanitize_css( $raw );
 
 				if ( '' === $raw ) {
@@ -213,7 +213,7 @@ class ARCHT_Custom_Css {
 					continue;
 				}
 
-				$styles[ $style_id ]['variants'][ $variant_index ]['custom_css'] = [ 'raw' => base64_encode( $raw ) ];
+				$styles[ $style_id ]['variants'][ $variant_index ]['custom_css'] = [ 'raw' => base64_encode( $raw ) ]; // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Elementor stores atomic custom CSS base64-encoded.
 			}
 		}
 

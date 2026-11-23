@@ -231,8 +231,9 @@ class ARCHT_Theme_Builder {
 	 * @param string|null $name Footer template name.
 	 */
 	public function render_theme_footer( $name ) {
-		$html     = $this->capture_theme_part( 'footer', $name );
+		// Render first: footer.php runs wp_footer(), which prints Elementor's admin bar documents.
 		$template = $this->capture_template( $this->active_templates['footer'], 'footer' );
+		$html     = $this->capture_theme_part( 'footer', $name );
 
 		if ( '' === trim( $html ) ) {
 			echo $template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Elementor template content, escaped by Elementor when rendered.

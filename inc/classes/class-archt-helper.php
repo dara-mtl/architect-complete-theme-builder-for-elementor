@@ -394,30 +394,30 @@ class ARCHT_Helper {
 
 		if ( null === $allowed_html ) {
 			// SVG tags get the same global attributes as the post tags, so icon classes and aria-hidden survive.
-			$global = [ 'class' => [], 'id' => [], 'style' => [], 'role' => [], 'aria-hidden' => [], 'aria-label' => [], 'aria-labelledby' => [], 'data-*' => [] ];
-			$paint  = [ 'fill' => [], 'fill-rule' => [], 'fill-opacity' => [], 'stroke' => [], 'stroke-width' => [], 'stroke-linecap' => [], 'stroke-linejoin' => [], 'stroke-opacity' => [], 'clip-rule' => [], 'clip-path' => [], 'opacity' => [], 'transform' => [] ];
+			$global = [ 'class', 'id', 'style', 'role', 'aria-hidden', 'aria-label', 'aria-labelledby', 'data-*' ];
+			$paint  = [ 'fill', 'fill-rule', 'fill-opacity', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'stroke-opacity', 'clip-rule', 'clip-path', 'opacity', 'transform' ];
 			$svg    = [
-				'svg'            => [ 'xmlns' => [], 'width' => [], 'height' => [], 'viewbox' => [], 'preserveaspectratio' => [], 'focusable' => [], 'x' => [], 'y' => [] ],
+				'svg'            => [ 'xmlns', 'width', 'height', 'viewbox', 'preserveaspectratio', 'focusable', 'x', 'y' ],
 				'g'              => [],
 				'title'          => [],
 				'defs'           => [],
-				'path'           => [ 'd' => [] ],
-				'circle'         => [ 'cx' => [], 'cy' => [], 'r' => [] ],
-				'ellipse'        => [ 'cx' => [], 'cy' => [], 'rx' => [], 'ry' => [] ],
-				'rect'           => [ 'x' => [], 'y' => [], 'width' => [], 'height' => [], 'rx' => [], 'ry' => [] ],
-				'line'           => [ 'x1' => [], 'y1' => [], 'x2' => [], 'y2' => [] ],
-				'polygon'        => [ 'points' => [] ],
-				'polyline'       => [ 'points' => [] ],
-				'text'           => [ 'x' => [], 'y' => [], 'dx' => [], 'dy' => [], 'font-size' => [], 'font-family' => [], 'text-anchor' => [] ],
-				'tspan'          => [ 'x' => [], 'y' => [], 'dx' => [], 'dy' => [], 'font-size' => [], 'font-family' => [] ],
-				'clippath'       => [ 'clippathunits' => [] ],
-				'lineargradient' => [ 'x1' => [], 'y1' => [], 'x2' => [], 'y2' => [], 'gradientunits' => [], 'gradienttransform' => [] ],
-				'radialgradient' => [ 'cx' => [], 'cy' => [], 'r' => [], 'fx' => [], 'fy' => [], 'gradientunits' => [], 'gradienttransform' => [] ],
-				'stop'           => [ 'offset' => [], 'stop-color' => [], 'stop-opacity' => [] ],
+				'path'           => [ 'd' ],
+				'circle'         => [ 'cx', 'cy', 'r' ],
+				'ellipse'        => [ 'cx', 'cy', 'rx', 'ry' ],
+				'rect'           => [ 'x', 'y', 'width', 'height', 'rx', 'ry' ],
+				'line'           => [ 'x1', 'y1', 'x2', 'y2' ],
+				'polygon'        => [ 'points' ],
+				'polyline'       => [ 'points' ],
+				'text'           => [ 'x', 'y', 'dx', 'dy', 'font-size', 'font-family', 'text-anchor' ],
+				'tspan'          => [ 'x', 'y', 'dx', 'dy', 'font-size', 'font-family' ],
+				'clippath'       => [ 'clippathunits' ],
+				'lineargradient' => [ 'x1', 'y1', 'x2', 'y2', 'gradientunits', 'gradienttransform' ],
+				'radialgradient' => [ 'cx', 'cy', 'r', 'fx', 'fy', 'gradientunits', 'gradienttransform' ],
+				'stop'           => [ 'offset', 'stop-color', 'stop-opacity' ],
 			];
 
 			foreach ( $svg as $tag => $attributes ) {
-				$svg[ $tag ] = array_merge( $global, $paint, $attributes );
+				$svg[ $tag ] = array_fill_keys( array_merge( $global, $paint, $attributes ), [] );
 			}
 
 			$allowed_html = array_merge( wp_kses_allowed_html( 'post' ), $svg );
